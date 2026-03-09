@@ -174,23 +174,6 @@
             color: #667eea;
             margin: 10px 0;
         }
-        .score-stars {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin: 10px 0;
-        }
-        .score-stars .star {
-            font-size: 2rem;
-            cursor: pointer;
-            color: #ddd;
-            transition: all 0.2s;
-        }
-        .score-stars .star.active,
-        .score-stars .star:hover {
-            color: #ffc107;
-            transform: scale(1.1);
-        }
         .score-input {
             display: flex;
             align-items: center;
@@ -258,25 +241,9 @@
                     <p>📁 点击上传审核文档</p>
                 </div>
                 <textarea id="reviewContent" placeholder="或者直接粘贴待审核的文档内容..."></textarea>
-                <div class="score-section">
-                    <label>📊 打分 (1-10分)</label>
+                <div class="score-section" id="aiScoreSection" style="display: none;">
+                    <label>📊 AI评分</label>
                     <div class="score-display" id="scoreValue">-</div>
-                    <div class="score-stars" id="starRating">
-                        <span class="star" data-score="1">★</span>
-                        <span class="star" data-score="2">★</span>
-                        <span class="star" data-score="3">★</span>
-                        <span class="star" data-score="4">★</span>
-                        <span class="star" data-score="5">★</span>
-                        <span class="star" data-score="6">★</span>
-                        <span class="star" data-score="7">★</span>
-                        <span class="star" data-score="8">★</span>
-                        <span class="star" data-score="9">★</span>
-                        <span class="star" data-score="10">★</span>
-                    </div>
-                    <div class="score-input">
-                        <input type="number" id="scoreInput" min="1" max="10" value="5">
-                        <span>分 (可直接输入或点击星星)</span>
-                    </div>
                 </div>
                 <button class="btn" onclick="submitReviewDoc()" style="margin-top: 16px;">
                     审核文档
@@ -320,22 +287,6 @@
                 document.getElementById('apiKey').value = savedKey;
             }
             
-            // 绑定打分星星点击事件
-            document.querySelectorAll('.star').forEach(star => {
-                star.addEventListener('click', function() {
-                    const score = parseInt(this.dataset.score);
-                    setScore(score);
-                });
-            });
-            
-            // 绑定分数输入框事件
-            document.getElementById('scoreInput').addEventListener('input', function() {
-                let score = parseInt(this.value);
-                if (score < 1) score = 1;
-                if (score > 10) score = 10;
-                setScore(score);
-            });
-            
             // 保存API Key复选框状态
             const rememberCheck = document.getElementById('rememberApiKey');
             const savedRemember = localStorage.getItem('docReviewerRemember');
@@ -343,17 +294,6 @@
                 rememberCheck.checked = savedRemember === 'true';
             }
         };
-        
-        function setScore(score) {
-            document.getElementById('scoreInput').value = score;
-            document.getElementById('scoreValue').textContent = score + '/10';
-            
-            // 更新星星显示
-            document.querySelectorAll('.star').forEach(star => {
-                const starScore = parseInt(star.dataset.score);
-                star.classList.toggle('active', starScore <= score);
-            });
-        }
         
         function saveApiKey() {
             const remember = document.getElementById('rememberApiKey').checked;
@@ -497,7 +437,7 @@
             const apiKey = document.getElementById('apiKey').value;
             const content = document.getElementById('reviewContent').value;
             const resultDiv = document.getElementById('review-result');
-            const score = document.getElementById('scoreInput').value;
+            const scoreSection = document.getElementById('aiScoreSection');
             
             if (!apiKey) { alert('请输入API Key'); return; }
             if (!content.trim()) { alert('请输入文档内容'); return; }
@@ -509,6 +449,8 @@
             
             resultDiv.classList.remove('hidden');
             resultDiv.innerHTML = '<div class="loading">AI正在进行审核</div>';
+            scoreSection.style.display = 'block';
+            document.getElementById('scoreValue').textContent = '评分中...';
             
             try {
                 const isProxy = !!API_BASE;
@@ -516,13 +458,12 @@
                     api_key: apiKey,
                     action: 'review',
                     content: content,
-                    teaching_summary: teachingSummary,
-                    score: parseInt(score)
+                    teaching_summary: teachingSummary
                 } : {
                     model: 'glm-4-flash',
                     messages: [
-                        { role: 'system', content: '你是一个教学文档审核专家。请根据已学习的教学文档（参考标准），审核待审核的文档。\n\n已学习的教学文档核心要点：\n' + teachingSummary + '\n\n请对待审核的文档进行详细评价，包括：\n1. 与参考标准的符合程度\n2. 优点和亮点\n3. 需要改进的地方\n4. 总体评价' },
-                        { role: 'user', content: '请审核以下文档（参考分数：' + score + '分）：\n\n' + content }
+                        { role: 'system', content: '你是一个教学文档审核专家。请根据已学习的教学文档（参考标准），审核待审核的文档。\n\n已学习的教学文档核心要点：\n' + teachingSummary + '\n\n请对待审核的文档进行详细评价，包括：\n1. 与参考标准的符合程度\n2. 优点和亮点\n3. 需要改进的地方\n4. 总体评价\n\n重要：请在审核意见的最后，用"最终评分：X分"格式给出你的评分（1-10分）。' },
+                        { role: 'user', content: '请审核以下文档：\n\n' + content }
                     ]
                 };
                 
@@ -541,12 +482,24 @@
                 const result = await response.json();
                 
                 if (result.choices && result.choices[0]) {
-                    resultDiv.textContent = result.choices[0].message.content;
+                    const reviewText = result.choices[0].message.content;
+                    resultDiv.textContent = reviewText;
+                    
+                    // 提取AI评分
+                    const scoreMatch = reviewText.match(/评分[：:]\s*(\d+)/);
+                    if (scoreMatch) {
+                        const aiScore = parseInt(scoreMatch[1]);
+                        document.getElementById('scoreValue').textContent = aiScore + '/10分';
+                    } else {
+                        document.getElementById('scoreValue').textContent = '未评定';
+                    }
                 } else {
                     resultDiv.textContent = '错误: ' + (result.error?.message || JSON.stringify(result));
+                    document.getElementById('scoreValue').textContent = '错误';
                 }
             } catch (e) {
                 resultDiv.textContent = '请求失败: ' + e.message;
+                document.getElementById('scoreValue').textContent = '失败';
             }
         }
     </script>
