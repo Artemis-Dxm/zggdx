@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>文档审核助手</title>
     <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+    <script src="references.js"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
@@ -606,6 +607,151 @@
             content: "...";
             animation: dots 1.5s steps(4, end) infinite;
         }
+        .citation-section {
+            margin-top: 20px;
+            padding: 16px;
+            background: #fffbf0;
+            border: 1px solid #ffe082;
+            border-radius: 8px;
+        }
+        .citation-section h4 {
+            color: #f57c00;
+            font-size: 14px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .citation-item {
+            background: #fff;
+            border-left: 3px solid #ffc107;
+            padding: 10px 12px;
+            margin-bottom: 8px;
+            border-radius: 0 6px 6px 0;
+            font-size: 13px;
+        }
+        .citation-item .chapter {
+            color: #e65100;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .citation-item .content {
+            color: #333;
+            font-style: italic;
+        }
+        .citation-suggestion {
+            background: #e8f5e9;
+            border-radius: 6px;
+            padding: 10px 12px;
+            font-size: 12px;
+            color: #2e7d32;
+            margin-top: 10px;
+        }
+        .exegesis-section {
+            margin-top: 20px;
+            padding: 16px;
+            background: #f3e5f5;
+            border: 1px solid #ce93d8;
+            border-radius: 8px;
+        }
+        .exegesis-section h4 {
+            color: #7b1fa2;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .exegesis-item {
+            background: #fff;
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 10px;
+        }
+        .exegesis-item .word {
+            font-size: 18px;
+            font-weight: bold;
+            color: #7b1fa2;
+            margin-bottom: 8px;
+        }
+        .exegesis-item .def {
+            margin-bottom: 6px;
+        }
+        .exegesis-item .def-label {
+            color: #888;
+            font-size: 12px;
+        }
+        .exegesis-item .def-content {
+            color: #333;
+            font-size: 13px;
+        }
+        .exegesis-item .yinshenyi {
+            color: #666;
+            font-size: 12px;
+        }
+        .exegesis-warning {
+            background: #fff3e0;
+            border-radius: 4px;
+            padding: 8px;
+            font-size: 12px;
+            color: #e65100;
+            margin-top: 8px;
+        }
+        .cross-ref-section {
+            margin-top: 20px;
+            padding: 16px;
+            background: #e3f2fd;
+            border: 1px solid #90caf9;
+            border-radius: 8px;
+        }
+        .cross-ref-section h4 {
+            color: #1565c0;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .cross-ref-item {
+            background: #fff;
+            border-radius: 6px;
+            padding: 10px;
+            margin-bottom: 8px;
+        }
+        .cross-ref-item .source {
+            color: #1565c0;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .cross-ref-item .quote {
+            color: #333;
+            font-size: 13px;
+            font-style: italic;
+        }
+        .auto-detect-bar {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+        .auto-detect-bar label {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            color: #666;
+            cursor: pointer;
+        }
+        .auto-detect-bar input {
+            cursor: pointer;
+        }
+        .tag-btn {
+            display: inline-block;
+            padding: 4px 10px;
+            background: #e3f2fd;
+            color: #1565c0;
+            border-radius: 12px;
+            font-size: 12px;
+            margin: 2px;
+            cursor: pointer;
+        }
+        .tag-btn:hover {
+            background: #bbdefb;
+        }
     </style>
 </head>
 <body>
@@ -689,15 +835,27 @@
                     <h3>🎯 深度学术分析</h3>
                     <div class="analysis-buttons">
                         <button class="btn analysis-btn question" onclick="generateQuestions()">
-                            ❓ 预设质疑生成
+                            ❓ 预设质疑
                         </button>
                         <button class="btn analysis-btn weakness" onclick="findWeakPoints()">
-                            ⚠️ 薄弱环节检测
+                            ⚠️ 薄弱检测
                         </button>
                         <button class="btn analysis-btn position" onclick="analyzePosition()">
-                            📊 学术立场分析
+                            📊 立场分析
                         </button>
                     </div>
+                    
+                    <div style="margin-top: 16px; padding-top: 16px; border-top: 1px dashed #e0e0e0;">
+                        <h4 style="color: #333; font-size: 14px; margin-bottom: 12px;">📖 经典互证参考</h4>
+                        <div class="auto-detect-bar">
+                            <label><input type="checkbox" id="autoCitation" onchange="runAutoAnalysis()"> 内证互参</label>
+                            <label><input type="checkbox" id="autoExegesis" onchange="runAutoAnalysis()"> 训诂释义</label>
+                            <label><input type="checkbox" id="autoCrossRef" onchange="runAutoAnalysis()"> 跨文献关联</label>
+                            <button class="btn btn-small" onclick="runAutoAnalysis()">🔍 检测文本</button>
+                        </div>
+                        <div id="citationResult"></div>
+                    </div>
+                    
                     <div id="analysisResult"></div>
                 </div>
             </div>
@@ -1862,6 +2020,165 @@ ${teachingSummary}
             } catch (e) {
                 resultDiv.innerHTML = '<div class="analysis-result" style="color: #f44336;">请求失败: ' + e.message + '</div>';
             }
+        }
+        
+        function runAutoAnalysis() {
+            const content = document.getElementById('reviewContent').value;
+            if (!content.trim()) {
+                alert('请先输入或上传待审核的文档');
+                return;
+            }
+            
+            const useCitation = document.getElementById('autoCitation').checked;
+            const useExegesis = document.getElementById('autoExegesis').checked;
+            const useCrossRef = document.getElementById('autoCrossRef').checked;
+            
+            let results = '';
+            
+            if (useCitation) {
+                results += analyzeCitations(content);
+            }
+            
+            if (useExegesis) {
+                results += analyzeExegesis(content);
+            }
+            
+            if (useCrossRef) {
+                results += analyzeCrossReferences(content);
+            }
+            
+            if (!useCitation && !useExegesis && !useCrossRef) {
+                results += analyzeCitations(content);
+                results += analyzeExegesis(content);
+                results += analyzeCrossReferences(content);
+            }
+            
+            if (results) {
+                document.getElementById('citationResult').innerHTML = results;
+            } else {
+                document.getElementById('citationResult').innerHTML = '<p style="color: #888; text-align: center;">未检测到相关内容</p>';
+            }
+        }
+        
+        function analyzeCitations(content) {
+            let results = '';
+            
+            for (const [bookName, topics] of Object.entries(CLASSICS_REFERENCES)) {
+                const bookPattern = new RegExp(bookName, 'i');
+                if (bookPattern.test(content)) {
+                    for (const [topic, citations] of Object.entries(topics)) {
+                        const topicPattern = new RegExp(topic, 'i');
+                        if (topicPattern.test(content)) {
+                            results += `
+                                <div class="citation-section">
+                                    <h4>📚 ${bookName}·内证互参：论"${topic}"</h4>
+                                    ${citations.slice(0, 4).map(c => `
+                                        <div class="citation-item">
+                                            <div class="chapter">《${bookName}·${c.chapter}》(${c.line})</div>
+                                            <div class="content">"${c.content}"</div>
+                                        </div>
+                                    `).join('')}
+                                    ${citations.length > 4 ? `<p style="color: #888; font-size: 12px;">...还有 ${citations.length - 4} 处相关论述</p>` : ''}
+                                    <div class="citation-suggestion">
+                                        💡 建议综合考察${bookName}中论"${topic}"的各章，注意不同语境的细微差别
+                                    </div>
+                                </div>
+                            `;
+                            break;
+                        }
+                    }
+                }
+            }
+            
+            return results;
+        }
+        
+        function analyzeExegesis(content) {
+            let results = '';
+            const foundWords = [];
+            
+            for (const [word, data] of Object.entries(EXEGESIS_DATA)) {
+                const wordPattern = new RegExp(`[^字文]${word}[^字文]`, 'i');
+                if (wordPattern.test(content)) {
+                    foundWords.push({ word, data });
+                }
+            }
+            
+            if (foundWords.length > 0) {
+                results += `
+                    <div class="exegesis-section">
+                        <h4>📖 训诂释义参考</h4>
+                        ${foundWords.slice(0, 3).map(item => `
+                            <div class="exegesis-item">
+                                <div class="word">"${item.word}"</div>
+                                <div class="def">
+                                    <span class="def-label">【本义】</span>
+                                    <span class="def-content">${item.data.benyi}</span>
+                                </div>
+                                <div class="def">
+                                    <span class="def-label">【《说文》】</span>
+                                    <span class="def-content">"${item.data.shuowen}"</span>
+                                </div>
+                                ${item.data.duanzhu ? `
+                                    <div class="def">
+                                        <span class="def-label">【段注】</span>
+                                        <span class="def-content">"${item.data.duanzhu}"</span>
+                                    </div>
+                                ` : ''}
+                                <div class="yinshenyi">
+                                    <span class="def-label">【引申义】</span>
+                                    ${item.data.yinshenyi.join('、')}
+                                </div>
+                                ${item.data.warning ? `
+                                    <div class="exegesis-warning">
+                                        ⚠️ ${item.data.warning}
+                                    </div>
+                                ` : ''}
+                            </div>
+                        `).join('')}
+                        ${foundWords.length > 3 ? `<p style="color: #888; font-size: 12px;">...还有 ${foundWords.length - 3} 个词</p>` : ''}
+                    </div>
+                `;
+            }
+            
+            return results;
+        }
+        
+        function analyzeCrossReferences(content) {
+            let results = '';
+            const foundTopics = [];
+            
+            for (const [topic, data] of Object.entries(CROSS_REFERENCES)) {
+                const topicPattern = new RegExp(topic, 'i');
+                if (topicPattern.test(content)) {
+                    foundTopics.push({ topic, data });
+                }
+            }
+            
+            if (foundTopics.length > 0) {
+                results += `
+                    <div class="cross-ref-section">
+                        <h4>📚 跨文献关联建议</h4>
+                        ${foundTopics.slice(0, 3).map(item => `
+                            <div class="cross-ref-item">
+                                <div class="source">📖 您正在讨论"${item.topic}"</div>
+                                ${item.data.references.slice(0, 3).map(ref => `
+                                    <div style="margin-top: 6px; padding-left: 10px; border-left: 2px solid #e0e0e0;">
+                                        <span style="color: #1565c0; font-size: 12px;">《${ref.book}·${ref.chapter}》</span>
+                                        <div class="quote">"${ref.content.substring(0, 60)}${ref.content.length > 60 ? '...' : ''}"</div>
+                                    </div>
+                                `).join('')}
+                                <div class="citation-suggestion" style="margin-top: 8px;">
+                                    💡 ${item.data.suggestion}
+                                </div>
+                            </div>
+                        `).join('')}
+                        ${foundTopics.length > 3 ? `<p style="color: #888; font-size: 12px;">...还有 ${foundTopics.length - 3} 个相关主题</p>` : ''}
+                    </div>
+                `;
+            }
+            
+            return results;
         }
         
         document.getElementById('docName').addEventListener('input', function() {
