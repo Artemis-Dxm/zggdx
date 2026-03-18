@@ -45,6 +45,12 @@
             border-radius: 4px;
             font-size: 0.75rem;
         }
+        .card h2 .badge.green {
+            background: #4caf50;
+        }
+        .card h2 .badge.orange {
+            background: #ff9800;
+        }
         label {
             display: block;
             margin-bottom: 8px;
@@ -64,14 +70,14 @@
             border-color: #667eea;
         }
         textarea {
-            min-height: 200px;
+            min-height: 120px;
             resize: vertical;
             font-family: inherit;
         }
         .file-upload {
             border: 2px dashed #ccc;
             border-radius: 8px;
-            padding: 30px;
+            padding: 20px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s;
@@ -87,11 +93,10 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            padding: 14px 32px;
+            padding: 12px 24px;
             border-radius: 8px;
-            font-size: 16px;
+            font-size: 14px;
             cursor: pointer;
-            width: 100%;
             font-weight: 600;
             transition: transform 0.2s, box-shadow 0.2s;
         }
@@ -104,6 +109,29 @@
             cursor: not-allowed;
             transform: none;
         }
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+        .btn-secondary {
+            background: #e0e0e0;
+            color: #333;
+        }
+        .btn-secondary:hover {
+            background: #d0d0d0;
+        }
+        .btn-danger {
+            background: #f44336;
+        }
+        .btn-danger:hover {
+            background: #d32f2f;
+        }
+        .btn-success {
+            background: #4caf50;
+        }
+        .btn-success:hover {
+            background: #388e3c;
+        }
         .result {
             background: #f8f9fa;
             border-radius: 8px;
@@ -112,21 +140,24 @@
             white-space: pre-wrap;
             line-height: 1.6;
             color: #333;
+            max-height: 400px;
+            overflow-y: auto;
         }
         .tabs {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             margin-bottom: 20px;
         }
         .tab {
             flex: 1;
-            padding: 12px;
+            padding: 10px;
             border: none;
             background: #e0e0e0;
             border-radius: 8px;
             cursor: pointer;
             font-weight: 500;
             transition: all 0.3s;
+            font-size: 13px;
         }
         .tab.active {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -154,6 +185,7 @@
             margin-bottom: 16px;
             border-radius: 0 8px 8px 0;
             color: #1565C0;
+            font-size: 13px;
         }
         .score-section {
             background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
@@ -190,6 +222,390 @@
             color: #666;
             font-size: 0.9rem;
         }
+        .version-list {
+            margin-top: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .version-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 12px;
+            background: #f5f5f5;
+            border-radius: 6px;
+            margin-bottom: 6px;
+            font-size: 12px;
+        }
+        .version-item.current {
+            background: #e3f2fd;
+            border: 1px solid #2196F3;
+        }
+        .version-item .version-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .version-item .version-time {
+            color: #888;
+            font-size: 11px;
+        }
+        .progress-badge {
+            background: #4caf50;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        .progress-badge.negative {
+            background: #f44336;
+        }
+        .progress-badge.neutral {
+            background: #ff9800;
+        }
+        .doc-name-input {
+            margin-bottom: 12px;
+        }
+        .doc-name-input input {
+            font-size: 13px;
+            padding: 10px;
+        }
+        .doc-name-input small {
+            color: #888;
+            font-size: 11px;
+            margin-top: 4px;
+            display: block;
+        }
+        .kb-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .kb-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 12px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #eee;
+        }
+        .kb-item:hover {
+            border-color: #667eea;
+        }
+        .kb-item .kb-info {
+            flex: 1;
+        }
+        .kb-item .kb-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
+        }
+        .kb-item .kb-meta {
+            font-size: 11px;
+            color: #888;
+        }
+        .kb-item .kb-versions {
+            font-size: 11px;
+            color: #666;
+            margin-top: 4px;
+        }
+        .kb-item .kb-actions {
+            display: flex;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+        .kb-empty {
+            text-align: center;
+            padding: 40px;
+            color: #888;
+        }
+        .kb-stats {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px;
+            background: #f0f0f0;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            font-size: 12px;
+            color: #666;
+        }
+        .kb-stats .stat {
+            text-align: center;
+        }
+        .kb-stats .stat-value {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+        .progress-section {
+            background: #fff3e0;
+            border-radius: 8px;
+            padding: 12px;
+            margin: 12px 0;
+            border-left: 4px solid #ff9800;
+        }
+        .progress-section h4 {
+            color: #e65100;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+        .compare-highlight {
+            background: #e8f5e9;
+            border: 1px solid #4caf50;
+            border-radius: 6px;
+            padding: 10px;
+            margin: 8px 0;
+            font-size: 13px;
+        }
+        .compare-highlight h5 {
+            color: #2e7d32;
+            margin-bottom: 4px;
+        }
+        .compare-highlight.negative {
+            background: #ffebee;
+            border-color: #f44336;
+        }
+        .compare-highlight.negative h5 {
+            color: #c62828;
+        }
+        .storage-warning {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 6px;
+            padding: 10px;
+            font-size: 12px;
+            color: #856404;
+        }
+        .teaching-docs-list {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-bottom: 12px;
+        }
+        .teaching-docs-list:empty {
+            display: none;
+        }
+        .teaching-doc-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 12px;
+            background: #f0f7ff;
+            border: 1px solid #e0e7ff;
+            border-radius: 6px;
+            margin-bottom: 6px;
+            font-size: 13px;
+        }
+        .teaching-doc-item .doc-name {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .teaching-doc-item .doc-name .saved-badge {
+            background: #4caf50;
+            color: white;
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-size: 10px;
+        }
+        .teaching-doc-item .doc-size {
+            color: #888;
+            font-size: 11px;
+            margin-left: 8px;
+        }
+        .teaching-doc-item button {
+            background: none;
+            border: none;
+            color: #f44336;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 4px 8px;
+        }
+        .teaching-doc-item button:hover {
+            color: #d32f2f;
+        }
+        .teaching-docs-summary {
+            background: #e8f5e9;
+            border-radius: 6px;
+            padding: 8px 12px;
+            font-size: 13px;
+            color: #2e7d32;
+            margin-bottom: 12px;
+        }
+        .teaching-docs-summary.hidden {
+            display: none;
+        }
+        .kb-teaching-section {
+            background: #fff8e1;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 16px;
+            border: 1px solid #ffe082;
+        }
+        .kb-teaching-section h4 {
+            color: #f57c00;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+        .analysis-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px dashed #e0e0e0;
+        }
+        .analysis-section h3 {
+            color: #333;
+            font-size: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .analysis-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+        .analysis-btn {
+            flex: 1;
+            min-width: 140px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            text-align: center;
+        }
+        .analysis-btn.question {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%);
+        }
+        .analysis-btn.weakness {
+            background: linear-gradient(135deg, #ffa502 0%, #ff7f00 100%);
+        }
+        .analysis-btn.position {
+            background: linear-gradient(135deg, #7bed9f 0%, #2ed573 100%);
+        }
+        .analysis-result {
+            background: #fafafa;
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 12px;
+            border: 1px solid #e0e0e0;
+        }
+        .analysis-result h4 {
+            color: #333;
+            font-size: 14px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .question-item {
+            background: #fff5f5;
+            border-left: 4px solid #ff6b6b;
+            padding: 12px 16px;
+            margin-bottom: 10px;
+            border-radius: 0 8px 8px 0;
+        }
+        .question-item .quote {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 8px;
+            padding: 8px;
+            background: #fff;
+            border-radius: 4px;
+        }
+        .question-item .response {
+            color: #333;
+            font-size: 13px;
+        }
+        .weakness-item {
+            background: #fffbf0;
+            border-left: 4px solid #ffa502;
+            padding: 12px 16px;
+            margin-bottom: 10px;
+            border-radius: 0 8px 8px 0;
+        }
+        .weakness-item .sentence {
+            color: #d63031;
+            font-weight: 500;
+            margin-bottom: 6px;
+            padding: 8px;
+            background: #fff0f0;
+            border-radius: 4px;
+            border: 1px solid #ffcccc;
+        }
+        .weakness-item .suggestion {
+            color: #636e72;
+            font-size: 13px;
+        }
+        .position-chart {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 12px;
+        }
+        .position-axis {
+            position: relative;
+            height: 40px;
+            background: linear-gradient(to right, #74b9ff, #a29bfe, #fd79a8);
+            border-radius: 20px;
+            margin: 20px 0;
+        }
+        .position-axis .axis-label {
+            position: absolute;
+            font-size: 11px;
+            color: #666;
+        }
+        .position-axis .axis-label.left { left: 10px; top: -18px; }
+        .position-axis .axis-label.center { left: 50%; transform: translateX(-50%); top: -18px; }
+        .position-axis .axis-label.right { right: 10px; top: -18px; }
+        .position-marker {
+            position: absolute;
+            top: -8px;
+            width: 24px;
+            height: 24px;
+            background: #2d3436;
+            border: 3px solid white;
+            border-radius: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        .position-item {
+            margin-bottom: 16px;
+        }
+        .position-item .axis-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        .position-item .marker-label {
+            display: inline-block;
+            background: #2d3436;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            margin-top: 8px;
+        }
+        .position-warning {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 6px;
+            padding: 12px;
+            margin-top: 12px;
+            font-size: 13px;
+            color: #856404;
+        }
+        .analyzing {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+        }
+        .analyzing::after {
+            content: "...";
+            animation: dots 1.5s steps(4, end) infinite;
+        }
     </style>
 </head>
 <body>
@@ -214,6 +630,7 @@
             <div class="tabs">
                 <button class="tab active" onclick="switchTab('teaching')">📖 提交教学文档</button>
                 <button class="tab" onclick="switchTab('review')">🔍 审核文档</button>
+                <button class="tab" onclick="switchTab('knowledge')">📚 知识库</button>
             </div>
             
             <div id="teaching-panel">
@@ -221,12 +638,16 @@
                     提交教学文档，AI会理解并消化其中的观点和理念
                 </div>
                 <div class="file-upload" onclick="document.getElementById('teachingFile').click()">
-                    <input type="file" id="teachingFile" accept=".pdf,.docx,.doc,.txt,.md" onchange="handleFileSelect(this, 'teaching')">
-                    <p>📁 点击上传教学文档</p>
+                    <input type="file" id="teachingFile" accept=".pdf,.docx,.doc,.txt,.md" multiple onchange="handleTeachingFiles(this)">
+                    <p>📁 点击上传教学文档（可多选）</p>
                     <p style="color: #888; font-size: 12px;">支持 PDF、Word、文本、Markdown</p>
                 </div>
+                <div id="teachingDocsList" class="teaching-docs-list"></div>
                 <textarea id="teachingContent" placeholder="或者直接粘贴文档内容..."></textarea>
-                <button class="btn" onclick="submitTeachingDoc()" style="margin-top: 16px;">
+                <div id="teachingDocsSummary" class="teaching-docs-summary hidden">
+                    <span id="teachingDocsCount">0</span> 个教学文档已加载
+                </div>
+                <button class="btn" onclick="submitTeachingDoc()" style="margin-top: 16px; width: 100%;">
                     理解文档
                 </button>
                 <div id="teaching-result" class="result hidden"></div>
@@ -236,19 +657,82 @@
                 <div class="step-info">
                     提交审核文档，AI会运用已学习的教学文档知识进行评价
                 </div>
+                
+                <div class="doc-name-input">
+                    <input type="text" id="docName" placeholder="输入文档名称（用于区分不同文档）">
+                    <small>相同名称的文档会被视为同一文档的迭代版本</small>
+                </div>
+                
                 <div class="file-upload" onclick="document.getElementById('reviewFile').click()">
                     <input type="file" id="reviewFile" accept=".pdf,.docx,.doc,.txt,.md" onchange="handleFileSelect(this, 'review')">
                     <p>📁 点击上传审核文档</p>
                 </div>
                 <textarea id="reviewContent" placeholder="或者直接粘贴待审核的文档内容..."></textarea>
+                
+                <div class="version-list" id="versionList"></div>
+                
+                <div class="progress-section hidden" id="progressSection">
+                    <h4>📈 版本迭代对比</h4>
+                    <div id="progressContent"></div>
+                </div>
+                
                 <div class="score-section" id="aiScoreSection" style="display: none;">
                     <label>📊 AI评分</label>
                     <div class="score-display" id="scoreValue">-</div>
                 </div>
-                <button class="btn" onclick="submitReviewDoc()" style="margin-top: 16px;">
+                <button class="btn" onclick="submitReviewDoc()" style="margin-top: 16px; width: 100%;">
                     审核文档
                 </button>
                 <div id="review-result" class="result hidden"></div>
+                
+                <div class="analysis-section" id="analysisSection">
+                    <h3>🎯 深度学术分析</h3>
+                    <div class="analysis-buttons">
+                        <button class="btn analysis-btn question" onclick="generateQuestions()">
+                            ❓ 预设质疑生成
+                        </button>
+                        <button class="btn analysis-btn weakness" onclick="findWeakPoints()">
+                            ⚠️ 薄弱环节检测
+                        </button>
+                        <button class="btn analysis-btn position" onclick="analyzePosition()">
+                            📊 学术立场分析
+                        </button>
+                    </div>
+                    <div id="analysisResult"></div>
+                </div>
+            </div>
+            
+            <div id="knowledge-panel" class="hidden">
+                <div class="step-info">
+                    知识库保存了所有已上传的文档，支持版本对比。数据仅保存在本地浏览器中。
+                </div>
+                
+                <div id="storageWarning" class="storage-warning hidden">
+                    存储空间即将用尽，建议清理旧文档或删除不需要的版本
+                </div>
+                
+                <div class="kb-stats">
+                    <div class="stat">
+                        <div class="stat-value" id="kbDocCount">0</div>
+                        <div>文档数</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="kbVersionCount">0</div>
+                        <div>总版本数</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="kbStorageUsed">0KB</div>
+                        <div>已用空间</div>
+                    </div>
+                </div>
+                
+                <div style="display: flex; gap: 8px; margin-bottom: 16px;">
+                    <input type="text" id="kbSearch" placeholder="搜索文档..." style="flex: 1;" oninput="renderKnowledgeBase()">
+                    <button class="btn btn-secondary" onclick="exportKnowledgeBase()">💾 导出</button>
+                    <button class="btn btn-danger" onclick="confirmClearKnowledgeBase()">🗑️ 清理</button>
+                </div>
+                
+                <div class="kb-list" id="kbList"></div>
             </div>
         </div>
         
@@ -259,40 +743,39 @@
                 1. 把 <code style="background: #ddd; padding: 2px 6px; border-radius: 4px;">index.html</code> 文件发送给他人即可使用<br>
                 2. 首次打开时需输入API Key（用自己的账号）<br>
                 3. 勾选"记住API Key"后下次无需重复输入<br><br>
-                <b>安全性：</b> API Key 只保存在用户浏览器本地，不上传到任何服务器
+                <b>安全性：</b> API Key 和文档数据只保存在用户浏览器本地，不上传到任何服务器
             </p>
         </div>
     </div>
 
     <script>
-        // =====================================================================
-        // 使用方法 (二选一):
-        // 
-        // 方法1: 自己用 (简单)
-        //   直接双击打开 index.html，首次输入API Key即可
-        //   注意: 可能会提示CORS错误，需要看方法2
-        //
-        // 方法2: 给别人用 (推荐)
-        //   1. 部署 Cloudflare Worker (不会弄? 请找人帮忙)
-        //   2. 部署后把地址填到下面 API_BASE
-        // =====================================================================
+        const API_BASE = '';
+        const KB_MAX_VERSIONS = 10;
+        const KB_MAX_DOCS = 50;
+        const KB_MAX_SIZE = 2 * 1024 * 1024;
         
-        const API_BASE = '';   // 部署Worker后填入地址，如: https://xxx.workers.dev
         let teachingSummary = '';
+        let teachingDocs = [];
         
-        // 页面加载时读取保存的API Key
+        const STORAGE_KEYS = {
+            KNOWLEDGE_BASE: 'docReviewerKnowledgeBase',
+            TEACHING_DOCS: 'docReviewerTeachingDocs'
+        };
+        
         window.onload = function() {
             const savedKey = localStorage.getItem('docReviewerApiKey');
             if (savedKey) {
                 document.getElementById('apiKey').value = savedKey;
             }
             
-            // 保存API Key复选框状态
             const rememberCheck = document.getElementById('rememberApiKey');
             const savedRemember = localStorage.getItem('docReviewerRemember');
             if (savedRemember !== null) {
                 rememberCheck.checked = savedRemember === 'true';
             }
+            
+            loadTeachingDocs();
+            loadKnowledgeBase();
         };
         
         function saveApiKey() {
@@ -307,10 +790,18 @@
         
         function switchTab(tab) {
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab')[tab === 'teaching' ? 0 : 1].classList.add('active');
+            const tabs = document.querySelectorAll('.tab');
+            if (tab === 'teaching') tabs[0].classList.add('active');
+            else if (tab === 'review') tabs[1].classList.add('active');
+            else if (tab === 'knowledge') {
+                tabs[2].classList.add('active');
+                renderKnowledgeBase();
+                checkStorageWarning();
+            }
             
             document.getElementById('teaching-panel').classList.toggle('hidden', tab !== 'teaching');
             document.getElementById('review-panel').classList.toggle('hidden', tab !== 'review');
+            document.getElementById('knowledge-panel').classList.toggle('hidden', tab !== 'knowledge');
         }
         
         async function handleFileSelect(input, type) {
@@ -325,7 +816,6 @@
             }
             
             const btn = input.closest('.file-upload').querySelector('p');
-            const fileNameEl = btn.nextElementSibling;
             
             const fileExt = file.name.split('.').pop().toLowerCase();
             
@@ -333,6 +823,12 @@
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     document.getElementById(type + 'Content').value = e.target.result;
+                    if (type === 'review') {
+                        const nameInput = document.getElementById('docName');
+                        if (!nameInput.value) {
+                            nameInput.value = file.name.replace(/\.[^.]+$/, '');
+                        }
+                    }
                     btn.textContent = `✅ 已加载: ${file.name}`;
                 };
                 reader.readAsText(file);
@@ -341,6 +837,12 @@
                 try {
                     const result = await parseDocx(file);
                     document.getElementById(type + 'Content').value = result;
+                    if (type === 'review') {
+                        const nameInput = document.getElementById('docName');
+                        if (!nameInput.value) {
+                            nameInput.value = file.name.replace(/\.[^.]+$/, '');
+                        }
+                    }
                     btn.textContent = `✅ 已加载: ${file.name}`;
                 } catch(e) {
                     btn.textContent = '📁 点击上传教学文档';
@@ -381,29 +883,448 @@
             }
         }
         
+        function loadTeachingDocs() {
+            try {
+                const saved = localStorage.getItem(STORAGE_KEYS.TEACHING_DOCS);
+                teachingDocs = saved ? JSON.parse(saved) : [];
+                renderTeachingDocsList();
+            } catch {
+                teachingDocs = [];
+            }
+        }
+        
+        function saveTeachingDocs() {
+            localStorage.setItem(STORAGE_KEYS.TEACHING_DOCS, JSON.stringify(teachingDocs));
+        }
+        
+        function renderTeachingDocsList() {
+            const list = document.getElementById('teachingDocsList');
+            const summary = document.getElementById('teachingDocsSummary');
+            const countEl = document.getElementById('teachingDocsCount');
+            
+            if (teachingDocs.length === 0) {
+                list.innerHTML = '';
+                summary.classList.add('hidden');
+                return;
+            }
+            
+            countEl.textContent = teachingDocs.length;
+            summary.classList.remove('hidden');
+            
+            list.innerHTML = teachingDocs.map((doc, index) => `
+                <div class="teaching-doc-item">
+                    <div class="doc-name">
+                        <span>📄</span>
+                        <span>${escapeHtml(doc.name)}</span>
+                        <span class="doc-size">(${formatSize(doc.size)})</span>
+                    </div>
+                    <button onclick="removeTeachingDoc(${index})" title="移除">×</button>
+                </div>
+            `).join('');
+        }
+        
+        function removeTeachingDoc(index) {
+            teachingDocs.splice(index, 1);
+            saveTeachingDocs();
+            renderTeachingDocsList();
+        }
+        
+        async function handleTeachingFiles(input) {
+            const files = Array.from(input.files);
+            if (files.length === 0) return;
+            
+            const apiKey = document.getElementById('apiKey').value;
+            if (!apiKey) {
+                alert('请先输入API Key');
+                input.value = '';
+                return;
+            }
+            
+            const btn = input.closest('.file-upload').querySelector('p');
+            btn.textContent = '正在加载文件...';
+            
+            let loadedCount = 0;
+            for (const file of files) {
+                const fileExt = file.name.split('.').pop().toLowerCase();
+                
+                let content = '';
+                if (fileExt === 'txt' || fileExt === 'md') {
+                    content = await file.text();
+                } else if (fileExt === 'docx') {
+                    try {
+                        content = await parseDocx(file);
+                    } catch(e) {
+                        alert(`文件 ${file.name} 解析失败: ${e.message}`);
+                        continue;
+                    }
+                } else {
+                    alert(`不支持的格式: ${file.name}`);
+                    continue;
+                }
+                
+                const existingIndex = teachingDocs.findIndex(d => d.name === file.name);
+                if (existingIndex >= 0) {
+                    teachingDocs[existingIndex] = {
+                        name: file.name,
+                        content: content,
+                        size: file.size,
+                        addedAt: new Date().toISOString()
+                    };
+                } else {
+                    teachingDocs.push({
+                        name: file.name,
+                        content: content,
+                        size: file.size,
+                        addedAt: new Date().toISOString()
+                    });
+                }
+                
+                loadedCount++;
+            }
+            
+            saveTeachingDocs();
+            renderTeachingDocsList();
+            
+            btn.textContent = `✅ 已加载 ${loadedCount} 个文件`;
+            input.value = '';
+        }
+        
+        function getKnowledgeBase() {
+            try {
+                const data = localStorage.getItem(STORAGE_KEYS.KNOWLEDGE_BASE);
+                return data ? JSON.parse(data) : [];
+            } catch {
+                return [];
+            }
+        }
+        
+        function saveKnowledgeBase(kb) {
+            const jsonStr = JSON.stringify(kb);
+            if (jsonStr.length > KB_MAX_SIZE) {
+                kb = pruneOldData(kb);
+            }
+            localStorage.setItem(STORAGE_KEYS.KNOWLEDGE_BASE, JSON.stringify(kb));
+        }
+        
+        function pruneOldData(kb) {
+            kb.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+            while (kb.length > 1 && JSON.stringify(kb).length > KB_MAX_SIZE * 0.8) {
+                const oldestDoc = kb[kb.length - 1];
+                if (oldestDoc.versions.length > 1) {
+                    oldestDoc.versions.shift();
+                } else {
+                    kb.pop();
+                }
+            }
+            return kb;
+        }
+        
+        function loadKnowledgeBase() {
+            renderKnowledgeBase();
+        }
+        
+        function checkStorageWarning() {
+            const kb = getKnowledgeBase();
+            const size = new Blob([JSON.stringify(kb)]).size;
+            document.getElementById('storageWarning').classList.toggle('hidden', size < KB_MAX_SIZE * 0.8);
+        }
+        
+        function renderKnowledgeBase() {
+            const kb = getKnowledgeBase();
+            const search = document.getElementById('kbSearch').value.toLowerCase();
+            const list = document.getElementById('kbList');
+            
+            let teachingCount = 0;
+            let totalVersions = 0;
+            const filtered = kb.filter(doc => {
+                if (doc.type === 'teaching') teachingCount++;
+                totalVersions += doc.versions?.length || 1;
+                return !search || doc.name.toLowerCase().includes(search);
+            });
+            
+            const teachingDocs_filter = filtered.filter(d => d.type === 'teaching');
+            const reviewDocs_filter = filtered.filter(d => d.type !== 'teaching');
+            
+            document.getElementById('kbDocCount').textContent = filtered.length;
+            document.getElementById('kbVersionCount').textContent = totalVersions;
+            document.getElementById('kbStorageUsed').textContent = formatSize(new Blob([JSON.stringify(kb)]).size);
+            
+            if (filtered.length === 0) {
+                list.innerHTML = '<div class="kb-empty">📭 暂无保存的文档<br><small>上传文档时会自动保存到知识库</small></div>';
+                return;
+            }
+            
+            let html = '';
+            
+            if (teachingDocs_filter.length > 0) {
+                html += `<div class="kb-teaching-section">
+                    <h4>📖 教学标准文档 (${teachingDocs_filter.length})</h4>
+                    ${teachingDocs_filter.map(doc => `
+                        <div class="kb-item">
+                            <div class="kb-info">
+                                <div class="kb-name">${escapeHtml(doc.name)}</div>
+                                <div class="kb-meta">${doc.versions?.length || 1} 个文件 | ${formatDate(doc.updatedAt)}</div>
+                            </div>
+                            <div class="kb-actions">
+                                <button class="btn btn-small btn-secondary" onclick="loadTeachingFromKb('${doc.id}')">📂 使用</button>
+                                <button class="btn btn-small btn-danger" onclick="deleteDocFromKb('${doc.id}')">🗑️</button>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>`;
+            }
+            
+            if (reviewDocs_filter.length > 0) {
+                html += `<div style="margin-top: 16px;">
+                    <h4 style="color: #333; font-size: 14px; margin-bottom: 8px;">📝 学生作业文档 (${reviewDocs_filter.length})</h4>
+                    ${reviewDocs_filter.map(doc => `
+                        <div class="kb-item">
+                            <div class="kb-info">
+                                <div class="kb-name">${escapeHtml(doc.name)}</div>
+                                <div class="kb-meta">
+                                    ${doc.versions?.length || 1} 个版本 | 更新: ${formatDate(doc.updatedAt)}
+                                    ${doc.versions?.length > 1 ? ` | 最新: ${doc.versions[doc.versions.length-1].score || '未评分'}` : ''}
+                                </div>
+                            </div>
+                            <div class="kb-actions">
+                                <button class="btn btn-small btn-secondary" onclick="loadDocFromKb('${doc.id}')">📂 加载</button>
+                                <button class="btn btn-small btn-danger" onclick="deleteDocFromKb('${doc.id}')">🗑️</button>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>`;
+            }
+            
+            list.innerHTML = html;
+        }
+        
+        function loadTeachingFromKb(docId) {
+            const kb = getKnowledgeBase();
+            const doc = kb.find(d => d.id === docId);
+            if (!doc) return;
+            
+            teachingDocs = doc.versions || [];
+            saveTeachingDocs();
+            renderTeachingDocsList();
+            
+            if (doc.summary) {
+                teachingSummary = doc.summary;
+                const resultDiv = document.getElementById('teaching-result');
+                resultDiv.classList.remove('hidden');
+                resultDiv.textContent = '已从知识库加载教学标准:\n\n' + teachingSummary;
+            }
+            
+            alert('已加载教学文档到当前会话');
+            switchTab('teaching');
+        }
+        
+        function formatSize(bytes) {
+            if (bytes < 1024) return bytes + 'B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + 'KB';
+            return (bytes / (1024 * 1024)).toFixed(1) + 'MB';
+        }
+        
+        function formatDate(dateStr) {
+            const d = new Date(dateStr);
+            return `${d.getMonth()+1}/${d.getDate()} ${d.getHours()}:${String(d.getMinutes()).padStart(2,'0')}`;
+        }
+        
+        function escapeHtml(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+        
+        function loadDocFromKb(docId) {
+            const kb = getKnowledgeBase();
+            const doc = kb.find(d => d.id === docId);
+            if (!doc) return;
+            
+            const versions = doc.versions;
+            const latest = versions[versions.length - 1];
+            
+            document.getElementById('docName').value = doc.name;
+            document.getElementById('reviewContent').value = latest.content;
+            
+            switchTab('review');
+            renderVersionList();
+        }
+        
+        function deleteDocFromKb(docId) {
+            if (!confirm('确定删除此文档及其所有版本?')) return;
+            let kb = getKnowledgeBase();
+            kb = kb.filter(d => d.id !== docId);
+            saveKnowledgeBase(kb);
+            renderKnowledgeBase();
+        }
+        
+        function confirmClearKnowledgeBase() {
+            if (!confirm('确定清空知识库?此操作不可恢复!')) return;
+            if (!confirm('再次确认:将删除所有保存的文档数据!')) return;
+            localStorage.removeItem(STORAGE_KEYS.KNOWLEDGE_BASE);
+            localStorage.removeItem(STORAGE_KEYS.TEACHING_DOCS);
+            teachingDocs = [];
+            teachingSummary = '';
+            renderKnowledgeBase();
+            renderTeachingDocsList();
+            document.getElementById('teaching-result').classList.add('hidden');
+        }
+        
+        function exportKnowledgeBase() {
+            const kb = getKnowledgeBase();
+            if (kb.length === 0) {
+                alert('知识库为空');
+                return;
+            }
+            
+            let exportText = '# 文档审核助手 - 知识库导出\n\n';
+            kb.forEach(doc => {
+                exportText += `## ${doc.name}\n`;
+                exportText += `创建: ${doc.createdAt}\n\n`;
+                doc.versions.forEach((v, i) => {
+                    exportText += `### 版本 ${i + 1} (${v.timestamp})\n`;
+                    if (v.review) exportText += `**评分: ${v.score || '未评分'}**\n\n`;
+                    exportText += v.content + '\n\n---\n\n';
+                });
+            });
+            
+            const blob = new Blob([exportText], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `知识库导出_${new Date().toISOString().slice(0,10)}.txt`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+        
+        function renderVersionList() {
+            const kb = getKnowledgeBase();
+            const docName = document.getElementById('docName').value.trim();
+            
+            let sameDocs = kb.filter(d => d.name === docName);
+            
+            if (sameDocs.length === 0) {
+                document.getElementById('versionList').innerHTML = '';
+                return;
+            }
+            
+            const html = sameDocs.map(doc => {
+                const latest = doc.versions[doc.versions.length - 1];
+                return `
+                    <div class="version-item">
+                        <div class="version-info">
+                            <span>📄 ${escapeHtml(doc.name)}</span>
+                            <span class="version-time">${doc.versions.length}个版本 | ${formatDate(doc.updatedAt)}</span>
+                        </div>
+                        <span class="progress-badge">${latest.score || '未评分'}</span>
+                    </div>
+                `;
+            }).join('');
+            
+            document.getElementById('versionList').innerHTML = `
+                <div style="font-size: 12px; color: #666; margin-bottom: 6px;">
+                    📋 发现 ${sameDocs.length} 个相关文档的旧版本
+                </div>
+                ${html}
+            `;
+        }
+        
+        function saveToKnowledgeBase(docName, content, review, score) {
+            
+            let kb = getKnowledgeBase();
+            
+            const existingIndex = kb.findIndex(d => d.name === docName);
+            
+            if (existingIndex >= 0) {
+                const doc = kb[existingIndex];
+                doc.versions.push({
+                    content: content.substring(0, 50000),
+                    review: review ? review.substring(0, 5000) : null,
+                    score: score,
+                    timestamp: new Date().toISOString()
+                });
+                
+                if (doc.versions.length > KB_MAX_VERSIONS) {
+                    doc.versions = doc.versions.slice(-KB_MAX_VERSIONS);
+                }
+                
+                doc.updatedAt = new Date().toISOString();
+                kb[existingIndex] = doc;
+            } else {
+                if (kb.length >= KB_MAX_DOCS) {
+                    kb.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+                    kb.pop();
+                }
+                
+                kb.push({
+                    id: Date.now().toString(36) + Math.random().toString(36).substr(2),
+                    name: docName,
+                    createdAt: new Date().toISOString(),
+                    updatedAt: new Date().toISOString(),
+                    versions: [{
+                        content: content.substring(0, 50000),
+                        review: review ? review.substring(0, 5000) : null,
+                        score: score,
+                        timestamp: new Date().toISOString()
+                    }]
+                });
+            }
+            
+            saveKnowledgeBase(kb);
+        }
+        
         async function submitTeachingDoc() {
             saveApiKey();
             const apiKey = document.getElementById('apiKey').value;
-            const content = document.getElementById('teachingContent').value;
+            const manualContent = document.getElementById('teachingContent').value.trim();
             const resultDiv = document.getElementById('teaching-result');
             
             if (!apiKey) { alert('请输入API Key'); return; }
-            if (!content.trim()) { alert('请输入文档内容'); return; }
+            
+            if (manualContent && teachingDocs.length > 0) {
+                const name = '粘贴内容_' + new Date().toLocaleDateString('zh-CN');
+                teachingDocs.push({
+                    name: name,
+                    content: manualContent,
+                    size: new Blob([manualContent]).size,
+                    addedAt: new Date().toISOString()
+                });
+                saveTeachingDocs();
+                renderTeachingDocsList();
+                document.getElementById('teachingContent').value = '';
+            }
+            
+            if (teachingDocs.length === 0) {
+                if (!manualContent) {
+                    alert('请上传教学文档或粘贴文档内容');
+                    return;
+                }
+                teachingDocs.push({
+                    name: '粘贴内容_' + new Date().toLocaleDateString('zh-CN'),
+                    content: manualContent,
+                    size: new Blob([manualContent]).size,
+                    addedAt: new Date().toISOString()
+                });
+                saveTeachingDocs();
+                renderTeachingDocsList();
+            }
+            
+            const combinedContent = teachingDocs.map(d => `【${d.name}】\n${d.content}`).join('\n\n');
             
             resultDiv.classList.remove('hidden');
-            resultDiv.innerHTML = '<div class="loading">AI正在理解文档</div>';
+            resultDiv.innerHTML = `<div class="loading">AI正在理解 ${teachingDocs.length} 个教学文档</div>`;
             
             try {
                 const isProxy = !!API_BASE;
                 const requestBody = isProxy ? {
                     api_key: apiKey,
                     action: 'understand',
-                    content: content
+                    content: combinedContent
                 } : {
                     model: 'glm-4-flash',
                     messages: [
                         { role: 'system', content: '你是一个教学文档分析助手。请仔细阅读用户提供的教学文档，理解其中的教育理念、教学方法和核心观点。然后用简洁的语言总结出该文档的核心要点，以便后续用于审核其他文档的参考。' },
-                        { role: 'user', content: '请理解以下教学文档并总结核心要点：\n\n' + content }
+                        { role: 'user', content: '请理解以下教学文档并总结核心要点：\n\n' + combinedContent }
                     ]
                 };
                 
@@ -424,6 +1345,8 @@
                 if (result.choices && result.choices[0]) {
                     teachingSummary = result.choices[0].message.content;
                     resultDiv.textContent = teachingSummary;
+                    
+                    saveTeachingSummaryToKb();
                 } else {
                     resultDiv.textContent = '错误: ' + (result.error?.message || JSON.stringify(result));
                 }
@@ -432,12 +1355,43 @@
             }
         }
         
+        function saveTeachingSummaryToKb() {
+            if (teachingDocs.length === 0) return;
+            
+            let kb = getKnowledgeBase();
+            
+            const teachingKbItem = {
+                id: 'teaching_' + Date.now().toString(36),
+                name: '[教学标准] ' + (teachingDocs.length > 1 ? `${teachingDocs.length}个教学文档` : teachingDocs[0].name),
+                type: 'teaching',
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString(),
+                summary: teachingSummary,
+                versions: teachingDocs.map(d => ({
+                    name: d.name,
+                    content: d.content,
+                    timestamp: d.addedAt
+                }))
+            };
+            
+            const existingIndex = kb.findIndex(d => d.type === 'teaching');
+            if (existingIndex >= 0) {
+                kb[existingIndex] = teachingKbItem;
+            } else {
+                kb.unshift(teachingKbItem);
+            }
+            
+            saveKnowledgeBase(kb);
+        }
+        
         async function submitReviewDoc() {
             saveApiKey();
             const apiKey = document.getElementById('apiKey').value;
             const content = document.getElementById('reviewContent').value;
+            const docName = document.getElementById('docName').value.trim() || '未命名文档_' + Date.now();
             const resultDiv = document.getElementById('review-result');
             const scoreSection = document.getElementById('aiScoreSection');
+            const progressSection = document.getElementById('progressSection');
             
             if (!apiKey) { alert('请输入API Key'); return; }
             if (!content.trim()) { alert('请输入文档内容'); return; }
@@ -450,20 +1404,67 @@
             resultDiv.classList.remove('hidden');
             resultDiv.innerHTML = '<div class="loading">AI正在进行审核</div>';
             scoreSection.style.display = 'block';
+            progressSection.classList.add('hidden');
             document.getElementById('scoreValue').textContent = '评分中...';
             
             try {
+                const kb = getKnowledgeBase();
+                const existingDoc = kb.find(d => d.name === docName);
+                const previousVersion = existingDoc ? existingDoc.versions[existingDoc.versions.length - 1] : null;
+                const isUpdate = !!previousVersion;
+                
+                let systemPrompt, userPrompt;
+                
+                if (isUpdate) {
+                    systemPrompt = `你是一个教学文档审核专家，同时擅长版本对比分析。
+
+【参考标准 - 教学文档核心要点】
+${teachingSummary}
+
+【历史版本摘要】
+该文档已有 ${existingDoc.versions.length} 个版本。
+上一版本评分: ${previousVersion.score || '未评分'}
+上一版本审核意见: ${previousVersion.review || '无'}
+
+请对待审核的文档进行审核，并重点进行版本对比分析：
+1. 与参考标准的符合程度
+2. 与上一版本的对比分析：进步了多少？哪些地方改好了？哪些地方仍需改进？
+3. 给出具体的改进建议
+4. 最终评分（1-10分）
+
+【重要】请在回复的最后用以下格式：
+最终评分：X分
+与上版本相比：进步↑/退步↓/持平→
+`;
+                    userPrompt = `请审核以下文档（文档名: ${docName}），这是第 ${(existingDoc?.versions.length || 0) + 1} 个版本：\n\n${content}`;
+                } else {
+                    systemPrompt = `你是一个教学文档审核专家。请根据已学习的教学文档（参考标准），审核待审核的文档。
+
+【参考标准 - 教学文档核心要点】
+${teachingSummary}
+
+请对待审核的文档进行详细评价，包括：
+1. 与参考标准的符合程度
+2. 优点和亮点
+3. 需要改进的地方
+4. 总体评价
+
+重要：请在审核意见的最后，用"最终评分：X分"格式给出你的评分（1-10分）。`;
+                    userPrompt = `请审核以下文档（文档名: ${docName}）：\n\n${content}`;
+                }
+                
                 const isProxy = !!API_BASE;
                 const requestBody = isProxy ? {
                     api_key: apiKey,
                     action: 'review',
                     content: content,
-                    teaching_summary: teachingSummary
+                    teaching_summary: teachingSummary,
+                    previous_version: previousVersion
                 } : {
                     model: 'glm-4-flash',
                     messages: [
-                        { role: 'system', content: '你是一个教学文档审核专家。请根据已学习的教学文档（参考标准），审核待审核的文档。\n\n已学习的教学文档核心要点：\n' + teachingSummary + '\n\n请对待审核的文档进行详细评价，包括：\n1. 与参考标准的符合程度\n2. 优点和亮点\n3. 需要改进的地方\n4. 总体评价\n\n重要：请在审核意见的最后，用"最终评分：X分"格式给出你的评分（1-10分）。' },
-                        { role: 'user', content: '请审核以下文档：\n\n' + content }
+                        { role: 'system', content: systemPrompt },
+                        { role: 'user', content: userPrompt }
                     ]
                 };
                 
@@ -485,14 +1486,51 @@
                     const reviewText = result.choices[0].message.content;
                     resultDiv.textContent = reviewText;
                     
-                    // 提取AI评分
-                    const scoreMatch = reviewText.match(/评分[：:]\s*(\d+)/);
+                    const scoreMatch = reviewText.match(/最终评分[：:]\s*(\d+)/);
+                    const progressMatch = reviewText.match(/与上版本相比[：:]\s*(进步↑|退步↓|持平→)/);
+                    let aiScore = null;
+                    
                     if (scoreMatch) {
-                        const aiScore = parseInt(scoreMatch[1]);
+                        aiScore = parseInt(scoreMatch[1]);
                         document.getElementById('scoreValue').textContent = aiScore + '/10分';
                     } else {
-                        document.getElementById('scoreValue').textContent = '未评定';
+                        const simpleMatch = reviewText.match(/评分[：:]\s*(\d+)/);
+                        if (simpleMatch) {
+                            aiScore = parseInt(simpleMatch[1]);
+                            document.getElementById('scoreValue').textContent = aiScore + '/10分';
+                        } else {
+                            document.getElementById('scoreValue').textContent = '未评定';
+                        }
                     }
+                    
+                    if (isUpdate && progressMatch) {
+                        progressSection.classList.remove('hidden');
+                        const progressType = progressMatch[1];
+                        const isPositive = progressType === '进步↑';
+                        const isNegative = progressType === '退步↓';
+                        
+                        document.getElementById('progressContent').innerHTML = `
+                            <div class="compare-highlight ${isNegative ? 'negative' : ''}">
+                                <h5>${progressType} ${isPositive ? '继续保持！' : isNegative ? '需要加强改进' : '稳中有进'}</h5>
+                                <p>此版本与上一版本(${previousVersion.score || '未评分'}分)相比: <strong>${progressType}</strong></p>
+                            </div>
+                        `;
+                        
+                        const prevScore = parseInt(previousVersion.score) || 5;
+                        const diff = aiScore - prevScore;
+                        if (diff !== 0 && !isNaN(diff)) {
+                            document.getElementById('scoreValue').innerHTML = `
+                                ${aiScore}/10分 
+                                <span style="font-size: 14px; color: ${diff > 0 ? '#4caf50' : '#f44336'};">
+                                    (${diff > 0 ? '+' : ''}${diff})
+                                </span>
+                            `;
+                        }
+                    }
+                    
+                    saveToKnowledgeBase(docName, content, reviewText, aiScore);
+                    renderKnowledgeBase();
+                    
                 } else {
                     resultDiv.textContent = '错误: ' + (result.error?.message || JSON.stringify(result));
                     document.getElementById('scoreValue').textContent = '错误';
@@ -502,6 +1540,333 @@
                 document.getElementById('scoreValue').textContent = '失败';
             }
         }
+        
+        async function generateQuestions() {
+            const content = document.getElementById('reviewContent').value;
+            const resultDiv = document.getElementById('analysisResult');
+            
+            if (!content.trim()) {
+                alert('请先输入或上传待审核的文档');
+                return;
+            }
+            
+            resultDiv.innerHTML = '<div class="analyzing">AI正在模拟学术辩论，生成质疑问题</div>';
+            
+            try {
+                const apiKey = document.getElementById('apiKey').value;
+                const isProxy = !!API_BASE;
+                
+                const systemPrompt = `你是一位严格的学术评审专家，擅长从不同学术立场对论文进行质疑。请仔细阅读论文，针对其核心论点，模拟最有可能被同行专家质疑的问题。
+
+要求：
+1. 找出论文的3-5个核心论点或结论
+2. 针对每个核心论点，生成1-2个尖锐的质疑问题
+3. 质疑要基于真实的学术争议，而非吹毛求疵
+4. 格式：先引用论文原文，再提出质疑，最后给出可能的回应方向
+
+请用以下JSON格式返回：
+{
+  "questions": [
+    {
+      "thesis": "论文中的核心论点原文引用",
+      "question": "质疑问题",
+      "possible_response": "可能的回应方向"
+    }
+  ]
+}`;
+
+                const requestBody = isProxy ? {
+                    api_key: apiKey,
+                    action: 'question_gen',
+                    content: content,
+                    teaching_summary: teachingSummary
+                } : {
+                    model: 'glm-4-flash',
+                    messages: [
+                        { role: 'system', content: systemPrompt },
+                        { role: 'user', content: '请对以下论文进行预设质疑生成：\n\n' + content }
+                    ]
+                };
+                
+                const fetchOptions = {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(requestBody)
+                };
+                
+                if (!isProxy) {
+                    fetchOptions.headers['Authorization'] = 'Bearer ' + apiKey;
+                }
+                
+                const response = await fetch(API_BASE || 'https://open.bigmodel.cn/api/paas/v4/chat/completions', fetchOptions);
+                const result = await response.json();
+                
+                if (result.choices && result.choices[0]) {
+                    let responseText = result.choices[0].message.content;
+                    
+                    let questions = [];
+                    try {
+                        const jsonMatch = responseText.match(/\{[\s\S]*\}/);
+                        if (jsonMatch) {
+                            const parsed = JSON.parse(jsonMatch[0]);
+                            questions = parsed.questions || [];
+                        }
+                    } catch {}
+                    
+                    if (questions.length > 0) {
+                        resultDiv.innerHTML = `
+                            <div class="analysis-result">
+                                <h4>❓ 预设质疑问题</h4>
+                                ${questions.map((q, i) => `
+                                    <div class="question-item">
+                                        <div class="quote">"${escapeHtml(q.thesis)}"</div>
+                                        <div><strong>质疑：</strong>${escapeHtml(q.question)}</div>
+                                        <div class="response"><strong>回应方向：</strong>${escapeHtml(q.possible_response)}</div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        `;
+                    } else {
+                        resultDiv.innerHTML = `
+                            <div class="analysis-result">
+                                <h4>❓ 预设质疑问题</h4>
+                                <pre style="white-space: pre-wrap; font-size: 13px;">${escapeHtml(responseText)}</pre>
+                            </div>
+                        `;
+                    }
+                } else {
+                    resultDiv.innerHTML = '<div class="analysis-result" style="color: #f44336;">生成失败: ' + (result.error?.message || JSON.stringify(result)) + '</div>';
+                }
+            } catch (e) {
+                resultDiv.innerHTML = '<div class="analysis-result" style="color: #f44336;">请求失败: ' + e.message + '</div>';
+            }
+        }
+        
+        async function findWeakPoints() {
+            const content = document.getElementById('reviewContent').value;
+            const resultDiv = document.getElementById('analysisResult');
+            
+            if (!content.trim()) {
+                alert('请先输入或上传待审核的文档');
+                return;
+            }
+            
+            resultDiv.innerHTML = '<div class="analyzing">AI正在检测论文薄弱环节</div>';
+            
+            try {
+                const apiKey = document.getElementById('apiKey').value;
+                const isProxy = !!API_BASE;
+                
+                const systemPrompt = `你是一位严格的学术编辑，擅长发现论文中"断言多、证据少"的薄弱环节。
+
+请仔细阅读论文，找出以下类型的薄弱语句：
+1. 未经充分论证的结论性断言
+2. 引用资料未加分析就作为证据使用
+3. 逻辑推导过程不完整
+4. 与权威观点相悖但未作充分回应
+5. 使用模糊表述回避关键问题
+
+要求：
+- 标注具体的句子（用引号引用）
+- 指出为何这是薄弱环节
+- 提供具体的改进建议
+
+请用以下JSON格式返回：
+{
+  "weak_points": [
+    {
+      "sentence": "薄弱语句原文",
+      "reason": "为何薄弱",
+      "suggestion": "改进建议"
+    }
+  ]
+}`;
+
+                const requestBody = isProxy ? {
+                    api_key: apiKey,
+                    action: 'weakness_check',
+                    content: content
+                } : {
+                    model: 'glm-4-flash',
+                    messages: [
+                        { role: 'system', content: systemPrompt },
+                        { role: 'user', content: '请检测以下论文的薄弱环节：\n\n' + content }
+                    ]
+                };
+                
+                const fetchOptions = {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(requestBody)
+                };
+                
+                if (!isProxy) {
+                    fetchOptions.headers['Authorization'] = 'Bearer ' + apiKey;
+                }
+                
+                const response = await fetch(API_BASE || 'https://open.bigmodel.cn/api/paas/v4/chat/completions', fetchOptions);
+                const result = await response.json();
+                
+                if (result.choices && result.choices[0]) {
+                    let responseText = result.choices[0].message.content;
+                    
+                    let weakPoints = [];
+                    try {
+                        const jsonMatch = responseText.match(/\{[\s\S]*\}/);
+                        if (jsonMatch) {
+                            const parsed = JSON.parse(jsonMatch[0]);
+                            weakPoints = parsed.weak_points || [];
+                        }
+                    } catch {}
+                    
+                    if (weakPoints.length > 0) {
+                        resultDiv.innerHTML = `
+                            <div class="analysis-result">
+                                <h4>⚠️ 薄弱环节检测</h4>
+                                <p style="color: #666; margin-bottom: 12px;">共发现 ${weakPoints.length} 处需要加强的论断：</p>
+                                ${weakPoints.map((w, i) => `
+                                    <div class="weakness-item">
+                                        <div class="sentence">❗ "${escapeHtml(w.sentence)}"</div>
+                                        <div style="margin: 8px 0;"><strong>问题：</strong>${escapeHtml(w.reason)}</div>
+                                        <div class="suggestion"><strong>建议：</strong>${escapeHtml(w.suggestion)}</div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        `;
+                    } else {
+                        resultDiv.innerHTML = `
+                            <div class="analysis-result">
+                                <h4>⚠️ 薄弱环节检测</h4>
+                                <pre style="white-space: pre-wrap; font-size: 13px;">${escapeHtml(responseText)}</pre>
+                            </div>
+                        `;
+                    }
+                } else {
+                    resultDiv.innerHTML = '<div class="analysis-result" style="color: #f44336;">检测失败: ' + (result.error?.message || JSON.stringify(result)) + '</div>';
+                }
+            } catch (e) {
+                resultDiv.innerHTML = '<div class="analysis-result" style="color: #f44336;">请求失败: ' + e.message + '</div>';
+            }
+        }
+        
+        async function analyzePosition() {
+            const content = document.getElementById('reviewContent').value;
+            const resultDiv = document.getElementById('analysisResult');
+            
+            if (!content.trim()) {
+                alert('请先输入或上传待审核的文档');
+                return;
+            }
+            
+            resultDiv.innerHTML = '<div class="analyzing">AI正在分析学术立场</div>';
+            
+            try {
+                const apiKey = document.getElementById('apiKey').value;
+                const isProxy = !!API_BASE;
+                
+                const systemPrompt = `你是一位学术史专家，擅长分析论文作者在学术史中的立场。
+
+请分析论文的学术立场，包括但不限于：
+1. 对前人研究成果的态度（继承、批判、超越）
+2. 方法论取向（实证、诠释、批判等）
+3. 核心概念的使用和理解
+4. 参考文献的倾向性
+5. 与当前学术主流的关系
+
+请用以下JSON格式返回分析结果：
+{
+  "positions": [
+    {
+      "axis_name": "坐标轴名称（如：信古-疑古）",
+      "left_label": "左端立场",
+      "right_label": "右端立场",
+      "marker_position": 30,
+      "marker_label": "论文立场",
+      "evidence": "判断依据",
+      "warning": "警示（如有）"
+    }
+  ]
+}`;
+
+                const requestBody = isProxy ? {
+                    api_key: apiKey,
+                    action: 'position_analysis',
+                    content: content
+                } : {
+                    model: 'glm-4-flash',
+                    messages: [
+                        { role: 'system', content: systemPrompt },
+                        { role: 'user', content: '请分析以下论文的学术立场：\n\n' + content }
+                    ]
+                };
+                
+                const fetchOptions = {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(requestBody)
+                };
+                
+                if (!isProxy) {
+                    fetchOptions.headers['Authorization'] = 'Bearer ' + apiKey;
+                }
+                
+                const response = await fetch(API_BASE || 'https://open.bigmodel.cn/api/paas/v4/chat/completions', fetchOptions);
+                const result = await response.json();
+                
+                if (result.choices && result.choices[0]) {
+                    let responseText = result.choices[0].message.content;
+                    
+                    let positions = [];
+                    try {
+                        const jsonMatch = responseText.match(/\{[\s\S]*\}/);
+                        if (jsonMatch) {
+                            const parsed = JSON.parse(jsonMatch[0]);
+                            positions = parsed.positions || [];
+                        }
+                    } catch {}
+                    
+                    if (positions.length > 0) {
+                        let html = `
+                            <div class="analysis-result">
+                                <h4>📊 学术立场光谱</h4>
+                                ${positions.map(p => `
+                                    <div class="position-item">
+                                        <div class="axis-name">${escapeHtml(p.axis_name)}</div>
+                                        <div class="position-chart">
+                                            <div class="position-axis">
+                                                <span class="axis-label left">${escapeHtml(p.left_label)}</span>
+                                                <span class="axis-label center">中立</span>
+                                                <span class="axis-label right">${escapeHtml(p.right_label)}</span>
+                                                <div class="position-marker" style="left: ${p.marker_position}%;"></div>
+                                            </div>
+                                            <span class="marker-label">📍 ${escapeHtml(p.marker_label)}</span>
+                                            <p style="margin-top: 8px; font-size: 12px; color: #666;">判断依据：${escapeHtml(p.evidence)}</p>
+                                            ${p.warning ? `<div class="position-warning">⚠️ ${escapeHtml(p.warning)}</div>` : ''}
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        `;
+                        resultDiv.innerHTML = html;
+                    } else {
+                        resultDiv.innerHTML = `
+                            <div class="analysis-result">
+                                <h4>📊 学术立场分析</h4>
+                                <pre style="white-space: pre-wrap; font-size: 13px;">${escapeHtml(responseText)}</pre>
+                            </div>
+                        `;
+                    }
+                } else {
+                    resultDiv.innerHTML = '<div class="analysis-result" style="color: #f44336;">分析失败: ' + (result.error?.message || JSON.stringify(result)) + '</div>';
+                }
+            } catch (e) {
+                resultDiv.innerHTML = '<div class="analysis-result" style="color: #f44336;">请求失败: ' + e.message + '</div>';
+            }
+        }
+        
+        document.getElementById('docName').addEventListener('input', function() {
+            renderVersionList();
+        });
     </script>
 </body>
 </html>
