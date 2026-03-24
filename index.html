@@ -571,6 +571,18 @@
             border-radius: 50%;
             transform: translateX(-50%);
             box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            cursor: pointer;
+        }
+        .position-marker:hover .marker-tooltip {
+            display: block !important;
+        }
+        .analysis-wrapper {
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .analysis-wrapper:last-child {
+            border-bottom: none;
         }
         .position-item {
             margin-bottom: 16px;
@@ -846,17 +858,25 @@
                     </div>
                     
                     <div style="margin-top: 16px; padding-top: 16px; border-top: 1px dashed #e0e0e0;">
-                        <h4 style="color: #333; font-size: 14px; margin-bottom: 12px;">📖 经典互证参考</h4>
-                        <div class="auto-detect-bar">
-                            <label><input type="checkbox" id="autoCitation" onchange="runAutoAnalysis()"> 内证互参</label>
-                            <label><input type="checkbox" id="autoExegesis" onchange="runAutoAnalysis()"> 训诂释义</label>
-                            <label><input type="checkbox" id="autoCrossRef" onchange="runAutoAnalysis()"> 跨文献关联</label>
-                            <button class="btn btn-small" onclick="runAutoAnalysis()">🔍 检测文本</button>
+                        <h4 style="color: #333; font-size: 14px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                            📖 经典互证参考
+                            <button class="btn btn-small btn-secondary" onclick="toggleCitationSection(this)" id="citationToggleBtn">▼ 展开</button>
+                        </h4>
+                        <div id="citationPanel" style="display: none;">
+                            <div class="auto-detect-bar">
+                                <label><input type="checkbox" id="autoCitation" onchange="runAutoAnalysis()"> 内证互参</label>
+                                <label><input type="checkbox" id="autoExegesis" onchange="runAutoAnalysis()"> 训诂释义</label>
+                                <label><input type="checkbox" id="autoCrossRef" onchange="runAutoAnalysis()"> 跨文献关联</label>
+                                <button class="btn btn-small" onclick="runAutoAnalysis()">🔍 检测文本</button>
+                            </div>
+                            <div id="citationResult"></div>
                         </div>
-                        <div id="citationResult"></div>
                     </div>
                     
                     <div id="analysisResult"></div>
+                    <div id="clearAnalysisBtn" style="text-align: center; margin-top: 12px; display: none;">
+                        <button class="btn btn-small btn-secondary" onclick="clearAnalysisResults()">🗑️ 清除分析结果</button>
+                    </div>
                 </div>
             </div>
             
@@ -1772,7 +1792,7 @@ ${teachingSummary}
                     } catch {}
                     
                     if (questions.length > 0) {
-                        resultDiv.innerHTML = `
+                        const html = `
                             <div class="analysis-result">
                                 <h4>❓ 预设质疑问题</h4>
                                 ${questions.map((q, i) => `
@@ -1784,19 +1804,21 @@ ${teachingSummary}
                                 `).join('')}
                             </div>
                         `;
+                        appendAnalysisResult(html);
                     } else {
-                        resultDiv.innerHTML = `
+                        const html = `
                             <div class="analysis-result">
                                 <h4>❓ 预设质疑问题</h4>
                                 <pre style="white-space: pre-wrap; font-size: 13px;">${escapeHtml(responseText)}</pre>
                             </div>
                         `;
+                        appendAnalysisResult(html);
                     }
                 } else {
-                    resultDiv.innerHTML = '<div class="analysis-result" style="color: #f44336;">生成失败: ' + (result.error?.message || JSON.stringify(result)) + '</div>';
+                    appendAnalysisResult('<div class="analysis-result" style="color: #f44336;">生成失败: ' + (result.error?.message || JSON.stringify(result)) + '</div>');
                 }
             } catch (e) {
-                resultDiv.innerHTML = '<div class="analysis-result" style="color: #f44336;">请求失败: ' + e.message + '</div>';
+                appendAnalysisResult('<div class="analysis-result" style="color: #f44336;">请求失败: ' + e.message + '</div>');
             }
         }
         
@@ -1878,7 +1900,7 @@ ${teachingSummary}
                     } catch {}
                     
                     if (weakPoints.length > 0) {
-                        resultDiv.innerHTML = `
+                        const html = `
                             <div class="analysis-result">
                                 <h4>⚠️ 薄弱环节检测</h4>
                                 <p style="color: #666; margin-bottom: 12px;">共发现 ${weakPoints.length} 处需要加强的论断：</p>
@@ -1891,19 +1913,21 @@ ${teachingSummary}
                                 `).join('')}
                             </div>
                         `;
+                        appendAnalysisResult(html);
                     } else {
-                        resultDiv.innerHTML = `
+                        const html = `
                             <div class="analysis-result">
                                 <h4>⚠️ 薄弱环节检测</h4>
                                 <pre style="white-space: pre-wrap; font-size: 13px;">${escapeHtml(responseText)}</pre>
                             </div>
                         `;
+                        appendAnalysisResult(html);
                     }
                 } else {
-                    resultDiv.innerHTML = '<div class="analysis-result" style="color: #f44336;">检测失败: ' + (result.error?.message || JSON.stringify(result)) + '</div>';
+                    appendAnalysisResult('<div class="analysis-result" style="color: #f44336;">检测失败: ' + (result.error?.message || JSON.stringify(result)) + '</div>');
                 }
             } catch (e) {
-                resultDiv.innerHTML = '<div class="analysis-result" style="color: #f44336;">请求失败: ' + e.message + '</div>';
+                appendAnalysisResult('<div class="analysis-result" style="color: #f44336;">请求失败: ' + e.message + '</div>');
             }
         }
         
@@ -1987,7 +2011,11 @@ ${teachingSummary}
                         let html = `
                             <div class="analysis-result">
                                 <h4>📊 学术立场光谱</h4>
-                                ${positions.map(p => `
+                                ${positions.map(p => {
+                                    const pos = Math.max(5, Math.min(95, p.marker_position || 50));
+                                    const leftPos = pos - 12;
+                                    const labelPos = pos - 50;
+                                    return `
                                     <div class="position-item">
                                         <div class="axis-name">${escapeHtml(p.axis_name)}</div>
                                         <div class="position-chart">
@@ -1995,30 +2023,41 @@ ${teachingSummary}
                                                 <span class="axis-label left">${escapeHtml(p.left_label)}</span>
                                                 <span class="axis-label center">中立</span>
                                                 <span class="axis-label right">${escapeHtml(p.right_label)}</span>
-                                                <div class="position-marker" style="left: ${p.marker_position}%;"></div>
+                                                <div class="position-marker" style="left: ${pos}%;">
+                                                    <div class="marker-tooltip" style="position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%); background: #2d3436; color: white; padding: 4px 8px; border-radius: 4px; font-size: 11px; white-space: nowrap; display: none;">${escapeHtml(p.marker_label)}</div>
+                                                </div>
                                             </div>
-                                            <span class="marker-label">📍 ${escapeHtml(p.marker_label)}</span>
-                                            <p style="margin-top: 8px; font-size: 12px; color: #666;">判断依据：${escapeHtml(p.evidence)}</p>
+                                            <div style="margin-top: 12px; padding: 10px; background: #f5f5f5; border-radius: 6px;">
+                                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                                                    <span style="display: inline-block; width: 12px; height: 12px; background: #2d3436; border-radius: 50%;"></span>
+                                                    <strong>立场：</strong>${escapeHtml(p.marker_label)}
+                                                </div>
+                                                <div style="margin-left: 20px;">
+                                                    <div style="font-size: 13px; color: #666; margin-bottom: 4px;"><strong>位置：</strong>${leftPos.toFixed(0)}% → ${escapeHtml(p.left_label)} | ${pos.toFixed(0)}% → ${escapeHtml(p.marker_label)} | ${escapeHtml(p.right_label)} ← 100%</div>
+                                                    <div style="font-size: 13px; color: #666;"><strong>依据：</strong>${escapeHtml(p.evidence)}</div>
+                                                </div>
+                                            </div>
                                             ${p.warning ? `<div class="position-warning">⚠️ ${escapeHtml(p.warning)}</div>` : ''}
                                         </div>
                                     </div>
-                                `).join('')}
+                                `}).join('')}
                             </div>
                         `;
-                        resultDiv.innerHTML = html;
+                        appendAnalysisResult(html);
                     } else {
-                        resultDiv.innerHTML = `
+                        const html = `
                             <div class="analysis-result">
                                 <h4>📊 学术立场分析</h4>
                                 <pre style="white-space: pre-wrap; font-size: 13px;">${escapeHtml(responseText)}</pre>
                             </div>
                         `;
+                        appendAnalysisResult(html);
                     }
                 } else {
-                    resultDiv.innerHTML = '<div class="analysis-result" style="color: #f44336;">分析失败: ' + (result.error?.message || JSON.stringify(result)) + '</div>';
+                    appendAnalysisResult('<div class="analysis-result" style="color: #f44336;">分析失败: ' + (result.error?.message || JSON.stringify(result)) + '</div>');
                 }
             } catch (e) {
-                resultDiv.innerHTML = '<div class="analysis-result" style="color: #f44336;">请求失败: ' + e.message + '</div>';
+                appendAnalysisResult('<div class="analysis-result" style="color: #f44336;">请求失败: ' + e.message + '</div>');
             }
         }
         
@@ -2069,16 +2108,31 @@ ${teachingSummary}
                     for (const [topic, citations] of Object.entries(topics)) {
                         const topicPattern = new RegExp(topic, 'i');
                         if (topicPattern.test(content)) {
+                            const sectionId = 'citation_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5);
                             results += `
-                                <div class="citation-section">
+                                <div class="citation-section" id="${sectionId}">
                                     <h4>📚 ${bookName}·内证互参：论"${topic}"</h4>
-                                    ${citations.slice(0, 4).map(c => `
-                                        <div class="citation-item">
-                                            <div class="chapter">《${bookName}·${c.chapter}》(${c.line})</div>
-                                            <div class="content">"${c.content}"</div>
+                                    <div class="citation-list">
+                                        ${citations.slice(0, 4).map(c => `
+                                            <div class="citation-item">
+                                                <div class="chapter">《${bookName}·${c.chapter}》(${c.line})</div>
+                                                <div class="content">"${c.content}"</div>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                    ${citations.length > 4 ? `
+                                        <div class="citation-more" style="display: none;">
+                                            ${citations.slice(4).map(c => `
+                                                <div class="citation-item">
+                                                    <div class="chapter">《${bookName}·${c.chapter}》(${c.line})</div>
+                                                    <div class="content">"${c.content}"</div>
+                                                </div>
+                                            `).join('')}
                                         </div>
-                                    `).join('')}
-                                    ${citations.length > 4 ? `<p style="color: #888; font-size: 12px;">...还有 ${citations.length - 4} 处相关论述</p>` : ''}
+                                        <button class="btn btn-small btn-secondary" onclick="toggleCitationMore(this, ${citations.length - 4})" style="margin-top: 8px;">
+                                            📖 展开剩余 ${citations.length - 4} 处
+                                        </button>
+                                    ` : ''}
                                     <div class="citation-suggestion">
                                         💡 建议综合考察${bookName}中论"${topic}"的各章，注意不同语境的细微差别
                                     </div>
@@ -2091,6 +2145,17 @@ ${teachingSummary}
             }
             
             return results;
+        }
+
+        function toggleCitationMore(btn, count) {
+            const moreDiv = btn.previousElementSibling;
+            if (moreDiv.style.display === 'none') {
+                moreDiv.style.display = 'block';
+                btn.textContent = `📕 收起 ${count} 处`;
+            } else {
+                moreDiv.style.display = 'none';
+                btn.textContent = `📖 展开剩余 ${count} 处`;
+            }
         }
         
         function analyzeExegesis(content) {
@@ -2105,43 +2170,68 @@ ${teachingSummary}
             }
             
             if (foundWords.length > 0) {
+                const sectionId = 'exegesis_' + Date.now();
                 results += `
-                    <div class="exegesis-section">
+                    <div class="exegesis-section" id="${sectionId}">
                         <h4>📖 训诂释义参考</h4>
-                        ${foundWords.slice(0, 3).map(item => `
-                            <div class="exegesis-item">
-                                <div class="word">"${item.word}"</div>
-                                <div class="def">
-                                    <span class="def-label">【本义】</span>
-                                    <span class="def-content">${item.data.benyi}</span>
-                                </div>
-                                <div class="def">
-                                    <span class="def-label">【《说文》】</span>
-                                    <span class="def-content">"${item.data.shuowen}"</span>
-                                </div>
-                                ${item.data.duanzhu ? `
-                                    <div class="def">
-                                        <span class="def-label">【段注】</span>
-                                        <span class="def-content">"${item.data.duanzhu}"</span>
-                                    </div>
-                                ` : ''}
-                                <div class="yinshenyi">
-                                    <span class="def-label">【引申义】</span>
-                                    ${item.data.yinshenyi.join('、')}
-                                </div>
-                                ${item.data.warning ? `
-                                    <div class="exegesis-warning">
-                                        ⚠️ ${item.data.warning}
-                                    </div>
-                                ` : ''}
+                        <div class="exegesis-list">
+                            ${foundWords.slice(0, 3).map(item => renderExegesisItem(item)).join('')}
+                        </div>
+                        ${foundWords.length > 3 ? `
+                            <div class="exegesis-more" style="display: none;">
+                                ${foundWords.slice(3).map(item => renderExegesisItem(item)).join('')}
                             </div>
-                        `).join('')}
-                        ${foundWords.length > 3 ? `<p style="color: #888; font-size: 12px;">...还有 ${foundWords.length - 3} 个词</p>` : ''}
+                            <button class="btn btn-small btn-secondary" onclick="toggleExegesisMore(this, ${foundWords.length - 3})" style="margin-top: 10px;">
+                                📖 展开剩余 ${foundWords.length - 3} 个词
+                            </button>
+                        ` : ''}
                     </div>
                 `;
             }
             
             return results;
+        }
+
+        function renderExegesisItem(item) {
+            return `
+                <div class="exegesis-item">
+                    <div class="word">"${item.word}"</div>
+                    <div class="def">
+                        <span class="def-label">【本义】</span>
+                        <span class="def-content">${item.data.benyi}</span>
+                    </div>
+                    <div class="def">
+                        <span class="def-label">【《说文》】</span>
+                        <span class="def-content">"${item.data.shuowen}"</span>
+                    </div>
+                    ${item.data.duanzhu ? `
+                        <div class="def">
+                            <span class="def-label">【段注】</span>
+                            <span class="def-content">"${item.data.duanzhu}"</span>
+                        </div>
+                    ` : ''}
+                    <div class="yinshenyi">
+                        <span class="def-label">【引申义】</span>
+                        ${item.data.yinshenyi.join('、')}
+                    </div>
+                    ${item.data.warning ? `
+                        <div class="exegesis-warning">
+                            ⚠️ ${item.data.warning}
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        }
+
+        function toggleExegesisMore(btn, count) {
+            const moreDiv = btn.previousElementSibling;
+            if (moreDiv.style.display === 'none') {
+                moreDiv.style.display = 'block';
+                btn.textContent = `📕 收起 ${count} 个词`;
+            } else {
+                moreDiv.style.display = 'none';
+                btn.textContent = `📖 展开剩余 ${count} 个词`;
+            }
         }
         
         function analyzeCrossReferences(content) {
@@ -2156,34 +2246,105 @@ ${teachingSummary}
             }
             
             if (foundTopics.length > 0) {
+                const sectionId = 'crossref_' + Date.now();
                 results += `
-                    <div class="cross-ref-section">
+                    <div class="cross-ref-section" id="${sectionId}">
                         <h4>📚 跨文献关联建议</h4>
-                        ${foundTopics.slice(0, 3).map(item => `
-                            <div class="cross-ref-item">
-                                <div class="source">📖 您正在讨论"${item.topic}"</div>
-                                ${item.data.references.slice(0, 3).map(ref => `
-                                    <div style="margin-top: 6px; padding-left: 10px; border-left: 2px solid #e0e0e0;">
-                                        <span style="color: #1565c0; font-size: 12px;">《${ref.book}·${ref.chapter}》</span>
-                                        <div class="quote">"${ref.content.substring(0, 60)}${ref.content.length > 60 ? '...' : ''}"</div>
-                                    </div>
-                                `).join('')}
-                                <div class="citation-suggestion" style="margin-top: 8px;">
-                                    💡 ${item.data.suggestion}
-                                </div>
+                        <div class="cross-ref-list">
+                            ${foundTopics.slice(0, 3).map(item => renderCrossRefItem(item)).join('')}
+                        </div>
+                        ${foundTopics.length > 3 ? `
+                            <div class="cross-ref-more" style="display: none;">
+                                ${foundTopics.slice(3).map(item => renderCrossRefItem(item)).join('')}
                             </div>
-                        `).join('')}
-                        ${foundTopics.length > 3 ? `<p style="color: #888; font-size: 12px;">...还有 ${foundTopics.length - 3} 个相关主题</p>` : ''}
+                            <button class="btn btn-small btn-secondary" onclick="toggleCrossRefMore(this, ${foundTopics.length - 3})" style="margin-top: 10px;">
+                                📖 展开剩余 ${foundTopics.length - 3} 个相关主题
+                            </button>
+                        ` : ''}
                     </div>
                 `;
             }
             
             return results;
         }
+
+        function renderCrossRefItem(item) {
+            const refSectionId = 'ref_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5);
+            return `
+                <div class="cross-ref-item">
+                    <div class="source">📖 您正在讨论"${item.topic}"</div>
+                    ${item.data.references.slice(0, 3).map(ref => `
+                        <div style="margin-top: 6px; padding-left: 10px; border-left: 2px solid #e0e0e0;">
+                            <span style="color: #1565c0; font-size: 12px;">《${ref.book}·${ref.chapter}》</span>
+                            <div class="quote">"${ref.content.substring(0, 60)}${ref.content.length > 60 ? '...' : ''}"</div>
+                        </div>
+                    `).join('')}
+                    ${item.data.references.length > 3 ? `
+                        <div class="ref-more" id="${refSectionId}" style="display: none;">
+                            ${item.data.references.slice(3).map(ref => `
+                                <div style="margin-top: 6px; padding-left: 10px; border-left: 2px solid #e0e0e0;">
+                                    <span style="color: #1565c0; font-size: 12px;">《${ref.book}·${ref.chapter}》</span>
+                                    <div class="quote">"${ref.content.substring(0, 60)}${ref.content.length > 60 ? '...' : ''}"</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <button class="btn btn-small" onclick="toggleRefMore(this, '${refSectionId}', ${item.data.references.length - 3})" style="margin-top: 6px;">
+                            📖 还有 ${item.data.references.length - 3} 条引用
+                        </button>
+                    ` : ''}
+                    <div class="citation-suggestion" style="margin-top: 8px;">
+                        💡 ${item.data.suggestion}
+                    </div>
+                </div>
+            `;
+        }
+
+        function toggleCrossRefMore(btn, count) {
+            const moreDiv = btn.previousElementSibling;
+            if (moreDiv.style.display === 'none') {
+                moreDiv.style.display = 'block';
+                btn.textContent = `📕 收起 ${count} 个相关主题`;
+            } else {
+                moreDiv.style.display = 'none';
+                btn.textContent = `📖 展开剩余 ${count} 个相关主题`;
+            }
+        }
+
+        function toggleRefMore(btn, refId, count) {
+            const moreDiv = document.getElementById(refId);
+            if (moreDiv.style.display === 'none') {
+                moreDiv.style.display = 'block';
+                btn.textContent = `📕 收起 ${count} 条引用`;
+            } else {
+                moreDiv.style.display = 'none';
+                btn.textContent = `📖 还有 ${count} 条引用`;
+            }
+        }
         
         document.getElementById('docName').addEventListener('input', function() {
             renderVersionList();
         });
+
+        function toggleCitationSection(btn) {
+            const panel = document.getElementById('citationPanel');
+            const isHidden = panel.style.display === 'none';
+            panel.style.display = isHidden ? 'block' : 'none';
+            btn.textContent = isHidden ? '▲ 收起' : '▼ 展开';
+        }
+
+        function appendAnalysisResult(resultHtml) {
+            const container = document.getElementById('analysisResult');
+            const wrapper = document.createElement('div');
+            wrapper.className = 'analysis-wrapper';
+            wrapper.innerHTML = resultHtml;
+            container.appendChild(wrapper);
+            document.getElementById('clearAnalysisBtn').style.display = 'block';
+        }
+
+        function clearAnalysisResults() {
+            document.getElementById('analysisResult').innerHTML = '';
+            document.getElementById('clearAnalysisBtn').style.display = 'none';
+        }
     </script>
 </body>
 </html>
