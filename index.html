@@ -6,6 +6,7 @@
     <title>文档审核助手</title>
     <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
     <script src="references.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
@@ -764,6 +765,43 @@
         .tag-btn:hover {
             background: #bbdefb;
         }
+        .community-doc {
+            background: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+        .community-doc:hover {
+            border-color: #667eea;
+        }
+        .community-doc-title {
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .community-doc-meta {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 8px;
+        }
+        .community-doc-content {
+            font-size: 13px;
+            color: #666;
+            background: #fff;
+            padding: 10px;
+            border-radius: 4px;
+            max-height: 100px;
+            overflow: hidden;
+        }
+        .community-doc-actions {
+            margin-top: 10px;
+            text-align: right;
+        }
+        .empty-community {
+            text-align: center;
+            padding: 40px;
+            color: #888;
+        }
     </style>
 </head>
 <body>
@@ -789,6 +827,7 @@
                 <button class="tab active" onclick="switchTab('teaching')">📖 提交教学文档</button>
                 <button class="tab" onclick="switchTab('review')">🔍 审核文档</button>
                 <button class="tab" onclick="switchTab('knowledge')">📚 知识库</button>
+                <button class="tab" onclick="switchTab('community')">🌐 社区</button>
             </div>
             
             <div id="teaching-panel">
@@ -840,6 +879,9 @@
                 </div>
                 <button class="btn" onclick="submitReviewDoc()" style="margin-top: 16px; width: 100%;">
                     审核文档
+                </button>
+                <button class="btn btn-secondary" onclick="uploadToCommunity()" style="margin-top: 8px; width: 100%;">
+                    🌐 上传到社区
                 </button>
                 <div id="review-result" class="result hidden"></div>
                 
@@ -912,6 +954,16 @@
                 
                 <div class="kb-list" id="kbList"></div>
             </div>
+            
+            <div id="community-panel" class="hidden">
+                <div class="step-info">
+                    🌐 社区文档 - 查看和上传审核结果供他人使用
+                </div>
+                <div id="communityStatus" style="padding:10px;background:#e3f2fd;border-radius:8px;margin-bottom:16px;text-align:center;">
+                    正在连接Supabase...
+                </div>
+                <div id="communityDocs"></div>
+            </div>
         </div>
         
         <div class="card" style="background: #f0f0f0;">
@@ -976,10 +1028,15 @@
                 renderKnowledgeBase();
                 checkStorageWarning();
             }
+            else if (tab === 'community') {
+                tabs[3].classList.add('active');
+                loadCommunityDocs();
+            }
             
             document.getElementById('teaching-panel').classList.toggle('hidden', tab !== 'teaching');
             document.getElementById('review-panel').classList.toggle('hidden', tab !== 'review');
             document.getElementById('knowledge-panel').classList.toggle('hidden', tab !== 'knowledge');
+            document.getElementById('community-panel').classList.toggle('hidden', tab !== 'community');
         }
         
         async function handleFileSelect(input, type) {
@@ -2010,32 +2067,17 @@ ${teachingSummary}
                     if (positions.length > 0) {
                         let html = `
                             <div class="analysis-result">
-                                <h4>📊 学术立场光谱</h4>
+                                <h4>📊 学术立场分析</h4>
                                 ${positions.map(p => {
-                                    const pos = Math.max(5, Math.min(95, p.marker_position || 50));
-                                    const leftPos = pos - 12;
-                                    const labelPos = pos - 50;
                                     return `
                                     <div class="position-item">
                                         <div class="axis-name">${escapeHtml(p.axis_name)}</div>
-                                        <div class="position-chart">
-                                            <div class="position-axis">
-                                                <span class="axis-label left">${escapeHtml(p.left_label)}</span>
-                                                <span class="axis-label center">中立</span>
-                                                <span class="axis-label right">${escapeHtml(p.right_label)}</span>
-                                                <div class="position-marker" style="left: ${pos}%;">
-                                                    <div class="marker-tooltip" style="position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%); background: #2d3436; color: white; padding: 4px 8px; border-radius: 4px; font-size: 11px; white-space: nowrap; display: none;">${escapeHtml(p.marker_label)}</div>
-                                                </div>
+                                        <div style="background: #f5f5f5; border-radius: 8px; padding: 16px; margin-top: 8px;">
+                                            <div style="margin-bottom: 8px;">
+                                                <strong>立场：</strong>${escapeHtml(p.marker_label)}
                                             </div>
-                                            <div style="margin-top: 12px; padding: 10px; background: #f5f5f5; border-radius: 6px;">
-                                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
-                                                    <span style="display: inline-block; width: 12px; height: 12px; background: #2d3436; border-radius: 50%;"></span>
-                                                    <strong>立场：</strong>${escapeHtml(p.marker_label)}
-                                                </div>
-                                                <div style="margin-left: 20px;">
-                                                    <div style="font-size: 13px; color: #666; margin-bottom: 4px;"><strong>位置：</strong>${leftPos.toFixed(0)}% → ${escapeHtml(p.left_label)} | ${pos.toFixed(0)}% → ${escapeHtml(p.marker_label)} | ${escapeHtml(p.right_label)} ← 100%</div>
-                                                    <div style="font-size: 13px; color: #666;"><strong>依据：</strong>${escapeHtml(p.evidence)}</div>
-                                                </div>
+                                            <div style="font-size: 13px; color: #666; margin-bottom: 8px;">
+                                                <strong>判断依据：</strong>${escapeHtml(p.evidence)}
                                             </div>
                                             ${p.warning ? `<div class="position-warning">⚠️ ${escapeHtml(p.warning)}</div>` : ''}
                                         </div>
@@ -2345,6 +2387,196 @@ ${teachingSummary}
             document.getElementById('analysisResult').innerHTML = '';
             document.getElementById('clearAnalysisBtn').style.display = 'none';
         }
+        
+        let communityClient = null;
+        
+        function initCommunity() {
+            try {
+                if (typeof window.supabase === 'undefined') {
+                    document.getElementById('communityStatus').innerHTML = 'Supabase库加载中...';
+                    setTimeout(initCommunity, 500);
+                    return;
+                }
+                communityClient = window.supabase.createClient(DEFAULT_URL, DEFAULT_KEY);
+                localStorage.setItem('sbUrl', DEFAULT_URL);
+                localStorage.setItem('sbKey', DEFAULT_KEY);
+                document.getElementById('communityStatus').innerHTML = '<span style="color:green">✓ 已连接Supabase</span>';
+                loadCommunityDocs();
+            } catch (e) {
+                document.getElementById('communityStatus').innerHTML = '<span style="color:red">连接失败: ' + e.message + '</span><br><button onclick="initCommunity()" class="btn btn-small" style="margin-top:10px;">重试</button>';
+            }
+        }
+        
+        const DEFAULT_URL = 'https://jvpigxbiwmwvxiawcjml.supabase.co';
+        const DEFAULT_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp2cGlneGJpd213dnhpYXdjam1sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ0OTg5MzksImV4cCI6MjA5MDA3NDkzOX0._HuO96XxWQAyyMlVDdwst-1bxYzWW0lT2827SvGn_8w';
+        
+        function autoConnect() {
+            initCommunity();
+        }
+        
+        async function loadCommunityDocs() {
+            if (!communityClient) {
+                const savedUrl = localStorage.getItem('sbUrl');
+                const savedKey = localStorage.getItem('sbKey');
+                if (savedUrl && savedKey) {
+                    try {
+                        communityClient = window.supabase.createClient(savedUrl, savedKey);
+                    } catch (e) {
+                        console.error(e);
+                    }
+                }
+            }
+            
+            if (!communityClient) {
+                document.getElementById('communityDocs').innerHTML = '<div class="empty-community">正在连接Supabase...<br><button onclick="initCommunity()">点击重试</button></div>';
+                return;
+            }
+            
+            const container = document.getElementById('communityDocs');
+            container.innerHTML = '<div class="empty-community">加载中...</div>';
+            
+            const { data, error } = await communityClient
+                .from('community_docs')
+                .select('*')
+                .order('created_at', { ascending: false })
+                .limit(30);
+            
+            if (error) {
+                console.error(error);
+                container.innerHTML = '<div class="empty-community">加载失败: ' + (error.message || '未知错误') + '<br><br>请确保已创建表<br><pre style="font-size:11px;text-align:left;background:#f5f5f5;padding:10px;border-radius:4px;margin-top:10px;">CREATE TABLE community_docs (\n    id BIGSERIAL PRIMARY KEY,\n    title TEXT NOT NULL,\n    content TEXT NOT NULL,\n    review_result TEXT,\n    author VARCHAR(100),\n    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()\n);\n\nALTER TABLE community_docs ENABLE ROW LEVEL SECURITY;\nCREATE POLICY "Public read" ON community_docs FOR SELECT USING (true);\nCREATE POLICY "Public insert" ON community_docs FOR INSERT WITH CHECK (true);</pre></div>';
+                return;
+            }
+            
+            if (!data || data.length === 0) {
+                container.innerHTML = '<div class="empty-community">暂无文档，成为第一个分享者!</div>';
+                return;
+            }
+            
+            container.innerHTML = data.map(doc => `
+                <div class="community-doc">
+                    <div class="community-doc-title">${escapeHtml(doc.title)}</div>
+                    <div class="community-doc-meta">上传者: ${escapeHtml(doc.author || '匿名')} | ${formatDate(doc.created_at)}</div>
+                    <div class="community-doc-content">${escapeHtml(doc.content?.substring(0, 200) || '')}${doc.content?.length > 200 ? '...' : ''}</div>
+                    <div style="font-size:12px;color:#888;margin-top:8px;">审核结果: ${doc.review_result ? '有' : '无'}</div>
+                    <div class="community-doc-actions">
+                        <button class="btn btn-small btn-secondary" onclick="useCommunityDoc('${doc.id}')">用作教学标准</button>
+                        <button class="btn btn-small" onclick="viewCommunityDoc('${doc.id}')">查看详情</button>
+                        <button class="btn btn-small btn-danger" onclick="deleteCommunityDoc(${doc.id})">删除</button>
+                    </div>
+                </div>
+            `).join('');
+            
+            container.innerHTML += `
+                <div id="docModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;">
+                    <div style="background:white;padding:24px;border-radius:16px;max-width:700px;width:90%;max-height:80vh;overflow-y:auto;">
+                        <h3 id="modalTitle" style="margin-bottom:12px;"></h3>
+                        <div id="modalContent" style="background:#f5f5f5;padding:12px;border-radius:8px;max-height:300px;overflow-y:auto;white-space:pre-wrap;margin-bottom:12px;"></div>
+                        <h4>审核结果:</h4>
+                        <div id="modalReview" style="background:#e8f5e9;padding:12px;border-radius:8px;max-height:200px;overflow-y:auto;white-space:pre-wrap;margin-bottom:12px;"></div>
+                        <button class="btn" onclick="document.getElementById('docModal').style.display='none'">关闭</button>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function useCommunityDoc(id) {
+            if (!communityClient) return;
+            communityClient.from('community_docs').select('*').eq('id', id).then(({ data }) => {
+                if (data && data[0] && data[0].review_result) {
+                    teachingSummary = data[0].review_result;
+                    document.getElementById('teaching-result').textContent = teachingSummary;
+                    document.getElementById('teaching-result').classList.remove('hidden');
+                    alert('已设为教学标准!');
+                } else {
+                    alert('该文档没有审核结果');
+                }
+            });
+        }
+        
+        function viewCommunityDoc(id) {
+            if (!communityClient) return;
+            communityClient.from('community_docs').select('*').eq('id', id).then(({ data }) => {
+                if (data && data[0]) {
+                    const doc = data[0];
+                    document.getElementById('modalTitle').textContent = doc.title;
+                    document.getElementById('modalContent').textContent = doc.content || '无';
+                    document.getElementById('modalReview').textContent = doc.review_result || '无';
+                    document.getElementById('docModal').style.display = 'flex';
+                }
+            });
+        }
+        
+        async function deleteCommunityDoc(id) {
+            if (!confirm('确定删除这篇文档?')) return;
+            
+            try {
+                const response = await fetch(`${DEFAULT_URL}/rest/v1/community_docs?id=eq.${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'apikey': DEFAULT_KEY,
+                        'Authorization': 'Bearer ' + DEFAULT_KEY,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (response.ok || response.status === 204) {
+                    alert('已删除');
+                    loadCommunityDocs();
+                } else {
+                    const err = await response.text();
+                    alert('删除失败: ' + err);
+                }
+            } catch (e) {
+                alert('删除失败: ' + e.message);
+            }
+        }
+        
+        function uploadToCommunity() {
+            initCommunity();
+            setTimeout(() => {
+                doUpload();
+            }, 1000);
+        }
+        
+        function doUpload() {
+            if (!communityClient) {
+                alert('连接Supabase失败，请刷新重试');
+                return;
+            }
+            const content = document.getElementById('reviewContent').value;
+            const title = document.getElementById('docName').value.trim() || '未命名';
+            const reviewResult = document.getElementById('review-result').textContent;
+            const author = prompt('你的名字:', '匿名') || '匿名';
+            
+            if (!content.trim()) {
+                alert('请先审核文档');
+                return;
+            }
+            
+            communityClient.from('community_docs').insert({
+                title: title,
+                content: content,
+                review_result: reviewResult,
+                author: author
+            }).then(({ error }) => {
+                if (error) {
+                    alert('上传失败: ' + error.message);
+                } else {
+                    alert('上传成功!');
+                    loadCommunityDocs();
+                }
+            });
+        }
+        
+        window.addEventListener('load', function() {
+            const savedUrl = localStorage.getItem('sbUrl');
+            const savedKey = localStorage.getItem('sbKey');
+            if (savedUrl && savedKey) {
+                document.getElementById('sbUrl').value = savedUrl;
+                document.getElementById('sbKey').value = savedKey;
+            }
+            autoConnect();
+        });
     </script>
 </body>
 </html>
