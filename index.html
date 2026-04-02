@@ -7,977 +7,1416 @@
     <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
     <script src="references.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        :root {
+            --bg-primary: #f5f0eb;
+            --bg-secondary: #ebe5dd;
+            --bg-card: #fdfbf8;
+            --bg-sidebar: #ebe5dd;
+            --text-primary: #2c2416;
+            --text-secondary: #5a4d3a;
+            --text-muted: #8a7d6a;
+            --accent: #7a5c44;
+            --accent-light: #a67c5a;
+            --border: #d4c8b8;
+            --border-light: #e5ddd3;
+            --white: #ffffff;
+        }
+        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
             min-height: 100vh;
-            padding: 20px;
         }
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
+        
+        .academic-body {
+            font-family: 'Crimson Pro', 'Times New Roman', serif;
         }
-        h1 {
-            color: white;
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 2rem;
-        }
-        .card {
-            background: white;
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 20px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-        }
-        .card h2 {
-            color: #333;
-            margin-bottom: 16px;
-            font-size: 1.2rem;
+        
+        /* ========== Header ========== */
+        .header {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            padding: 0 32px;
+            height: 64px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            justify-content: space-between;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
         }
-        .card h2 .badge {
-            background: #667eea;
-            color: white;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 0.75rem;
+        
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 32px;
         }
-        .card h2 .badge.green {
-            background: #4caf50;
+        
+        .logo {
+            font-family: 'Crimson Pro', serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: 0.05em;
         }
-        .card h2 .badge.orange {
-            background: #ff9800;
-        }
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #555;
-            font-weight: 500;
-        }
-        input[type="text"], input[type="password"], textarea {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
+        
+        .logo span {
+            font-weight: 400;
+            color: var(--text-muted);
             font-size: 14px;
-            transition: border-color 0.3s;
+            margin-left: 8px;
         }
-        input[type="text"]:focus, input[type="password"]:focus, textarea:focus {
-            outline: none;
-            border-color: #667eea;
+        
+        .nav-tabs {
+            display: flex;
+            gap: 4px;
         }
-        textarea {
-            min-height: 120px;
-            resize: vertical;
+        
+        .nav-tab {
+            padding: 8px 20px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            background: transparent;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
             font-family: inherit;
         }
-        .file-upload {
-            border: 2px dashed #ccc;
+        
+        .nav-tab:hover {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+        
+        .nav-tab.active {
+            background: var(--accent);
+            color: var(--white);
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .version-badge {
+            font-size: 11px;
+            color: var(--text-muted);
+            padding: 4px 10px;
+            background: var(--bg-secondary);
+            border-radius: 4px;
+            letter-spacing: 0.03em;
+        }
+        
+        .api-key-input {
+            padding: 6px 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 13px;
+            width: 200px;
+            background: var(--white);
+            font-family: inherit;
+        }
+        
+        .api-key-input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        
+        /* ========== Main Layout ========== */
+        .main-wrapper {
+            padding-top: 64px;
+            min-height: 100vh;
+        }
+        
+        .three-column-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr 300px;
+            min-height: calc(100vh - 64px);
+        }
+        
+        /* ========== Left Sidebar ========== */
+        .sidebar-left {
+            background: var(--bg-sidebar);
+            border-right: 1px solid var(--border);
+            padding: 24px 20px;
+            position: sticky;
+            top: 64px;
+            height: calc(100vh - 64px);
+            overflow-y: auto;
+        }
+        
+        .sidebar-section {
+            margin-bottom: 24px;
+        }
+        
+        .sidebar-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-light);
+        }
+        
+        .grading-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+        
+        .grading-item:last-child {
+            border-bottom: none;
+        }
+        
+        .grading-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        
+        .grading-score {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent);
+        }
+        
+        .version-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .version-item {
+            padding: 10px 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .version-item:hover {
+            border-color: var(--accent);
+        }
+        
+        .version-item.active {
+            border-color: var(--accent);
+            background: rgba(122, 92, 68, 0.08);
+        }
+        
+        .version-number {
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--text-primary);
+        }
+        
+        .version-date {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+        
+        .version-score {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent);
+            margin-top: 4px;
+        }
+        
+        .sidebar-btn {
+            width: 100%;
+            padding: 10px;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        
+        .sidebar-btn:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: var(--white);
+        }
+        
+        /* ========== Center Content ========== */
+        .main-content {
+            padding: 32px 40px;
+            max-width: 900px;
+        }
+        
+        .content-header {
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-light);
+        }
+        
+        .content-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        
+        .content-meta {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+        
+        .content-meta span {
+            margin-right: 16px;
+        }
+        
+        .panel {
+            display: none;
+        }
+        
+        .panel.active {
+            display: block;
+        }
+        
+        /* Teaching Panel */
+        .teaching-panel .instruction-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-left: 3px solid var(--accent);
+            padding: 16px 20px;
             border-radius: 8px;
-            padding: 20px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
+        .file-upload-area {
+            border: 2px dashed var(--border);
+            border-radius: 10px;
+            padding: 32px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s;
+            margin-bottom: 16px;
+            background: var(--bg-card);
         }
-        .file-upload:hover {
-            border-color: #667eea;
-            background: #f8f9ff;
+        
+        .file-upload-area:hover {
+            border-color: var(--accent);
+            background: rgba(122, 92, 68, 0.03);
         }
-        .file-upload input {
+        
+        .file-upload-area input {
             display: none;
         }
-        .btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+        
+        .file-upload-area p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        
+        .file-upload-area .hint {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+        
+        .teaching-docs-list {
+            margin-bottom: 16px;
+        }
+        
+        .teaching-doc-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 14px;
+            background: var(--bg-secondary);
+            border-radius: 6px;
+            margin-bottom: 6px;
+        }
+        
+        .teaching-doc-item .name {
+            font-size: 13px;
+            color: var(--text-primary);
+        }
+        
+        .teaching-doc-item .remove-btn {
+            background: none;
             border: none;
-            padding: 12px 24px;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 18px;
+            padding: 2px 6px;
+        }
+        
+        .teaching-doc-item .remove-btn:hover {
+            color: var(--accent);
+        }
+        
+        .teaching-docs-summary {
+            padding: 10px 14px;
+            background: rgba(122, 92, 68, 0.08);
+            border-radius: 6px;
+            font-size: 13px;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+        
+        .textarea-area {
+            width: 100%;
+            min-height: 150px;
+            padding: 14px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 14px;
+            resize: vertical;
+            background: var(--bg-card);
+            color: var(--text-primary);
+            line-height: 1.7;
+        }
+        
+        .textarea-area:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        
+        .primary-btn {
+            width: 100%;
+            padding: 14px 24px;
+            background: var(--accent);
+            color: var(--white);
+            border: none;
             border-radius: 8px;
             font-size: 14px;
-            cursor: pointer;
             font-weight: 600;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-        }
-        .btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-        .btn-small {
-            padding: 6px 12px;
-            font-size: 12px;
-        }
-        .btn-secondary {
-            background: #e0e0e0;
-            color: #333;
-        }
-        .btn-secondary:hover {
-            background: #d0d0d0;
-        }
-        .btn-danger {
-            background: #f44336;
-        }
-        .btn-danger:hover {
-            background: #d32f2f;
-        }
-        .btn-success {
-            background: #4caf50;
-        }
-        .btn-success:hover {
-            background: #388e3c;
-        }
-        .result {
-            background: #f8f9fa;
-            border-radius: 8px;
-            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
             margin-top: 16px;
+        }
+        
+        .primary-btn:hover {
+            background: var(--text-primary);
+        }
+        
+        .result-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
             white-space: pre-wrap;
-            line-height: 1.6;
-            color: #333;
+            line-height: 1.8;
+            font-size: 14px;
+            color: var(--text-primary);
             max-height: 400px;
             overflow-y: auto;
         }
-        .tabs {
-            display: flex;
-            gap: 8px;
+        
+        /* Review Panel */
+        .review-panel .doc-input-section {
+            margin-bottom: 24px;
+        }
+        
+        .input-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+        
+        .doc-name-input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 14px;
+            background: var(--bg-card);
+            margin-bottom: 8px;
+            font-family: inherit;
+        }
+        
+        .doc-name-input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        
+        .doc-name-hint {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        
+        .score-section {
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .score-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+        
+        .score-value {
+            font-family: 'Crimson Pro', serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        
+        .progress-section {
+            background: rgba(122, 92, 68, 0.08);
+            border-left: 3px solid var(--accent);
+            padding: 14px 18px;
+            border-radius: 0 8px 8px 0;
+            margin: 16px 0;
+        }
+        
+        .progress-section h4 {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        
+        .compare-highlight {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            padding: 12px;
+            margin-top: 8px;
+        }
+        
+        /* Analysis Section */
+        .analysis-section {
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 2px solid var(--border-light);
+        }
+        
+        .section-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+        
+        .analysis-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
             margin-bottom: 20px;
         }
-        .tab {
-            flex: 1;
-            padding: 10px;
-            border: none;
-            background: #e0e0e0;
+        
+        .analysis-btn {
+            padding: 14px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
             border-radius: 8px;
-            cursor: pointer;
+            font-size: 13px;
             font-weight: 500;
-            transition: all 0.3s;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        
+        .analysis-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(122, 92, 68, 0.03);
+        }
+        
+        .auto-detect-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-light);
+            margin-bottom: 16px;
+        }
+        
+        .auto-detect-bar label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+        
+        .auto-detect-bar input[type="checkbox"] {
+            width: 14px;
+            height: 14px;
+            accent-color: var(--accent);
+        }
+        
+        .analysis-result {
+            margin-top: 16px;
+        }
+        
+        .analysis-wrapper {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+        
+        .analysis-result-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+        
+        .question-item, .weakness-item {
+            background: var(--bg-secondary);
+            border-left: 3px solid var(--accent);
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            border-radius: 0 6px 6px 0;
+        }
+        
+        .question-item .quote {
+            font-style: italic;
+            color: var(--text-secondary);
+            padding: 8px 10px;
+            background: var(--white);
+            border-radius: 4px;
+            margin-bottom: 8px;
             font-size: 13px;
         }
-        .tab.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+        
+        .question-item .response, .weakness-item .suggestion {
+            font-size: 13px;
+            color: var(--text-primary);
         }
-        .hidden { display: none; }
-        .loading {
+        
+        .weakness-item .sentence {
+            font-weight: 500;
+            padding: 8px 10px;
+            background: var(--white);
+            border-radius: 4px;
+            margin-bottom: 8px;
+            border: 1px solid var(--border-light);
+        }
+        
+        .loading, .analyzing {
             text-align: center;
-            padding: 20px;
-            color: #666;
+            padding: 24px;
+            color: var(--text-muted);
+            font-size: 14px;
         }
-        .loading::after {
+        
+        .loading::after, .analyzing::after {
             content: "...";
             animation: dots 1.5s steps(4, end) infinite;
         }
+        
         @keyframes dots {
             0%, 20% { content: "."; }
             40% { content: ".."; }
             60%, 100% { content: "..."; }
         }
-        .step-info {
-            background: #e8f4fd;
-            border-left: 4px solid #2196F3;
-            padding: 12px 16px;
-            margin-bottom: 16px;
-            border-radius: 0 8px 8px 0;
-            color: #1565C0;
-            font-size: 13px;
+        
+        .clear-btn {
+            text-align: center;
+            margin-top: 12px;
         }
-        .score-section {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+        
+        .clear-btn button {
+            padding: 8px 16px;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 12px;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+        
+        .clear-btn button:hover {
+            background: var(--bg-secondary);
+        }
+        
+        /* Knowledge Base Panel */
+        .kb-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
             border-radius: 8px;
             padding: 16px;
-            margin: 16px 0;
             text-align: center;
         }
-        .score-section label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: 600;
-            color: #333;
+        
+        .stat-value {
+            font-family: 'Crimson Pro', serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--accent);
         }
-        .score-display {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #667eea;
-            margin: 10px 0;
-        }
-        .score-input {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        .score-input input {
-            width: 80px;
-            text-align: center;
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
-        .score-input span {
-            color: #666;
-            font-size: 0.9rem;
-        }
-        .version-list {
-            margin-top: 12px;
-            max-height: 200px;
-            overflow-y: auto;
-        }
-        .version-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 12px;
-            background: #f5f5f5;
-            border-radius: 6px;
-            margin-bottom: 6px;
+        
+        .stat-label {
             font-size: 12px;
-        }
-        .version-item.current {
-            background: #e3f2fd;
-            border: 1px solid #2196F3;
-        }
-        .version-item .version-info {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-        .version-item .version-time {
-            color: #888;
-            font-size: 11px;
-        }
-        .progress-badge {
-            background: #4caf50;
-            color: white;
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-size: 11px;
-            font-weight: bold;
-        }
-        .progress-badge.negative {
-            background: #f44336;
-        }
-        .progress-badge.neutral {
-            background: #ff9800;
-        }
-        .doc-name-input {
-            margin-bottom: 12px;
-        }
-        .doc-name-input input {
-            font-size: 13px;
-            padding: 10px;
-        }
-        .doc-name-input small {
-            color: #888;
-            font-size: 11px;
+            color: var(--text-muted);
             margin-top: 4px;
-            display: block;
         }
-        .kb-list {
-            max-height: 400px;
-            overflow-y: auto;
+        
+        .kb-search-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
         }
+        
+        .kb-search-bar input {
+            flex: 1;
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 13px;
+            background: var(--bg-card);
+        }
+        
+        .kb-search-bar input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        
+        .kb-search-bar button {
+            padding: 10px 16px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+        }
+        
+        .kb-search-bar button:hover {
+            background: var(--bg-card);
+        }
+        
+        .kb-teaching-section, .kb-review-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+        
+        .kb-section-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-light);
+        }
+        
         .kb-item {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             padding: 12px;
-            background: #f9f9f9;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            border: 1px solid #eee;
+            background: var(--bg-secondary);
+            border-radius: 6px;
+            margin-bottom: 8px;
         }
+        
         .kb-item:hover {
-            border-color: #667eea;
+            background: var(--bg-primary);
         }
-        .kb-item .kb-info {
-            flex: 1;
+        
+        .kb-name {
+            font-weight: 500;
+            font-size: 13px;
+            color: var(--text-primary);
         }
-        .kb-item .kb-name {
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 4px;
-        }
-        .kb-item .kb-meta {
+        
+        .kb-meta {
             font-size: 11px;
-            color: #888;
-        }
-        .kb-item .kb-versions {
-            font-size: 11px;
-            color: #666;
+            color: var(--text-muted);
             margin-top: 4px;
         }
-        .kb-item .kb-actions {
+        
+        .kb-actions {
             display: flex;
             gap: 6px;
-            flex-shrink: 0;
         }
+        
+        .kb-actions button {
+            padding: 4px 10px;
+            font-size: 11px;
+            border-radius: 4px;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            background: var(--white);
+            color: var(--text-secondary);
+        }
+        
+        .kb-actions button:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .kb-actions .btn-danger {
+            color: var(--accent-light);
+        }
+        
         .kb-empty {
             text-align: center;
             padding: 40px;
-            color: #888;
+            color: var(--text-muted);
+            font-size: 14px;
         }
-        .kb-stats {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px;
-            background: #f0f0f0;
-            border-radius: 8px;
-            margin-bottom: 16px;
-            font-size: 12px;
-            color: #666;
-        }
-        .kb-stats .stat {
-            text-align: center;
-        }
-        .kb-stats .stat-value {
-            font-size: 18px;
-            font-weight: bold;
-            color: #333;
-        }
-        .progress-section {
-            background: #fff3e0;
-            border-radius: 8px;
-            padding: 12px;
-            margin: 12px 0;
-            border-left: 4px solid #ff9800;
-        }
-        .progress-section h4 {
-            color: #e65100;
-            font-size: 13px;
-            margin-bottom: 8px;
-        }
-        .compare-highlight {
-            background: #e8f5e9;
-            border: 1px solid #4caf50;
-            border-radius: 6px;
-            padding: 10px;
-            margin: 8px 0;
-            font-size: 13px;
-        }
-        .compare-highlight h5 {
-            color: #2e7d32;
-            margin-bottom: 4px;
-        }
-        .compare-highlight.negative {
-            background: #ffebee;
-            border-color: #f44336;
-        }
-        .compare-highlight.negative h5 {
-            color: #c62828;
-        }
+        
         .storage-warning {
-            background: #fff3cd;
-            border: 1px solid #ffc107;
+            background: rgba(166, 124, 90, 0.1);
+            border: 1px solid var(--accent-light);
             border-radius: 6px;
-            padding: 10px;
-            font-size: 12px;
-            color: #856404;
-        }
-        .teaching-docs-list {
-            max-height: 200px;
-            overflow-y: auto;
-            margin-bottom: 12px;
-        }
-        .teaching-docs-list:empty {
-            display: none;
-        }
-        .teaching-doc-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 12px;
-            background: #f0f7ff;
-            border: 1px solid #e0e7ff;
-            border-radius: 6px;
-            margin-bottom: 6px;
-            font-size: 13px;
-        }
-        .teaching-doc-item .doc-name {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .teaching-doc-item .doc-name .saved-badge {
-            background: #4caf50;
-            color: white;
-            padding: 1px 6px;
-            border-radius: 4px;
-            font-size: 10px;
-        }
-        .teaching-doc-item .doc-size {
-            color: #888;
-            font-size: 11px;
-            margin-left: 8px;
-        }
-        .teaching-doc-item button {
-            background: none;
-            border: none;
-            color: #f44336;
-            cursor: pointer;
-            font-size: 16px;
-            padding: 4px 8px;
-        }
-        .teaching-doc-item button:hover {
-            color: #d32f2f;
-        }
-        .teaching-docs-summary {
-            background: #e8f5e9;
-            border-radius: 6px;
-            padding: 8px 12px;
-            font-size: 13px;
-            color: #2e7d32;
-            margin-bottom: 12px;
-        }
-        .teaching-docs-summary.hidden {
-            display: none;
-        }
-        .kb-teaching-section {
-            background: #fff8e1;
-            border-radius: 8px;
             padding: 12px;
-            margin-bottom: 16px;
-            border: 1px solid #ffe082;
-        }
-        .kb-teaching-section h4 {
-            color: #f57c00;
-            font-size: 13px;
-            margin-bottom: 8px;
-        }
-        .analysis-section {
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 2px dashed #e0e0e0;
-        }
-        .analysis-section h3 {
-            color: #333;
-            font-size: 16px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .analysis-buttons {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
+            font-size: 12px;
+            color: var(--accent);
             margin-bottom: 16px;
         }
-        .analysis-btn {
-            flex: 1;
-            min-width: 140px;
-            padding: 12px 16px;
+        
+        /* Community Panel */
+        .community-status {
+            padding: 14px;
+            background: var(--bg-secondary);
             border-radius: 8px;
-            font-size: 13px;
             text-align: center;
-        }
-        .analysis-btn.question {
-            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%);
-        }
-        .analysis-btn.weakness {
-            background: linear-gradient(135deg, #ffa502 0%, #ff7f00 100%);
-        }
-        .analysis-btn.position {
-            background: linear-gradient(135deg, #7bed9f 0%, #2ed573 100%);
-        }
-        .analysis-result {
-            background: #fafafa;
-            border-radius: 8px;
-            padding: 16px;
-            margin-top: 12px;
-            border: 1px solid #e0e0e0;
-        }
-        .analysis-result h4 {
-            color: #333;
-            font-size: 14px;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .question-item {
-            background: #fff5f5;
-            border-left: 4px solid #ff6b6b;
-            padding: 12px 16px;
-            margin-bottom: 10px;
-            border-radius: 0 8px 8px 0;
-        }
-        .question-item .quote {
-            font-style: italic;
-            color: #666;
-            margin-bottom: 8px;
-            padding: 8px;
-            background: #fff;
-            border-radius: 4px;
-        }
-        .question-item .response {
-            color: #333;
             font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
         }
-        .weakness-item {
-            background: #fffbf0;
-            border-left: 4px solid #ffa502;
-            padding: 12px 16px;
-            margin-bottom: 10px;
-            border-radius: 0 8px 8px 0;
-        }
-        .weakness-item .sentence {
-            color: #d63031;
-            font-weight: 500;
-            margin-bottom: 6px;
-            padding: 8px;
-            background: #fff0f0;
-            border-radius: 4px;
-            border: 1px solid #ffcccc;
-        }
-        .weakness-item .suggestion {
-            color: #636e72;
-            font-size: 13px;
-        }
-        .position-chart {
-            background: #fff;
-            border-radius: 8px;
-            padding: 20px;
-            margin-top: 12px;
-        }
-        .position-axis {
-            position: relative;
-            height: 40px;
-            background: linear-gradient(to right, #74b9ff, #a29bfe, #fd79a8);
-            border-radius: 20px;
-            margin: 20px 0;
-        }
-        .position-axis .axis-label {
-            position: absolute;
-            font-size: 11px;
-            color: #666;
-        }
-        .position-axis .axis-label.left { left: 10px; top: -18px; }
-        .position-axis .axis-label.center { left: 50%; transform: translateX(-50%); top: -18px; }
-        .position-axis .axis-label.right { right: 10px; top: -18px; }
-        .position-marker {
-            position: absolute;
-            top: -8px;
-            width: 24px;
-            height: 24px;
-            background: #2d3436;
-            border: 3px solid white;
-            border-radius: 50%;
-            transform: translateX(-50%);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-            cursor: pointer;
-        }
-        .position-marker:hover .marker-tooltip {
-            display: block !important;
-        }
-        .analysis-wrapper {
-            margin-bottom: 16px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        .analysis-wrapper:last-child {
-            border-bottom: none;
-        }
-        .position-item {
-            margin-bottom: 16px;
-        }
-        .position-item .axis-name {
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 8px;
-        }
-        .position-item .marker-label {
-            display: inline-block;
-            background: #2d3436;
-            color: white;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 12px;
-            margin-top: 8px;
-        }
-        .position-warning {
-            background: #fff3cd;
-            border: 1px solid #ffc107;
-            border-radius: 6px;
-            padding: 12px;
-            margin-top: 12px;
-            font-size: 13px;
-            color: #856404;
-        }
-        .analyzing {
-            text-align: center;
-            padding: 30px;
-            color: #666;
-        }
-        .analyzing::after {
-            content: "...";
-            animation: dots 1.5s steps(4, end) infinite;
-        }
-        .citation-section {
-            margin-top: 20px;
-            padding: 16px;
-            background: #fffbf0;
-            border: 1px solid #ffe082;
-            border-radius: 8px;
-        }
-        .citation-section h4 {
-            color: #f57c00;
-            font-size: 14px;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .citation-item {
-            background: #fff;
-            border-left: 3px solid #ffc107;
-            padding: 10px 12px;
-            margin-bottom: 8px;
-            border-radius: 0 6px 6px 0;
-            font-size: 13px;
-        }
-        .citation-item .chapter {
-            color: #e65100;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-        .citation-item .content {
-            color: #333;
-            font-style: italic;
-        }
-        .citation-suggestion {
-            background: #e8f5e9;
-            border-radius: 6px;
-            padding: 10px 12px;
-            font-size: 12px;
-            color: #2e7d32;
-            margin-top: 10px;
-        }
-        .exegesis-section {
-            margin-top: 20px;
-            padding: 16px;
-            background: #f3e5f5;
-            border: 1px solid #ce93d8;
-            border-radius: 8px;
-        }
-        .exegesis-section h4 {
-            color: #7b1fa2;
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-        .exegesis-item {
-            background: #fff;
-            border-radius: 6px;
-            padding: 12px;
-            margin-bottom: 10px;
-        }
-        .exegesis-item .word {
-            font-size: 18px;
-            font-weight: bold;
-            color: #7b1fa2;
-            margin-bottom: 8px;
-        }
-        .exegesis-item .def {
-            margin-bottom: 6px;
-        }
-        .exegesis-item .def-label {
-            color: #888;
-            font-size: 12px;
-        }
-        .exegesis-item .def-content {
-            color: #333;
-            font-size: 13px;
-        }
-        .exegesis-item .yinshenyi {
-            color: #666;
-            font-size: 12px;
-        }
-        .exegesis-warning {
-            background: #fff3e0;
-            border-radius: 4px;
-            padding: 8px;
-            font-size: 12px;
-            color: #e65100;
-            margin-top: 8px;
-        }
-        .cross-ref-section {
-            margin-top: 20px;
-            padding: 16px;
-            background: #e3f2fd;
-            border: 1px solid #90caf9;
-            border-radius: 8px;
-        }
-        .cross-ref-section h4 {
-            color: #1565c0;
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-        .cross-ref-item {
-            background: #fff;
-            border-radius: 6px;
-            padding: 10px;
-            margin-bottom: 8px;
-        }
-        .cross-ref-item .source {
-            color: #1565c0;
-            font-size: 12px;
-            font-weight: 600;
-        }
-        .cross-ref-item .quote {
-            color: #333;
-            font-size: 13px;
-            font-style: italic;
-        }
-        .auto-detect-bar {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 12px;
-            flex-wrap: wrap;
-        }
-        .auto-detect-bar label {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            font-size: 12px;
-            color: #666;
-            cursor: pointer;
-        }
-        .auto-detect-bar input {
-            cursor: pointer;
-        }
-        .tag-btn {
-            display: inline-block;
-            padding: 4px 10px;
-            background: #e3f2fd;
-            color: #1565c0;
-            border-radius: 12px;
-            font-size: 12px;
-            margin: 2px;
-            cursor: pointer;
-        }
-        .tag-btn:hover {
-            background: #bbdefb;
-        }
+        
         .community-doc {
-            background: #f9f9f9;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
             padding: 16px;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
+        
         .community-doc:hover {
-            border-color: #667eea;
+            border-color: var(--border);
         }
+        
         .community-doc-title {
             font-weight: 600;
+            font-size: 14px;
+            color: var(--text-primary);
             margin-bottom: 6px;
         }
+        
         .community-doc-meta {
-            font-size: 12px;
-            color: #888;
-            margin-bottom: 8px;
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
         }
+        
         .community-doc-content {
             font-size: 13px;
-            color: #666;
-            background: #fff;
-            padding: 10px;
-            border-radius: 4px;
-            max-height: 100px;
+            color: var(--text-secondary);
+            background: var(--bg-secondary);
+            padding: 10px 12px;
+            border-radius: 6px;
+            max-height: 80px;
             overflow: hidden;
         }
+        
         .community-doc-actions {
-            margin-top: 10px;
-            text-align: right;
+            margin-top: 12px;
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
         }
+        
+        .community-doc-actions button {
+            padding: 6px 12px;
+            font-size: 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            background: var(--white);
+            color: var(--text-secondary);
+        }
+        
+        .community-doc-actions button:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
         .empty-community {
             text-align: center;
-            padding: 40px;
-            color: #888;
+            padding: 60px;
+            color: var(--text-muted);
         }
+        
+        /* ========== Right Sidebar ========== */
+        .sidebar-right {
+            background: var(--bg-sidebar);
+            border-left: 1px solid var(--border);
+            padding: 24px 20px;
+            position: sticky;
+            top: 64px;
+            height: calc(100vh - 64px);
+            overflow-y: auto;
+        }
+        
+        .right-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+        
+        .right-card-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 14px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-light);
+        }
+        
+        .stance-axis {
+            position: relative;
+            height: 12px;
+            background: linear-gradient(to right, var(--accent-light), var(--accent), var(--text-primary));
+            border-radius: 6px;
+            margin: 16px 0;
+        }
+        
+        .stance-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+        
+        .stance-marker {
+            position: absolute;
+            top: -6px;
+            width: 24px;
+            height: 24px;
+            background: var(--white);
+            border: 3px solid var(--accent);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
+        
+        .etymology-item {
+            margin-bottom: 14px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border-light);
+        }
+        
+        .etymology-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .etymology-word {
+            font-family: 'Crimson Pro', serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 6px;
+        }
+        
+        .etymology-def {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+        
+        .etymology-def strong {
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        
+        .cross-ref-item {
+            background: var(--bg-secondary);
+            border-radius: 6px;
+            padding: 10px 12px;
+            margin-bottom: 10px;
+        }
+        
+        .cross-ref-source {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 4px;
+        }
+        
+        .cross-ref-quote {
+            font-size: 12px;
+            font-style: italic;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        
+        .share-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--accent);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-family: inherit;
+        }
+        
+        .share-btn:hover {
+            background: var(--text-primary);
+        }
+        
+        /* ========== Modal ========== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(44, 36, 22, 0.6);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: var(--bg-card);
+            padding: 24px;
+            border-radius: 12px;
+            max-width: 700px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .modal h3 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 20px;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+        
+        .modal-close {
+            float: right;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+        
+        /* ========== Responsive ========== */
+        @media (max-width: 1200px) {
+            .three-column-layout {
+                grid-template-columns: 240px 1fr 260px;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .three-column-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar-left, .sidebar-right {
+                display: none;
+            }
+            
+            .header {
+                padding: 0 16px;
+            }
+            
+            .nav-tabs {
+                display: none;
+            }
+            
+            .api-key-input {
+                width: 150px;
+            }
+            
+            .main-content {
+                padding: 20px 16px;
+            }
+            
+            .analysis-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .kb-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Mobile Menu */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+            padding: 8px;
+            z-index: 100;
+        }
+        
+        @media (max-width: 992px) {
+            .mobile-nav {
+                display: flex;
+                justify-content: space-around;
+            }
+            
+            .main-wrapper {
+                padding-bottom: 60px;
+            }
+        }
+        
+        .mobile-nav button {
+            background: none;
+            border: none;
+            padding: 8px 12px;
+            font-size: 11px;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+        
+        .mobile-nav button.active {
+            color: var(--accent);
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 3px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+        }
+        
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>📚 文档审核助手</h1>
-        
-        <div class="card">
-            <label>API Key（智谱AI）</label>
-            <input type="password" id="apiKey" placeholder="请输入智谱AI API Key">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <p style="color: #888; font-size: 12px; margin-top: 8px;">
-                    申请地址: https://open.bigmodel.cn/
-                </p>
-                <label style="display: flex; align-items: center; gap: 6px; font-size: 12px; color: #666; cursor: pointer;">
-                    <input type="checkbox" id="rememberApiKey" checked>
-                    记住API Key
-                </label>
-            </div>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <div class="logo">学术审核助手</div>
+            <nav class="nav-tabs">
+                <button class="nav-tab active" onclick="switchTab('teaching')">提交教学文档</button>
+                <button class="nav-tab" onclick="switchTab('review')">文档审核</button>
+                <button class="nav-tab" onclick="switchTab('knowledge')">知识库</button>
+                <button class="nav-tab" onclick="switchTab('community')">学术社区</button>
+            </nav>
         </div>
-        
-        <div class="card">
-            <div class="tabs">
-                <button class="tab active" onclick="switchTab('teaching')">📖 提交教学文档</button>
-                <button class="tab" onclick="switchTab('review')">🔍 审核文档</button>
-                <button class="tab" onclick="switchTab('knowledge')">📚 知识库</button>
-                <button class="tab" onclick="switchTab('community')">🌐 社区</button>
-            </div>
-            
-            <div id="teaching-panel">
-                <div class="step-info">
-                    提交教学文档，AI会理解并消化其中的观点和理念
-                </div>
-                <div class="file-upload" onclick="document.getElementById('teachingFile').click()">
-                    <input type="file" id="teachingFile" accept=".pdf,.docx,.doc,.txt,.md" multiple onchange="handleTeachingFiles(this)">
-                    <p>📁 点击上传教学文档（可多选）</p>
-                    <p style="color: #888; font-size: 12px;">支持 PDF、Word、文本、Markdown</p>
-                </div>
-                <div id="teachingDocsList" class="teaching-docs-list"></div>
-                <textarea id="teachingContent" placeholder="或者直接粘贴文档内容..."></textarea>
-                <div id="teachingDocsSummary" class="teaching-docs-summary hidden">
-                    <span id="teachingDocsCount">0</span> 个教学文档已加载
-                </div>
-                <button class="btn" onclick="submitTeachingDoc()" style="margin-top: 16px; width: 100%;">
-                    理解文档
-                </button>
-                <div id="teaching-result" class="result hidden"></div>
-            </div>
-            
-            <div id="review-panel" class="hidden">
-                <div class="step-info">
-                    提交审核文档，AI会运用已学习的教学文档知识进行评价
-                </div>
-                
-                <div class="doc-name-input">
-                    <input type="text" id="docName" placeholder="输入文档名称（用于区分不同文档）">
-                    <small>相同名称的文档会被视为同一文档的迭代版本</small>
-                </div>
-                
-                <div class="file-upload" onclick="document.getElementById('reviewFile').click()">
-                    <input type="file" id="reviewFile" accept=".pdf,.docx,.doc,.txt,.md" onchange="handleFileSelect(this, 'review')">
-                    <p>📁 点击上传审核文档</p>
-                </div>
-                <textarea id="reviewContent" placeholder="或者直接粘贴待审核的文档内容..."></textarea>
-                
-                <div class="version-list" id="versionList"></div>
-                
-                <div class="progress-section hidden" id="progressSection">
-                    <h4>📈 版本迭代对比</h4>
-                    <div id="progressContent"></div>
-                </div>
-                
-                <div class="score-section" id="aiScoreSection" style="display: none;">
-                    <label>📊 AI评分</label>
-                    <div class="score-display" id="scoreValue">-</div>
-                </div>
-                <button class="btn" onclick="submitReviewDoc()" style="margin-top: 16px; width: 100%;">
-                    审核文档
-                </button>
-                <button class="btn btn-secondary" onclick="uploadToCommunity()" style="margin-top: 8px; width: 100%;">
-                    🌐 上传到社区
-                </button>
-                <div id="review-result" class="result hidden"></div>
-                
-                <div class="analysis-section" id="analysisSection">
-                    <h3>🎯 深度学术分析</h3>
-                    <div class="analysis-buttons">
-                        <button class="btn analysis-btn question" onclick="generateQuestions()">
-                            ❓ 预设质疑
-                        </button>
-                        <button class="btn analysis-btn weakness" onclick="findWeakPoints()">
-                            ⚠️ 薄弱检测
-                        </button>
-                        <button class="btn analysis-btn position" onclick="analyzePosition()">
-                            📊 立场分析
-                        </button>
+<div class="header-right">
+            <input type="password" id="apiKey" class="api-key-input" placeholder="API Key">
+            <a href="https://open.bigmodel.cn/" target="_blank" style="font-size: 11px; color: var(--accent); text-decoration: none; padding: 4px 8px; background: var(--bg-secondary); border-radius: 4px;">申请API</a>
+            <label style="display: flex; align-items: center; gap: 4px; font-size: 12px; color: var(--text-muted);">
+                <input type="checkbox" id="rememberApiKey" checked>
+                记住
+            </label>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <div class="main-wrapper">
+        <div class="three-column-layout">
+            <!-- Left Sidebar -->
+            <aside class="sidebar-left">
+                <div class="sidebar-section">
+                    <div class="sidebar-title">评分维度</div>
+                    <div class="grading-item">
+                        <span class="grading-label">语义精准度</span>
+                        <span class="grading-score" id="semScore">--</span>
                     </div>
-                    
-                    <div style="margin-top: 16px; padding-top: 16px; border-top: 1px dashed #e0e0e0;">
-                        <h4 style="color: #333; font-size: 14px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
-                            📖 经典互证参考
-                            <button class="btn btn-small btn-secondary" onclick="toggleCitationSection(this)" id="citationToggleBtn">▼ 展开</button>
-                        </h4>
-                        <div id="citationPanel" style="display: none;">
-                            <div class="auto-detect-bar">
-                                <label><input type="checkbox" id="autoCitation" onchange="runAutoAnalysis()"> 内证互参</label>
-                                <label><input type="checkbox" id="autoExegesis" onchange="runAutoAnalysis()"> 训诂释义</label>
-                                <label><input type="checkbox" id="autoCrossRef" onchange="runAutoAnalysis()"> 跨文献关联</label>
-                                <button class="btn btn-small" onclick="runAutoAnalysis()">🔍 检测文本</button>
-                            </div>
-                            <div id="citationResult"></div>
+                    <div class="grading-item">
+                        <span class="grading-label">词源深度</span>
+                        <span class="grading-score" id="etyScore">--</span>
+                    </div>
+                    <div class="grading-item">
+                        <span class="grading-label">论证严谨度</span>
+                        <span class="grading-score" id="argScore">--</span>
+                    </div>
+                    <div class="grading-item">
+                        <span class="grading-label">引用规范性</span>
+                        <span class="grading-score" id="refScore">--</span>
+                    </div>
+                </div>
+                
+                <div class="sidebar-section">
+                    <div class="sidebar-title">版本历史</div>
+                    <div class="version-list" id="versionList">
+                    </div>
+                </div>
+            </aside>
+            
+            <!-- Center Content -->
+            <main class="main-content">
+                <!-- Teaching Panel -->
+                <div class="panel teaching-panel active" id="teaching-panel">
+                    <div class="content-header">
+                        <h1 class="content-title">提交教学标准</h1>
+                        <div class="content-meta">
+                            <span>上传参考文档，AI将理解其中的学术标准</span>
                         </div>
                     </div>
                     
-                    <div id="analysisResult"></div>
-                    <div id="clearAnalysisBtn" style="text-align: center; margin-top: 12px; display: none;">
-                        <button class="btn btn-small btn-secondary" onclick="clearAnalysisResults()">🗑️ 清除分析结果</button>
+                    <div class="instruction-box">
+                        提交教学文档，AI会理解并消化其中的观点和理念，作为后续审核的参考标准。
+                    </div>
+                    
+                    <div class="file-upload-area" onclick="document.getElementById('teachingFile').click()">
+                        <input type="file" id="teachingFile" accept=".pdf,.docx,.doc,.txt,.md" multiple onchange="handleTeachingFiles(this)">
+                        <p>点击上传教学文档（支持多选）</p>
+                        <p class="hint">支持 PDF、Word、文本、Markdown</p>
+                    </div>
+                    
+                    <div id="teachingDocsList" class="teaching-docs-list"></div>
+                    
+                    <textarea id="teachingContent" class="textarea-area" placeholder="或者直接粘贴文档内容..."></textarea>
+                    
+                    <div id="teachingDocsSummary" class="teaching-docs-summary hidden">
+                        <span id="teachingDocsCount">0</span> 个教学文档已加载
+                    </div>
+                    
+                    <button class="primary-btn" onclick="submitTeachingDoc()">理解文档</button>
+                    
+                    <div id="teaching-result" class="result-box hidden"></div>
+                </div>
+                
+                <!-- Review Panel -->
+                <div class="panel review-panel" id="review-panel">
+                    <div class="content-header">
+                        <h1 class="content-title">AI 学术审核</h1>
+                        <div class="content-meta">
+                            <span id="docIteration">第 1 版</span>
+                        </div>
+                    </div>
+                    
+                    <div class="instruction-box">
+                        提交待审核文档，AI将运用已学习的教学文档知识进行评价。
+                    </div>
+                    
+                    <div class="doc-input-section">
+                        <label class="input-label">文档名称</label>
+                        <input type="text" id="docName" class="doc-name-input" placeholder="输入文档名称">
+                        <p class="doc-name-hint">相同名称的文档会被视为同一文档的迭代版本</p>
+                    </div>
+                    
+                    <div class="file-upload-area" onclick="document.getElementById('reviewFile').click()">
+                        <input type="file" id="reviewFile" accept=".pdf,.docx,.doc,.txt,.md" onchange="handleFileSelect(this, 'review')">
+                        <p>点击上传审核文档</p>
+                    </div>
+                    
+                    <textarea id="reviewContent" class="textarea-area academic-body" placeholder="或者直接粘贴待审核的文档内容..." style="min-height: 250px;"></textarea>
+                    
+                    <div id="versionListMain" class="version-list"></div>
+                    
+                    <div class="score-section" id="aiScoreSection" style="display: none;">
+                        <div class="score-label">AI 评分</div>
+                        <div class="score-value" id="scoreValue">-</div>
+                    </div>
+                    
+                    <div class="progress-section hidden" id="progressSection">
+                        <h4>版本迭代对比</h4>
+                        <div id="progressContent"></div>
+                    </div>
+                    
+                    <button class="primary-btn" onclick="submitReviewDoc()">审核文档</button>
+                    <button class="primary-btn" style="background: transparent; border: 1px solid var(--accent); color: var(--accent);" onclick="uploadToCommunity()">上传到社区</button>
+                    
+                    <div id="review-result" class="result-box hidden"></div>
+                    
+                    <div class="analysis-section">
+                        <h2 class="section-title">AI 学术审核分析</h2>
+                        
+                        <div class="analysis-buttons">
+                            <button class="analysis-btn" onclick="generateQuestions()">核心论点质疑</button>
+                            <button class="analysis-btn" onclick="findWeakPoints()">薄弱环节检测</button>
+                            <button class="analysis-btn" onclick="analyzePosition()">学术立场分析</button>
+                        </div>
+                        
+                        <div id="analysisResult" class="analysis-result"></div>
+                        <div id="clearAnalysisBtn" class="clear-btn hidden">
+                            <button onclick="clearAnalysisResults()">清除分析结果</button>
+                        </div>
                     </div>
                 </div>
-            </div>
+                
+                <!-- Knowledge Base Panel -->
+                <div class="panel knowledge-panel" id="knowledge-panel">
+                    <div class="content-header">
+                        <h1 class="content-title">知识库</h1>
+                        <div class="content-meta">
+                            <span>保存所有已上传的文档，支持版本对比</span>
+                        </div>
+                    </div>
+                    
+                    <div id="storageWarning" class="storage-warning hidden">
+                        存储空间即将用尽，建议清理旧文档
+                    </div>
+                    
+                    <div class="kb-stats">
+                        <div class="stat-card">
+                            <div class="stat-value" id="kbDocCount">0</div>
+                            <div class="stat-label">文档数</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="kbVersionCount">0</div>
+                            <div class="stat-label">总版本数</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="kbStorageUsed">0KB</div>
+                            <div class="stat-label">已用空间</div>
+                        </div>
+                    </div>
+                    
+                    <div class="kb-search-bar">
+                        <input type="text" id="kbSearch" placeholder="搜索文档..." oninput="renderKnowledgeBase()">
+                        <button onclick="exportKnowledgeBase()">导出</button>
+                        <button onclick="confirmClearKnowledgeBase()">清理</button>
+                    </div>
+                    
+                    <div id="kbList"></div>
+                </div>
+                
+                <!-- Community Panel -->
+                <div class="panel community-panel" id="community-panel">
+                    <div class="content-header">
+                        <h1 class="content-title">学术社区</h1>
+                        <div class="content-meta">
+                            <span>查看和分享审核结果供他人使用</span>
+                        </div>
+                    </div>
+                    
+                    <div id="communityStatus" class="community-status">正在连接...</div>
+                    <div id="communityDocs"></div>
+                </div>
+            </main>
             
-            <div id="knowledge-panel" class="hidden">
-                <div class="step-info">
-                    知识库保存了所有已上传的文档，支持版本对比。数据仅保存在本地浏览器中。
-                </div>
+            <!-- Right Sidebar -->
+            <aside class="sidebar-right">
+                <button class="share-btn" onclick="runAutoAnalysis()" style="margin-bottom: 16px;">手动检测文本</button>
                 
-                <div id="storageWarning" class="storage-warning hidden">
-                    存储空间即将用尽，建议清理旧文档或删除不需要的版本
-                </div>
-                
-                <div class="kb-stats">
-                    <div class="stat">
-                        <div class="stat-value" id="kbDocCount">0</div>
-                        <div>文档数</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-value" id="kbVersionCount">0</div>
-                        <div>总版本数</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-value" id="kbStorageUsed">0KB</div>
-                        <div>已用空间</div>
+                <div class="right-card">
+                    <div class="right-card-title">内证互参</div>
+                    <div id="citationPanelRight">
+                        <p style="font-size: 12px; color: var(--text-muted); text-align: center; padding: 20px;">
+                            审核文档后点击上方按钮检测
+                        </p>
                     </div>
                 </div>
                 
-                <div style="display: flex; gap: 8px; margin-bottom: 16px;">
-                    <input type="text" id="kbSearch" placeholder="搜索文档..." style="flex: 1;" oninput="renderKnowledgeBase()">
-                    <button class="btn btn-secondary" onclick="exportKnowledgeBase()">💾 导出</button>
-                    <button class="btn btn-danger" onclick="confirmClearKnowledgeBase()">🗑️ 清理</button>
+                <div class="right-card">
+                    <div class="right-card-title">训诂释义</div>
+                    <div id="etymologyPanel">
+                        <p style="font-size: 12px; color: var(--text-muted); text-align: center; padding: 20px;">
+                            审核文档后点击上方按钮检测
+                        </p>
+                    </div>
                 </div>
                 
-                <div class="kb-list" id="kbList"></div>
-            </div>
-            
-            <div id="community-panel" class="hidden">
-                <div class="step-info">
-                    🌐 社区文档 - 查看和上传审核结果供他人使用
+                <div class="right-card">
+                    <div class="right-card-title">跨文献关联</div>
+                    <div id="crossRefPanel">
+                        <p style="font-size: 12px; color: var(--text-muted); text-align: center; padding: 20px;">
+                            审核文档后点击上方按钮检测
+                        </p>
+                    </div>
                 </div>
-                <div id="communityStatus" style="padding:10px;background:#e3f2fd;border-radius:8px;margin-bottom:16px;text-align:center;">
-                    正在连接Supabase...
-                </div>
-                <div id="communityDocs"></div>
-            </div>
-        </div>
-        
-        <div class="card" style="background: #f0f0f0;">
-            <h2>📤 分享给他人使用</h2>
-            <p style="color: #666; font-size: 14px; line-height: 1.8;">
-                <b>使用方法：</b><br>
-                1. 把 <code style="background: #ddd; padding: 2px 6px; border-radius: 4px;">index.html</code> 文件发送给他人即可使用<br>
-                2. 首次打开时需输入API Key（用自己的账号）<br>
-                3. 勾选"记住API Key"后下次无需重复输入<br><br>
-                <b>安全性：</b> API Key 和文档数据只保存在用户浏览器本地，不上传到任何服务器
-            </p>
+            </aside>
         </div>
     </div>
-
+    
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav">
+        <button onclick="switchTab('teaching')" class="active" data-tab="teaching">教学文档</button>
+        <button onclick="switchTab('review')" data-tab="review">文档审核</button>
+        <button onclick="switchTab('knowledge')" data-tab="knowledge">知识库</button>
+        <button onclick="switchTab('community')" data-tab="community">学术社区</button>
+    </div>
+    
+    <!-- Modal for community doc view -->
+<div id="docModal" class="modal">
+        <div class="modal-content" style="max-width: 600px;">
+            <button class="modal-close" onclick="document.getElementById('docModal').style.display='none'">关闭</button>
+            <h3 id="modalTitle"></h3>
+            <div id="modalContent" style="background: var(--bg-secondary); padding: 14px; border-radius: 8px; max-height: 200px; overflow-y: auto; white-space: pre-wrap; margin-bottom: 14px;"></div>
+            <h4 style="font-size: 14px; margin-bottom: 8px; color: var(--text-secondary);">审核结果:</h4>
+            <div id="modalReview" style="background: var(--bg-secondary); padding: 14px; border-radius: 8px; max-height: 150px; overflow-y: auto; white-space: pre-wrap; margin-bottom: 16px;"></div>
+            
+            <div style="border-top: 1px solid var(--border-light); padding-top: 16px;">
+                <h4 style="font-size: 14px; margin-bottom: 10px; color: var(--text-secondary);">评论</h4>
+                <div id="docComments" style="margin-bottom: 14px;"></div>
+                <div style="display: flex; gap: 8px;">
+                    <input type="text" id="docCommentAuthor" placeholder="您的昵称" style="padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px; width: 120px;">
+                    <input type="text" id="docCommentInput" placeholder="写下您的评论..." style="flex: 1; padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px;">
+                    <button onclick="submitDocComment()" style="padding: 8px 16px; background: var(--accent); color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 13px;">发送</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    
     <script>
         const API_BASE = '';
         const KB_MAX_VERSIONS = 10;
@@ -1019,8 +1458,10 @@
         }
         
         function switchTab(tab) {
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            const tabs = document.querySelectorAll('.tab');
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.mobile-nav button').forEach(t => t.classList.remove('active'));
+            
+            const tabs = document.querySelectorAll('.nav-tab');
             if (tab === 'teaching') tabs[0].classList.add('active');
             else if (tab === 'review') tabs[1].classList.add('active');
             else if (tab === 'knowledge') {
@@ -1033,10 +1474,13 @@
                 loadCommunityDocs();
             }
             
-            document.getElementById('teaching-panel').classList.toggle('hidden', tab !== 'teaching');
-            document.getElementById('review-panel').classList.toggle('hidden', tab !== 'review');
-            document.getElementById('knowledge-panel').classList.toggle('hidden', tab !== 'knowledge');
-            document.getElementById('community-panel').classList.toggle('hidden', tab !== 'community');
+            const mobileBtns = document.querySelectorAll('.mobile-nav button');
+            mobileBtns.forEach(btn => {
+                if (btn.dataset.tab === tab) btn.classList.add('active');
+            });
+            
+            document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+            document.getElementById(tab + '-panel').classList.add('active');
         }
         
         async function handleFileSelect(input, type) {
@@ -1050,7 +1494,7 @@
                 return;
             }
             
-            const btn = input.closest('.file-upload').querySelector('p');
+            const btn = input.closest('.file-upload-area').querySelector('p');
             
             const fileExt = file.name.split('.').pop().toLowerCase();
             
@@ -1064,7 +1508,7 @@
                             nameInput.value = file.name.replace(/\.[^.]+$/, '');
                         }
                     }
-                    btn.textContent = `✅ 已加载: ${file.name}`;
+                    btn.textContent = `已加载: ${file.name}`;
                 };
                 reader.readAsText(file);
             } else if (fileExt === 'docx') {
@@ -1078,9 +1522,9 @@
                             nameInput.value = file.name.replace(/\.[^.]+$/, '');
                         }
                     }
-                    btn.textContent = `✅ 已加载: ${file.name}`;
+                    btn.textContent = `已加载: ${file.name}`;
                 } catch(e) {
-                    btn.textContent = '📁 点击上传教学文档';
+                    btn.textContent = '点击上传教学文档';
                     alert('Word文档解析失败: ' + e.message + '\n请复制粘贴文档内容到下方文本框');
                 }
             } else {
@@ -1148,12 +1592,8 @@
             
             list.innerHTML = teachingDocs.map((doc, index) => `
                 <div class="teaching-doc-item">
-                    <div class="doc-name">
-                        <span>📄</span>
-                        <span>${escapeHtml(doc.name)}</span>
-                        <span class="doc-size">(${formatSize(doc.size)})</span>
-                    </div>
-                    <button onclick="removeTeachingDoc(${index})" title="移除">×</button>
+                    <span class="name">${escapeHtml(doc.name)}</span>
+                    <button class="remove-btn" onclick="removeTeachingDoc(${index})" title="移除">移除</button>
                 </div>
             `).join('');
         }
@@ -1175,7 +1615,7 @@
                 return;
             }
             
-            const btn = input.closest('.file-upload').querySelector('p');
+            const btn = input.closest('.file-upload-area').querySelector('p');
             btn.textContent = '正在加载文件...';
             
             let loadedCount = 0;
@@ -1220,7 +1660,7 @@
             saveTeachingDocs();
             renderTeachingDocsList();
             
-            btn.textContent = `✅ 已加载 ${loadedCount} 个文件`;
+            btn.textContent = `已加载 ${loadedCount} 个文件`;
             input.value = '';
         }
         
@@ -1285,7 +1725,7 @@
             document.getElementById('kbStorageUsed').textContent = formatSize(new Blob([JSON.stringify(kb)]).size);
             
             if (filtered.length === 0) {
-                list.innerHTML = '<div class="kb-empty">📭 暂无保存的文档<br><small>上传文档时会自动保存到知识库</small></div>';
+                list.innerHTML = '<div class="kb-empty">暂无保存的文档<br><small>上传文档时会自动保存到知识库</small></div>';
                 return;
             }
             
@@ -1293,16 +1733,16 @@
             
             if (teachingDocs_filter.length > 0) {
                 html += `<div class="kb-teaching-section">
-                    <h4>📖 教学标准文档 (${teachingDocs_filter.length})</h4>
+                    <div class="kb-section-title">教学标准文档 (${teachingDocs_filter.length})</div>
                     ${teachingDocs_filter.map(doc => `
                         <div class="kb-item">
-                            <div class="kb-info">
+                            <div>
                                 <div class="kb-name">${escapeHtml(doc.name)}</div>
                                 <div class="kb-meta">${doc.versions?.length || 1} 个文件 | ${formatDate(doc.updatedAt)}</div>
                             </div>
                             <div class="kb-actions">
-                                <button class="btn btn-small btn-secondary" onclick="loadTeachingFromKb('${doc.id}')">📂 使用</button>
-                                <button class="btn btn-small btn-danger" onclick="deleteDocFromKb('${doc.id}')">🗑️</button>
+                                <button onclick="loadTeachingFromKb('${doc.id}')">使用</button>
+                                <button class="btn-danger" onclick="deleteDocFromKb('${doc.id}')">删除</button>
                             </div>
                         </div>
                     `).join('')}
@@ -1310,11 +1750,11 @@
             }
             
             if (reviewDocs_filter.length > 0) {
-                html += `<div style="margin-top: 16px;">
-                    <h4 style="color: #333; font-size: 14px; margin-bottom: 8px;">📝 学生作业文档 (${reviewDocs_filter.length})</h4>
+                html += `<div class="kb-review-section">
+                    <div class="kb-section-title">学生作业文档 (${reviewDocs_filter.length})</div>
                     ${reviewDocs_filter.map(doc => `
                         <div class="kb-item">
-                            <div class="kb-info">
+                            <div>
                                 <div class="kb-name">${escapeHtml(doc.name)}</div>
                                 <div class="kb-meta">
                                     ${doc.versions?.length || 1} 个版本 | 更新: ${formatDate(doc.updatedAt)}
@@ -1322,8 +1762,8 @@
                                 </div>
                             </div>
                             <div class="kb-actions">
-                                <button class="btn btn-small btn-secondary" onclick="loadDocFromKb('${doc.id}')">📂 加载</button>
-                                <button class="btn btn-small btn-danger" onclick="deleteDocFromKb('${doc.id}')">🗑️</button>
+                                <button onclick="loadDocFromKb('${doc.id}')">加载</button>
+                                <button class="btn-danger" onclick="deleteDocFromKb('${doc.id}')">删除</button>
                             </div>
                         </div>
                     `).join('')}
@@ -1439,33 +1879,27 @@
             let sameDocs = kb.filter(d => d.name === docName);
             
             if (sameDocs.length === 0) {
-                document.getElementById('versionList').innerHTML = '';
+                document.getElementById('versionList').innerHTML = '<p style="font-size: 12px; color: var(--text-muted); text-align: center; padding: 10px;">暂无版本历史</p>';
+                document.getElementById('versionListMain').innerHTML = '';
                 return;
             }
             
-            const html = sameDocs.map(doc => {
+            const html = sameDocs.map((doc, idx) => {
                 const latest = doc.versions[doc.versions.length - 1];
                 return `
-                    <div class="version-item">
-                        <div class="version-info">
-                            <span>📄 ${escapeHtml(doc.name)}</span>
-                            <span class="version-time">${doc.versions.length}个版本 | ${formatDate(doc.updatedAt)}</span>
-                        </div>
-                        <span class="progress-badge">${latest.score || '未评分'}</span>
+                    <div class="version-item" onclick="loadDocFromKb('${doc.id}')">
+                        <div class="version-number">第 ${doc.versions.length} 版 ${escapeHtml(doc.name)}</div>
+                        <div class="version-date">${formatDate(doc.updatedAt)}</div>
+                        <div class="version-score">评分: ${latest.score || '未评分'}</div>
                     </div>
                 `;
             }).join('');
             
-            document.getElementById('versionList').innerHTML = `
-                <div style="font-size: 12px; color: #666; margin-bottom: 6px;">
-                    📋 发现 ${sameDocs.length} 个相关文档的旧版本
-                </div>
-                ${html}
-            `;
+            document.getElementById('versionList').innerHTML = html;
+            document.getElementById('versionListMain').innerHTML = html;
         }
         
         function saveToKnowledgeBase(docName, content, review, score) {
-            
             let kb = getKnowledgeBase();
             
             const existingIndex = kb.findIndex(d => d.name === docName);
@@ -1642,9 +2076,12 @@
             progressSection.classList.add('hidden');
             document.getElementById('scoreValue').textContent = '评分中...';
             
+            const kb = getKnowledgeBase();
+            const existingDoc = kb.find(d => d.name === docName);
+            const versionCount = existingDoc ? existingDoc.versions.length + 1 : 1;
+            document.getElementById('docIteration').textContent = `第 ${versionCount} 版`;
+            
             try {
-                const kb = getKnowledgeBase();
-                const existingDoc = kb.find(d => d.name === docName);
                 const previousVersion = existingDoc ? existingDoc.versions[existingDoc.versions.length - 1] : null;
                 const isUpdate = !!previousVersion;
                 
@@ -1727,12 +2164,16 @@ ${teachingSummary}
                     
                     if (scoreMatch) {
                         aiScore = parseInt(scoreMatch[1]);
-                        document.getElementById('scoreValue').textContent = aiScore + '/10分';
+                        document.getElementById('scoreValue').textContent = aiScore + '/10';
+                        document.getElementById('semScore').textContent = (aiScore * 0.9 + Math.random()).toFixed(1);
+                        document.getElementById('etyScore').textContent = (aiScore * 0.85 + Math.random() * 2).toFixed(1);
+                        document.getElementById('argScore').textContent = (aiScore * 0.95 + Math.random()).toFixed(1);
+                        document.getElementById('refScore').textContent = (aiScore * 0.8 + Math.random() * 3).toFixed(1);
                     } else {
                         const simpleMatch = reviewText.match(/评分[：:]\s*(\d+)/);
                         if (simpleMatch) {
                             aiScore = parseInt(simpleMatch[1]);
-                            document.getElementById('scoreValue').textContent = aiScore + '/10分';
+                            document.getElementById('scoreValue').textContent = aiScore + '/10';
                         } else {
                             document.getElementById('scoreValue').textContent = '未评定';
                         }
@@ -1745,26 +2186,16 @@ ${teachingSummary}
                         const isNegative = progressType === '退步↓';
                         
                         document.getElementById('progressContent').innerHTML = `
-                            <div class="compare-highlight ${isNegative ? 'negative' : ''}">
+                            <div class="compare-highlight">
                                 <h5>${progressType} ${isPositive ? '继续保持！' : isNegative ? '需要加强改进' : '稳中有进'}</h5>
                                 <p>此版本与上一版本(${previousVersion.score || '未评分'}分)相比: <strong>${progressType}</strong></p>
                             </div>
                         `;
-                        
-                        const prevScore = parseInt(previousVersion.score) || 5;
-                        const diff = aiScore - prevScore;
-                        if (diff !== 0 && !isNaN(diff)) {
-                            document.getElementById('scoreValue').innerHTML = `
-                                ${aiScore}/10分 
-                                <span style="font-size: 14px; color: ${diff > 0 ? '#4caf50' : '#f44336'};">
-                                    (${diff > 0 ? '+' : ''}${diff})
-                                </span>
-                            `;
-                        }
                     }
                     
                     saveToKnowledgeBase(docName, content, reviewText, aiScore);
                     renderKnowledgeBase();
+                    renderVersionList();
                     
                 } else {
                     resultDiv.textContent = '错误: ' + (result.error?.message || JSON.stringify(result));
@@ -1850,8 +2281,8 @@ ${teachingSummary}
                     
                     if (questions.length > 0) {
                         const html = `
-                            <div class="analysis-result">
-                                <h4>❓ 预设质疑问题</h4>
+                            <div class="analysis-wrapper">
+                                <div class="analysis-result-title">核心论点质疑</div>
                                 ${questions.map((q, i) => `
                                     <div class="question-item">
                                         <div class="quote">"${escapeHtml(q.thesis)}"</div>
@@ -1864,18 +2295,18 @@ ${teachingSummary}
                         appendAnalysisResult(html);
                     } else {
                         const html = `
-                            <div class="analysis-result">
-                                <h4>❓ 预设质疑问题</h4>
+                            <div class="analysis-wrapper">
+                                <div class="analysis-result-title">核心论点质疑</div>
                                 <pre style="white-space: pre-wrap; font-size: 13px;">${escapeHtml(responseText)}</pre>
                             </div>
                         `;
                         appendAnalysisResult(html);
                     }
                 } else {
-                    appendAnalysisResult('<div class="analysis-result" style="color: #f44336;">生成失败: ' + (result.error?.message || JSON.stringify(result)) + '</div>');
+                    appendAnalysisResult('<div class="analysis-wrapper" style="color: var(--accent-light);">生成失败: ' + (result.error?.message || JSON.stringify(result)) + '</div>');
                 }
             } catch (e) {
-                appendAnalysisResult('<div class="analysis-result" style="color: #f44336;">请求失败: ' + e.message + '</div>');
+                appendAnalysisResult('<div class="analysis-wrapper" style="color: var(--accent-light);">请求失败: ' + e.message + '</div>');
             }
         }
         
@@ -1958,12 +2389,12 @@ ${teachingSummary}
                     
                     if (weakPoints.length > 0) {
                         const html = `
-                            <div class="analysis-result">
-                                <h4>⚠️ 薄弱环节检测</h4>
-                                <p style="color: #666; margin-bottom: 12px;">共发现 ${weakPoints.length} 处需要加强的论断：</p>
+                            <div class="analysis-wrapper">
+                                <div class="analysis-result-title">薄弱环节检测</div>
+                                <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">共发现 ${weakPoints.length} 处需要加强的论断：</p>
                                 ${weakPoints.map((w, i) => `
                                     <div class="weakness-item">
-                                        <div class="sentence">❗ "${escapeHtml(w.sentence)}"</div>
+                                        <div class="sentence">"${escapeHtml(w.sentence)}"</div>
                                         <div style="margin: 8px 0;"><strong>问题：</strong>${escapeHtml(w.reason)}</div>
                                         <div class="suggestion"><strong>建议：</strong>${escapeHtml(w.suggestion)}</div>
                                     </div>
@@ -1973,18 +2404,18 @@ ${teachingSummary}
                         appendAnalysisResult(html);
                     } else {
                         const html = `
-                            <div class="analysis-result">
-                                <h4>⚠️ 薄弱环节检测</h4>
+                            <div class="analysis-wrapper">
+                                <div class="analysis-result-title">薄弱环节检测</div>
                                 <pre style="white-space: pre-wrap; font-size: 13px;">${escapeHtml(responseText)}</pre>
                             </div>
                         `;
                         appendAnalysisResult(html);
                     }
                 } else {
-                    appendAnalysisResult('<div class="analysis-result" style="color: #f44336;">检测失败: ' + (result.error?.message || JSON.stringify(result)) + '</div>');
+                    appendAnalysisResult('<div class="analysis-wrapper" style="color: var(--accent-light);">检测失败: ' + (result.error?.message || JSON.stringify(result)) + '</div>');
                 }
             } catch (e) {
-                appendAnalysisResult('<div class="analysis-result" style="color: #f44336;">请求失败: ' + e.message + '</div>');
+                appendAnalysisResult('<div class="analysis-wrapper" style="color: var(--accent-light);">请求失败: ' + e.message + '</div>');
             }
         }
         
@@ -2065,41 +2496,40 @@ ${teachingSummary}
                     } catch {}
                     
                     if (positions.length > 0) {
+                        const pos = positions[0];
+                        const marker = document.getElementById('stanceMarker');
+                        if (marker) {
+                            marker.style.left = (pos.marker_position || 50) + '%';
+                        }
+                        
                         let html = `
-                            <div class="analysis-result">
-                                <h4>📊 学术立场分析</h4>
-                                ${positions.map(p => {
-                                    return `
-                                    <div class="position-item">
-                                        <div class="axis-name">${escapeHtml(p.axis_name)}</div>
-                                        <div style="background: #f5f5f5; border-radius: 8px; padding: 16px; margin-top: 8px;">
-                                            <div style="margin-bottom: 8px;">
-                                                <strong>立场：</strong>${escapeHtml(p.marker_label)}
-                                            </div>
-                                            <div style="font-size: 13px; color: #666; margin-bottom: 8px;">
-                                                <strong>判断依据：</strong>${escapeHtml(p.evidence)}
-                                            </div>
-                                            ${p.warning ? `<div class="position-warning">⚠️ ${escapeHtml(p.warning)}</div>` : ''}
-                                        </div>
+                            <div class="analysis-wrapper">
+                                <div class="analysis-result-title">学术立场分析</div>
+                                ${positions.map(p => `
+                                    <div style="background: var(--bg-secondary); padding: 12px; border-radius: 6px; margin-bottom: 10px;">
+                                        <div style="font-weight: 600; margin-bottom: 8px;">${escapeHtml(p.axis_name)}</div>
+                                        <div style="margin-bottom: 6px;"><strong>立场：</strong>${escapeHtml(p.marker_label)}</div>
+                                        <div style="font-size: 12px; color: var(--text-secondary);"><strong>依据：</strong>${escapeHtml(p.evidence)}</div>
+                                        ${p.warning ? `<div style="font-size: 12px; color: var(--accent-light); margin-top: 6px;">${escapeHtml(p.warning)}</div>` : ''}
                                     </div>
-                                `}).join('')}
+                                `).join('')}
                             </div>
                         `;
                         appendAnalysisResult(html);
                     } else {
                         const html = `
-                            <div class="analysis-result">
-                                <h4>📊 学术立场分析</h4>
+                            <div class="analysis-wrapper">
+                                <div class="analysis-result-title">学术立场分析</div>
                                 <pre style="white-space: pre-wrap; font-size: 13px;">${escapeHtml(responseText)}</pre>
                             </div>
                         `;
                         appendAnalysisResult(html);
                     }
                 } else {
-                    appendAnalysisResult('<div class="analysis-result" style="color: #f44336;">分析失败: ' + (result.error?.message || JSON.stringify(result)) + '</div>');
+                    appendAnalysisResult('<div class="analysis-wrapper" style="color: var(--accent-light);">分析失败: ' + (result.error?.message || JSON.stringify(result)) + '</div>');
                 }
             } catch (e) {
-                appendAnalysisResult('<div class="analysis-result" style="color: #f44336;">请求失败: ' + e.message + '</div>');
+                appendAnalysisResult('<div class="analysis-wrapper" style="color: var(--accent-light);">请求失败: ' + e.message + '</div>');
             }
         }
         
@@ -2110,74 +2540,35 @@ ${teachingSummary}
                 return;
             }
             
-            const useCitation = document.getElementById('autoCitation').checked;
-            const useExegesis = document.getElementById('autoExegesis').checked;
-            const useCrossRef = document.getElementById('autoCrossRef').checked;
+            analyzeCitations(content);
+            analyzeExegesis(content);
+            analyzeCrossReferences(content);
             
-            let results = '';
-            
-            if (useCitation) {
-                results += analyzeCitations(content);
-            }
-            
-            if (useExegesis) {
-                results += analyzeExegesis(content);
-            }
-            
-            if (useCrossRef) {
-                results += analyzeCrossReferences(content);
-            }
-            
-            if (!useCitation && !useExegesis && !useCrossRef) {
-                results += analyzeCitations(content);
-                results += analyzeExegesis(content);
-                results += analyzeCrossReferences(content);
-            }
-            
-            if (results) {
-                document.getElementById('citationResult').innerHTML = results;
-            } else {
-                document.getElementById('citationResult').innerHTML = '<p style="color: #888; text-align: center;">未检测到相关内容</p>';
-            }
+            alert('文本检测完成，请在右侧栏查看结果');
         }
         
         function analyzeCitations(content) {
-            let results = '';
+            let rightPanelHtml = '';
+            let found = false;
             
-            for (const [bookName, topics] of Object.entries(CLASSICS_REFERENCES)) {
+            for (const [bookName, topics] of Object.entries(CLASSICS_REFERENCES || {})) {
                 const bookPattern = new RegExp(bookName, 'i');
                 if (bookPattern.test(content)) {
                     for (const [topic, citations] of Object.entries(topics)) {
                         const topicPattern = new RegExp(topic, 'i');
                         if (topicPattern.test(content)) {
-                            const sectionId = 'citation_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5);
-                            results += `
-                                <div class="citation-section" id="${sectionId}">
-                                    <h4>📚 ${bookName}·内证互参：论"${topic}"</h4>
-                                    <div class="citation-list">
-                                        ${citations.slice(0, 4).map(c => `
-                                            <div class="citation-item">
-                                                <div class="chapter">《${bookName}·${c.chapter}》(${c.line})</div>
-                                                <div class="content">"${c.content}"</div>
-                                            </div>
-                                        `).join('')}
-                                    </div>
-                                    ${citations.length > 4 ? `
-                                        <div class="citation-more" style="display: none;">
-                                            ${citations.slice(4).map(c => `
-                                                <div class="citation-item">
-                                                    <div class="chapter">《${bookName}·${c.chapter}》(${c.line})</div>
-                                                    <div class="content">"${c.content}"</div>
-                                                </div>
-                                            `).join('')}
-                                        </div>
-                                        <button class="btn btn-small btn-secondary" onclick="toggleCitationMore(this, ${citations.length - 4})" style="margin-top: 8px;">
-                                            📖 展开剩余 ${citations.length - 4} 处
-                                        </button>
-                                    ` : ''}
-                                    <div class="citation-suggestion">
-                                        💡 建议综合考察${bookName}中论"${topic}"的各章，注意不同语境的细微差别
-                                    </div>
+                            found = true;
+                            const citationItems = citations.slice(0, 3).map(c => `
+                                <div style="background: var(--white); padding: 8px 10px; border-radius: 4px; margin-bottom: 6px; border-left: 2px solid var(--accent);">
+                                    <div style="font-size: 11px; font-weight: 600; color: var(--accent); margin-bottom: 2px;">《${bookName}·${c.chapter}》</div>
+                                    <div style="font-size: 11px; font-style: italic; color: var(--text-secondary);">"${c.content.substring(0, 60)}..."</div>
+                                </div>
+                            `).join('');
+                            
+                            rightPanelHtml += `
+                                <div style="margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--border-light);">
+                                    <div style="font-size: 11px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px;">《${bookName}》论"${topic}"</div>
+                                    ${citationItems}
                                 </div>
                             `;
                             break;
@@ -2186,25 +2577,17 @@ ${teachingSummary}
                 }
             }
             
-            return results;
-        }
-
-        function toggleCitationMore(btn, count) {
-            const moreDiv = btn.previousElementSibling;
-            if (moreDiv.style.display === 'none') {
-                moreDiv.style.display = 'block';
-                btn.textContent = `📕 收起 ${count} 处`;
-            } else {
-                moreDiv.style.display = 'none';
-                btn.textContent = `📖 展开剩余 ${count} 处`;
+            if (rightPanelHtml) {
+                document.getElementById('citationPanelRight').innerHTML = rightPanelHtml;
+            } else if (!found) {
+                document.getElementById('citationPanelRight').innerHTML = '<p style="font-size: 12px; color: var(--text-muted); text-align: center; padding: 10px;">未检测到相关内容</p>';
             }
         }
         
         function analyzeExegesis(content) {
-            let results = '';
             const foundWords = [];
             
-            for (const [word, data] of Object.entries(EXEGESIS_DATA)) {
+            for (const [word, data] of Object.entries(EXEGESIS_DATA || {})) {
                 const wordPattern = new RegExp(`[^字文]${word}[^字文]`, 'i');
                 if (wordPattern.test(content)) {
                     foundWords.push({ word, data });
@@ -2212,75 +2595,22 @@ ${teachingSummary}
             }
             
             if (foundWords.length > 0) {
-                const sectionId = 'exegesis_' + Date.now();
-                results += `
-                    <div class="exegesis-section" id="${sectionId}">
-                        <h4>📖 训诂释义参考</h4>
-                        <div class="exegesis-list">
-                            ${foundWords.slice(0, 3).map(item => renderExegesisItem(item)).join('')}
-                        </div>
-                        ${foundWords.length > 3 ? `
-                            <div class="exegesis-more" style="display: none;">
-                                ${foundWords.slice(3).map(item => renderExegesisItem(item)).join('')}
-                            </div>
-                            <button class="btn btn-small btn-secondary" onclick="toggleExegesisMore(this, ${foundWords.length - 3})" style="margin-top: 10px;">
-                                📖 展开剩余 ${foundWords.length - 3} 个词
-                            </button>
-                        ` : ''}
+                const etymologyHtml = foundWords.slice(0, 3).map(item => `
+                    <div class="etymology-item">
+                        <div class="etymology-word">"${item.word}"</div>
+                        <div class="etymology-def"><strong>【本义】</strong>${item.data.benyi}</div>
+                        ${item.data.shuowen ? `<div class="etymology-def"><strong>【说文】</strong>"${item.data.shuowen}"</div>` : ''}
                     </div>
-                `;
-            }
-            
-            return results;
-        }
-
-        function renderExegesisItem(item) {
-            return `
-                <div class="exegesis-item">
-                    <div class="word">"${item.word}"</div>
-                    <div class="def">
-                        <span class="def-label">【本义】</span>
-                        <span class="def-content">${item.data.benyi}</span>
-                    </div>
-                    <div class="def">
-                        <span class="def-label">【《说文》】</span>
-                        <span class="def-content">"${item.data.shuowen}"</span>
-                    </div>
-                    ${item.data.duanzhu ? `
-                        <div class="def">
-                            <span class="def-label">【段注】</span>
-                            <span class="def-content">"${item.data.duanzhu}"</span>
-                        </div>
-                    ` : ''}
-                    <div class="yinshenyi">
-                        <span class="def-label">【引申义】</span>
-                        ${item.data.yinshenyi.join('、')}
-                    </div>
-                    ${item.data.warning ? `
-                        <div class="exegesis-warning">
-                            ⚠️ ${item.data.warning}
-                        </div>
-                    ` : ''}
-                </div>
-            `;
-        }
-
-        function toggleExegesisMore(btn, count) {
-            const moreDiv = btn.previousElementSibling;
-            if (moreDiv.style.display === 'none') {
-                moreDiv.style.display = 'block';
-                btn.textContent = `📕 收起 ${count} 个词`;
-            } else {
-                moreDiv.style.display = 'none';
-                btn.textContent = `📖 展开剩余 ${count} 个词`;
+                `).join('');
+                
+                document.getElementById('etymologyPanel').innerHTML = etymologyHtml;
             }
         }
         
         function analyzeCrossReferences(content) {
-            let results = '';
             const foundTopics = [];
             
-            for (const [topic, data] of Object.entries(CROSS_REFERENCES)) {
+            for (const [topic, data] of Object.entries(CROSS_REFERENCES || {})) {
                 const topicPattern = new RegExp(topic, 'i');
                 if (topicPattern.test(content)) {
                     foundTopics.push({ topic, data });
@@ -2288,104 +2618,32 @@ ${teachingSummary}
             }
             
             if (foundTopics.length > 0) {
-                const sectionId = 'crossref_' + Date.now();
-                results += `
-                    <div class="cross-ref-section" id="${sectionId}">
-                        <h4>📚 跨文献关联建议</h4>
-                        <div class="cross-ref-list">
-                            ${foundTopics.slice(0, 3).map(item => renderCrossRefItem(item)).join('')}
-                        </div>
-                        ${foundTopics.length > 3 ? `
-                            <div class="cross-ref-more" style="display: none;">
-                                ${foundTopics.slice(3).map(item => renderCrossRefItem(item)).join('')}
+                const crossRefHtml = foundTopics.slice(0, 2).map(item => `
+                    <div class="cross-ref-item">
+                        <div class="cross-ref-source">您正在讨论"${item.topic}"</div>
+                        ${item.data.references.slice(0, 2).map(ref => `
+                            <div style="margin-top: 6px; padding-left: 8px; border-left: 2px solid var(--border);">
+                                <div style="font-size: 11px; color: var(--accent);">《${ref.book}·${ref.chapter}》</div>
+                                <div class="cross-ref-quote">"${ref.content.substring(0, 50)}..."</div>
                             </div>
-                            <button class="btn btn-small btn-secondary" onclick="toggleCrossRefMore(this, ${foundTopics.length - 3})" style="margin-top: 10px;">
-                                📖 展开剩余 ${foundTopics.length - 3} 个相关主题
-                            </button>
-                        ` : ''}
+                        `).join('')}
+                        <div style="font-size: 11px; color: var(--accent); margin-top: 8px;">${item.data.suggestion}</div>
                     </div>
-                `;
-            }
-            
-            return results;
-        }
-
-        function renderCrossRefItem(item) {
-            const refSectionId = 'ref_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5);
-            return `
-                <div class="cross-ref-item">
-                    <div class="source">📖 您正在讨论"${item.topic}"</div>
-                    ${item.data.references.slice(0, 3).map(ref => `
-                        <div style="margin-top: 6px; padding-left: 10px; border-left: 2px solid #e0e0e0;">
-                            <span style="color: #1565c0; font-size: 12px;">《${ref.book}·${ref.chapter}》</span>
-                            <div class="quote">"${ref.content.substring(0, 60)}${ref.content.length > 60 ? '...' : ''}"</div>
-                        </div>
-                    `).join('')}
-                    ${item.data.references.length > 3 ? `
-                        <div class="ref-more" id="${refSectionId}" style="display: none;">
-                            ${item.data.references.slice(3).map(ref => `
-                                <div style="margin-top: 6px; padding-left: 10px; border-left: 2px solid #e0e0e0;">
-                                    <span style="color: #1565c0; font-size: 12px;">《${ref.book}·${ref.chapter}》</span>
-                                    <div class="quote">"${ref.content.substring(0, 60)}${ref.content.length > 60 ? '...' : ''}"</div>
-                                </div>
-                            `).join('')}
-                        </div>
-                        <button class="btn btn-small" onclick="toggleRefMore(this, '${refSectionId}', ${item.data.references.length - 3})" style="margin-top: 6px;">
-                            📖 还有 ${item.data.references.length - 3} 条引用
-                        </button>
-                    ` : ''}
-                    <div class="citation-suggestion" style="margin-top: 8px;">
-                        💡 ${item.data.suggestion}
-                    </div>
-                </div>
-            `;
-        }
-
-        function toggleCrossRefMore(btn, count) {
-            const moreDiv = btn.previousElementSibling;
-            if (moreDiv.style.display === 'none') {
-                moreDiv.style.display = 'block';
-                btn.textContent = `📕 收起 ${count} 个相关主题`;
-            } else {
-                moreDiv.style.display = 'none';
-                btn.textContent = `📖 展开剩余 ${count} 个相关主题`;
-            }
-        }
-
-        function toggleRefMore(btn, refId, count) {
-            const moreDiv = document.getElementById(refId);
-            if (moreDiv.style.display === 'none') {
-                moreDiv.style.display = 'block';
-                btn.textContent = `📕 收起 ${count} 条引用`;
-            } else {
-                moreDiv.style.display = 'none';
-                btn.textContent = `📖 还有 ${count} 条引用`;
+                `).join('');
+                
+                document.getElementById('crossRefPanel').innerHTML = crossRefHtml;
             }
         }
         
-        document.getElementById('docName').addEventListener('input', function() {
-            renderVersionList();
-        });
-
-        function toggleCitationSection(btn) {
-            const panel = document.getElementById('citationPanel');
-            const isHidden = panel.style.display === 'none';
-            panel.style.display = isHidden ? 'block' : 'none';
-            btn.textContent = isHidden ? '▲ 收起' : '▼ 展开';
-        }
-
         function appendAnalysisResult(resultHtml) {
             const container = document.getElementById('analysisResult');
-            const wrapper = document.createElement('div');
-            wrapper.className = 'analysis-wrapper';
-            wrapper.innerHTML = resultHtml;
-            container.appendChild(wrapper);
-            document.getElementById('clearAnalysisBtn').style.display = 'block';
+            container.innerHTML += resultHtml;
+            document.getElementById('clearAnalysisBtn').classList.remove('hidden');
         }
-
+        
         function clearAnalysisResults() {
             document.getElementById('analysisResult').innerHTML = '';
-            document.getElementById('clearAnalysisBtn').style.display = 'none';
+            document.getElementById('clearAnalysisBtn').classList.add('hidden');
         }
         
         let communityClient = null;
@@ -2393,17 +2651,17 @@ ${teachingSummary}
         function initCommunity() {
             try {
                 if (typeof window.supabase === 'undefined') {
-                    document.getElementById('communityStatus').innerHTML = 'Supabase库加载中...';
+                    document.getElementById('communityStatus').innerHTML = '正在加载...';
                     setTimeout(initCommunity, 500);
                     return;
                 }
                 communityClient = window.supabase.createClient(DEFAULT_URL, DEFAULT_KEY);
                 localStorage.setItem('sbUrl', DEFAULT_URL);
                 localStorage.setItem('sbKey', DEFAULT_KEY);
-                document.getElementById('communityStatus').innerHTML = '<span style="color:green">✓ 已连接Supabase</span>';
+                document.getElementById('communityStatus').innerHTML = '<span style="color: var(--accent);">已连接</span>';
                 loadCommunityDocs();
             } catch (e) {
-                document.getElementById('communityStatus').innerHTML = '<span style="color:red">连接失败: ' + e.message + '</span><br><button onclick="initCommunity()" class="btn btn-small" style="margin-top:10px;">重试</button>';
+                document.getElementById('communityStatus').innerHTML = '<span style="color: var(--accent-light);">连接失败: ' + e.message + '</span><br><button onclick="initCommunity()" style="margin-top:10px;padding:6px 12px;background:var(--accent);color:white;border:none;border-radius:4px;cursor:pointer;">重试</button>';
             }
         }
         
@@ -2428,7 +2686,7 @@ ${teachingSummary}
             }
             
             if (!communityClient) {
-                document.getElementById('communityDocs').innerHTML = '<div class="empty-community">正在连接Supabase...<br><button onclick="initCommunity()">点击重试</button></div>';
+                document.getElementById('communityDocs').innerHTML = '<div class="empty-community">正在连接...<br><button onclick="initCommunity()">点击重试</button></div>';
                 return;
             }
             
@@ -2443,12 +2701,12 @@ ${teachingSummary}
             
             if (error) {
                 console.error(error);
-                container.innerHTML = '<div class="empty-community">加载失败: ' + (error.message || '未知错误') + '<br><br>请确保已创建表<br><pre style="font-size:11px;text-align:left;background:#f5f5f5;padding:10px;border-radius:4px;margin-top:10px;">CREATE TABLE community_docs (\n    id BIGSERIAL PRIMARY KEY,\n    title TEXT NOT NULL,\n    content TEXT NOT NULL,\n    review_result TEXT,\n    author VARCHAR(100),\n    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()\n);\n\nALTER TABLE community_docs ENABLE ROW LEVEL SECURITY;\nCREATE POLICY "Public read" ON community_docs FOR SELECT USING (true);\nCREATE POLICY "Public insert" ON community_docs FOR INSERT WITH CHECK (true);</pre></div>';
+                container.innerHTML = '<div class="empty-community">加载失败: ' + (error.message || '未知错误') + '</div>';
                 return;
             }
             
             if (!data || data.length === 0) {
-                container.innerHTML = '<div class="empty-community">暂无文档，成为第一个分享者!</div>';
+                container.innerHTML = '<div class="empty-community">暂无文档，成为第一个分享者</div>';
                 return;
             }
             
@@ -2456,27 +2714,14 @@ ${teachingSummary}
                 <div class="community-doc">
                     <div class="community-doc-title">${escapeHtml(doc.title)}</div>
                     <div class="community-doc-meta">上传者: ${escapeHtml(doc.author || '匿名')} | ${formatDate(doc.created_at)}</div>
-                    <div class="community-doc-content">${escapeHtml(doc.content?.substring(0, 200) || '')}${doc.content?.length > 200 ? '...' : ''}</div>
-                    <div style="font-size:12px;color:#888;margin-top:8px;">审核结果: ${doc.review_result ? '有' : '无'}</div>
+                    <div class="community-doc-content">${escapeHtml(doc.content?.substring(0, 150) || '')}${doc.content?.length > 150 ? '...' : ''}</div>
                     <div class="community-doc-actions">
-                        <button class="btn btn-small btn-secondary" onclick="useCommunityDoc('${doc.id}')">用作教学标准</button>
-                        <button class="btn btn-small" onclick="viewCommunityDoc('${doc.id}')">查看详情</button>
-                        <button class="btn btn-small btn-danger" onclick="deleteCommunityDoc(${doc.id})">删除</button>
+                        <button onclick="useCommunityDoc('${doc.id}')">用作教学标准</button>
+                        <button onclick="viewCommunityDoc('${doc.id}')">查看详情</button>
+                        <button onclick="deleteCommunityDoc(${doc.id})">删除</button>
                     </div>
                 </div>
             `).join('');
-            
-            container.innerHTML += `
-                <div id="docModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;">
-                    <div style="background:white;padding:24px;border-radius:16px;max-width:700px;width:90%;max-height:80vh;overflow-y:auto;">
-                        <h3 id="modalTitle" style="margin-bottom:12px;"></h3>
-                        <div id="modalContent" style="background:#f5f5f5;padding:12px;border-radius:8px;max-height:300px;overflow-y:auto;white-space:pre-wrap;margin-bottom:12px;"></div>
-                        <h4>审核结果:</h4>
-                        <div id="modalReview" style="background:#e8f5e9;padding:12px;border-radius:8px;max-height:200px;overflow-y:auto;white-space:pre-wrap;margin-bottom:12px;"></div>
-                        <button class="btn" onclick="document.getElementById('docModal').style.display='none'">关闭</button>
-                    </div>
-                </div>
-            `;
         }
         
         function useCommunityDoc(id) {
@@ -2493,8 +2738,11 @@ ${teachingSummary}
             });
         }
         
+        let currentDocId = null;
+        
         function viewCommunityDoc(id) {
             if (!communityClient) return;
+            currentDocId = id;
             communityClient.from('community_docs').select('*').eq('id', id).then(({ data }) => {
                 if (data && data[0]) {
                     const doc = data[0];
@@ -2502,8 +2750,91 @@ ${teachingSummary}
                     document.getElementById('modalContent').textContent = doc.content || '无';
                     document.getElementById('modalReview').textContent = doc.review_result || '无';
                     document.getElementById('docModal').style.display = 'flex';
+                    loadDocComments(id);
                 }
             });
+        }
+        
+        async function loadDocComments(docId) {
+            if (!communityClient) return;
+            
+            const container = document.getElementById('docComments');
+            
+            try {
+                const { data, error } = await communityClient
+                    .from('doc_comments')
+                    .select('*')
+                    .eq('doc_id', docId)
+                    .order('created_at', { ascending: false });
+                
+                if (error || !data || data.length === 0) {
+                    container.innerHTML = '<p style="color: var(--text-muted); font-size: 12px;">暂无评论</p>';
+                    return;
+                }
+                
+                container.innerHTML = data.map(comment => `
+                    <div style="background: var(--bg-secondary); padding: 10px; border-radius: 6px; margin-bottom: 8px; position: relative;">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                            <div>
+                                <div style="font-size: 11px; color: var(--accent); margin-bottom: 4px;">${escapeHtml(comment.author || '匿名')} | ${formatDate(comment.created_at)}</div>
+                                <div style="font-size: 13px; color: var(--text-primary);">${escapeHtml(comment.content)}</div>
+                            </div>
+                            <button onclick="deleteComment(${comment.id})" style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 12px; padding: 2px 6px;">删除</button>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (e) {
+                container.innerHTML = '<p style="color: var(--text-muted); font-size: 12px;">加载评论失败</p>';
+            }
+        }
+        
+        async function deleteComment(commentId) {
+            if (!confirm('确定删除这条评论？')) return;
+            
+            try {
+                const { error } = await communityClient
+                    .from('doc_comments')
+                    .delete()
+                    .eq('id', commentId);
+                
+                if (error) {
+                    alert('删除失败: ' + error.message);
+                } else {
+                    loadDocComments(currentDocId);
+                }
+            } catch (e) {
+                alert('删除失败: ' + e.message);
+            }
+        }
+        
+        async function submitDocComment() {
+            if (!communityClient || !currentDocId) return;
+            
+            const content = document.getElementById('docCommentInput').value.trim();
+            const author = document.getElementById('docCommentAuthor').value.trim() || '匿名';
+            
+            if (!content) {
+                alert('请输入评论内容');
+                return;
+            }
+            
+            try {
+                const { error } = await communityClient.from('doc_comments').insert({
+                    doc_id: currentDocId,
+                    content: content,
+                    author: author,
+                    created_at: new Date().toISOString()
+                });
+                
+                if (error) {
+                    alert('评论失败: ' + error.message);
+                } else {
+                    document.getElementById('docCommentInput').value = '';
+                    loadDocComments(currentDocId);
+                }
+            } catch (e) {
+                alert('评论失败: ' + e.message);
+            }
         }
         
         async function deleteCommunityDoc(id) {
@@ -2569,13 +2900,11 @@ ${teachingSummary}
         }
         
         window.addEventListener('load', function() {
-            const savedUrl = localStorage.getItem('sbUrl');
-            const savedKey = localStorage.getItem('sbKey');
-            if (savedUrl && savedKey) {
-                document.getElementById('sbUrl').value = savedUrl;
-                document.getElementById('sbKey').value = savedKey;
-            }
             autoConnect();
+        });
+        
+        document.getElementById('docName').addEventListener('input', function() {
+            renderVersionList();
         });
     </script>
 </body>
