@@ -1992,7 +1992,7 @@
                 } : {
                     model: 'glm-4-flash',
                     messages: [
-                        { role: 'system', content: '你是一个教学文档分析助手。请仔细阅读用户提供的教学文档，理解其中的教育理念、教学方法和核心观点。然后用简洁的语言总结出该文档的核心要点，以便后续用于审核其他文档的参考。' },
+                        { role: 'system', content: '你是一位教学文档分析专家。请仔细阅读用户提供的教学文档，提取其中的所有可量化、可判断的具体要求。\n\n请按以下格式输出：\n\n## 标准清单\n1. [标准名称]：具体要求描述\n2. ...\n\n## 评分锚点\n- X分要求：...\n- Y分要求：...\n\n## 注意事项\n- 事实错误类型：...\n- 禁止事项：...\n\n请确保总结清晰、完整、可操作性强，便于后续逐条对照审核。' },
                         { role: 'user', content: '请理解以下教学文档并总结核心要点：\n\n' + combinedContent }
                     ]
                 };
@@ -2064,7 +2064,7 @@
             
             if (!apiKey) { alert('请输入API Key'); return; }
             if (!content.trim()) { alert('请输入文档内容'); return; }
-            if (!teachingSummary) {
+            if (teachingDocs.length === 0) {
                 alert('请先提交教学文档');
                 switchTab('teaching');
                 return;
@@ -2081,6 +2081,31 @@
             const versionCount = existingDoc ? existingDoc.versions.length + 1 : 1;
             document.getElementById('docIteration').textContent = `第 ${versionCount} 版`;
             
+            const teachingContentRaw = teachingDocs.map(d => `【${d.name}】\n${d.content}`).join('\n\n');
+            const MAX_TEACHING_LEN = 8000;
+            
+            let teachingContentForReview;
+            if (teachingContentRaw.length > MAX_TEACHING_LEN) {
+                const keyRulesPattern = /(?:必须|严禁|禁止|应当|需要|要求|评分标准|考核|打分|分值|扣分|分数段|合格|不合格|违反)[^\n。！？]{5,100}[。！？]?/gi;
+                const matches = teachingContentRaw.match(keyRulesPattern) || [];
+                const otherParagraphs = teachingContentRaw.split(/\n{2,}/).filter(p => {
+                    const trimmed = p.trim();
+                    return trimmed.length > 50 && !keyRulesPattern.test(trimmed);
+                });
+                teachingContentForReview = '【教学文档关键规则片段】\n\n';
+                if (matches.length > 0) {
+                    teachingContentForReview += '## 包含"必须/严禁/评分标准"等关键词的段落：\n' + matches.slice(0, 50).join('\n') + '\n\n';
+                }
+                if (otherParagraphs.length > 0) {
+                    teachingContentForReview += '## 其他规则段落：\n' + otherParagraphs.slice(0, 20).join('\n\n');
+                }
+                if (teachingSummary) {
+                    teachingContentForReview += '\n\n## AI辅助总结（仅供参考）：\n' + teachingSummary;
+                }
+            } else {
+                teachingContentForReview = teachingContentRaw;
+            }
+            
             try {
                 const previousVersion = existingDoc ? existingDoc.versions[existingDoc.versions.length - 1] : null;
                 const isUpdate = !!previousVersion;
@@ -2088,41 +2113,120 @@
                 let systemPrompt, userPrompt;
                 
                 if (isUpdate) {
-                    systemPrompt = `你是一个教学文档审核专家，同时擅长版本对比分析。
+                    systemPrompt = `你是一位严格的文档审核专家。请严格按照以下步骤对【待审核文档】进行审核，输出必须结构清晰、可追溯。
 
-【参考标准 - 教学文档核心要点】
-${teachingSummary}
+【教学文档】
+${teachingContentForReview}
 
-【历史版本摘要】
-该文档已有 ${existingDoc.versions.length} 个版本。
+【待审核文档】
+${content}
+
+【历史版本信息】
 上一版本评分: ${previousVersion.score || '未评分'}
-上一版本审核意见: ${previousVersion.review || '无'}
 
-请对待审核的文档进行审核，并重点进行版本对比分析：
-1. 与参考标准的符合程度
-2. 与上一版本的对比分析：进步了多少？哪些地方改好了？哪些地方仍需改进？
-3. 给出具体的改进建议
-4. 最终评分（1-10分）
+第一步：事实校验（最高优先级）
+逐条检查待审核文档中所有涉及客观事实的陈述，包括但不限于：
+- 人物与作品的归属关系（例如："孔子在《道德经》中写道" → 错误）
+- 时代先后顺序（例如："春秋时期的孔子受汉代董仲舒影响" → 错误）
+- 数字、时间点、期限
+- 引文原文的准确性
+
+输出格式：
+- 若无事实错误：输出"未发现事实错误"。
+- 若有事实错误：逐条列出，每条格式为"事实错误1：错误陈述内容 | 问题说明 | 扣1分"。
+
+第二步：与教学文档的符合程度
+逐条对比教学文档中的每一项要求，判断待审核文档的遵守情况。
+输出格式（每条标准单独一行）：
+- 符合：说明依据
+- 部分符合：说明哪些部分符合、哪些不符合
+- 违反：引用文档原文作为证据
+
+第三步：版本对比分析
+与上一版本对比：进步了多少？哪些地方改好了？哪些地方仍需改进？
+
+第四步：需要改进的地方
+仅列出文档中确实存在的缺陷，每条缺陷必须指明违反的具体标准条款。
+禁止在此处列出"优点"或"肯定性评价"。
+输出格式：
+- 缺陷1：……（违反：标准第X条 / 事实错误第Y条）
+- 缺陷2：……
+
+第四步：优点
+列出文档中值得肯定的内容，每项优点加1-3分（根据优点重要程度）。
+如果文档质量差，此项写"无"。
+
+第五步：评分（0-10分）
+基础分0分。根据审核结果计算：
+- 每违反一项标准扣1-3分（根据违规严重程度）
+- 每处事实错误扣1分
+- 每项优点加1-3分
+- 最终分数范围：0-10分，最低0分，不出现负分
+
+输出格式：
+> 最终评分：X分
+> 评分说明：加分项（如有）列出加分项，扣分项列出扣分项，最终得分为0-10分。
+
+请按以上步骤输出审核结果，只输出分析结论，不要在结果中复述教学文档或审核文档的内容。
 
 【重要】请在回复的最后用以下格式：
 最终评分：X分
 与上版本相比：进步↑/退步↓/持平→
 `;
-                    userPrompt = `请审核以下文档（文档名: ${docName}），这是第 ${(existingDoc?.versions.length || 0) + 1} 个版本：\n\n${content}`;
+                    userPrompt = `请审核文档（文档名: ${docName}），这是第 ${(existingDoc?.versions.length || 0) + 1} 个版本。`;
                 } else {
-                    systemPrompt = `你是一个教学文档审核专家。请根据已学习的教学文档（参考标准），审核待审核的文档。
+                    systemPrompt = `你是一位严格的文档审核专家。请严格按照以下步骤对【待审核文档】进行审核，输出必须结构清晰、可追溯。
 
-【参考标准 - 教学文档核心要点】
-${teachingSummary}
+【教学文档】
+${teachingContentForReview}
 
-请对待审核的文档进行详细评价，包括：
-1. 与参考标准的符合程度
-2. 优点和亮点
-3. 需要改进的地方
-4. 总体评价
+【待审核文档】
+${content}
 
-重要：请在审核意见的最后，用"最终评分：X分"格式给出你的评分（1-10分）。`;
-                    userPrompt = `请审核以下文档（文档名: ${docName}）：\n\n${content}`;
+第一步：事实校验（最高优先级）
+逐条检查待审核文档中所有涉及客观事实的陈述，包括但不限于：
+- 人物与作品的归属关系（例如："孔子在《道德经》中写道" → 错误）
+- 时代先后顺序（例如："春秋时期的孔子受汉代董仲舒影响" → 错误）
+- 数字、时间点、期限
+- 引文原文的准确性
+
+输出格式：
+- 若无事实错误：输出"未发现事实错误"。
+- 若有事实错误：逐条列出，每条格式为"事实错误1：错误陈述内容 | 问题说明 | 扣1分"。
+
+第二步：与教学文档的符合程度
+逐条对比教学文档中的每一项要求，判断待审核文档的遵守情况。
+输出格式（每条标准单独一行）：
+- 符合：说明依据
+- 部分符合：说明哪些部分符合、哪些不符合
+- 违反：引用文档原文作为证据
+
+第三步：需要改进的地方
+仅列出文档中确实存在的缺陷，每条缺陷必须指明违反的具体标准条款。
+禁止在此处列出"优点"或"肯定性评价"。
+输出格式：
+- 缺陷1：……（违反：标准第X条 / 事实错误第Y条）
+- 缺陷2：……
+
+第四步：优点
+列出文档中值得肯定的内容，每项优点加1-3分（根据优点重要程度）。
+如果文档质量差，此项写"无"。
+
+第五步：评分（0-10分）
+基础分0分。根据审核结果计算：
+- 每违反一项标准扣1-3分（根据违规严重程度）
+- 每处事实错误扣1分
+- 每项优点加1-3分
+- 最终分数范围：0-10分，最低0分，不出现负分
+
+输出格式：
+> 最终评分：X分
+> 评分说明：加分项（如有）列出加分项，扣分项列出扣分项，最终得分为0-10分。
+
+请按以上步骤输出审核结果，只输出分析结论，不要在结果中复述教学文档或审核文档的内容。
+
+重要：请在审核意见的最后，用"最终评分：X分"格式给出你的评分（0-10分）。`;
+                    userPrompt = `请审核文档（文档名: ${docName}）。`;
                 }
                 
                 const isProxy = !!API_BASE;
@@ -2216,18 +2320,53 @@ ${teachingSummary}
                 return;
             }
             
+            if (teachingDocs.length === 0) {
+                alert('请先上传教学文档');
+                switchTab('teaching');
+                return;
+            }
+            
             resultDiv.innerHTML = '<div class="analyzing">AI正在模拟学术辩论，生成质疑问题</div>';
+            
+            const teachingContentRaw = teachingDocs.map(d => `【${d.name}】\n${d.content}`).join('\n\n');
+            const MAX_TEACHING_LEN = 8000;
+            let teachingContentForReview;
+            if (teachingContentRaw.length > MAX_TEACHING_LEN) {
+                const keyRulesPattern = /(?:必须|严禁|禁止|应当|需要|要求|评分标准|考核|打分|分值|扣分|分数段|合格|不合格|违反)[^\n。！？]{5,100}[。！？]?/gi;
+                const matches = teachingContentRaw.match(keyRulesPattern) || [];
+                const otherParagraphs = teachingContentRaw.split(/\n{2,}/).filter(p => {
+                    const trimmed = p.trim();
+                    return trimmed.length > 50 && !keyRulesPattern.test(trimmed);
+                });
+                teachingContentForReview = '【教学文档关键规则片段】\n\n';
+                if (matches.length > 0) {
+                    teachingContentForReview += '## 包含"必须/严禁/评分标准"等关键词的段落：\n' + matches.slice(0, 50).join('\n') + '\n\n';
+                }
+                if (otherParagraphs.length > 0) {
+                    teachingContentForReview += '## 其他规则段落：\n' + otherParagraphs.slice(0, 20).join('\n\n');
+                }
+                if (teachingSummary) {
+                    teachingContentForReview += '\n\n## AI辅助总结（仅供参考）：\n' + teachingSummary;
+                }
+            } else {
+                teachingContentForReview = teachingContentRaw;
+            }
             
             try {
                 const apiKey = document.getElementById('apiKey').value;
                 const isProxy = !!API_BASE;
                 
-                const systemPrompt = `你是一位严格的学术评审专家，擅长从不同学术立场对论文进行质疑。请仔细阅读论文，针对其核心论点，模拟最有可能被同行专家质疑的问题。
+                const systemPrompt = `你是一位严格的学术评审专家，擅长从不同学术立场对论文进行质疑。
+
+【教学标准】
+${teachingContentForReview}
+
+请仔细阅读论文，针对其核心论点和与教学标准的符合程度，模拟最有可能被同行专家质疑的问题。
 
 要求：
 1. 找出论文的3-5个核心论点或结论
 2. 针对每个核心论点，生成1-2个尖锐的质疑问题
-3. 质疑要基于真实的学术争议，而非吹毛求疵
+3. 质疑要基于真实的学术争议和教学标准要求，而非吹毛求疵
 4. 格式：先引用论文原文，再提出质疑，最后给出可能的回应方向
 
 请用以下JSON格式返回：
@@ -2319,7 +2458,37 @@ ${teachingSummary}
                 return;
             }
             
+            if (teachingDocs.length === 0) {
+                alert('请先上传教学文档');
+                switchTab('teaching');
+                return;
+            }
+            
             resultDiv.innerHTML = '<div class="analyzing">AI正在检测论文薄弱环节</div>';
+            
+            const teachingContentRaw = teachingDocs.map(d => `【${d.name}】\n${d.content}`).join('\n\n');
+            const MAX_TEACHING_LEN = 8000;
+            let teachingContentForReview;
+            if (teachingContentRaw.length > MAX_TEACHING_LEN) {
+                const keyRulesPattern = /(?:必须|严禁|禁止|应当|需要|要求|评分标准|考核|打分|分值|扣分|分数段|合格|不合格|违反)[^\n。！？]{5,100}[。！？]?/gi;
+                const matches = teachingContentRaw.match(keyRulesPattern) || [];
+                const otherParagraphs = teachingContentRaw.split(/\n{2,}/).filter(p => {
+                    const trimmed = p.trim();
+                    return trimmed.length > 50 && !keyRulesPattern.test(trimmed);
+                });
+                teachingContentForReview = '【教学文档关键规则片段】\n\n';
+                if (matches.length > 0) {
+                    teachingContentForReview += '## 包含"必须/严禁/评分标准"等关键词的段落：\n' + matches.slice(0, 50).join('\n') + '\n\n';
+                }
+                if (otherParagraphs.length > 0) {
+                    teachingContentForReview += '## 其他规则段落：\n' + otherParagraphs.slice(0, 20).join('\n\n');
+                }
+                if (teachingSummary) {
+                    teachingContentForReview += '\n\n## AI辅助总结（仅供参考）：\n' + teachingSummary;
+                }
+            } else {
+                teachingContentForReview = teachingContentRaw;
+            }
             
             try {
                 const apiKey = document.getElementById('apiKey').value;
@@ -2327,12 +2496,16 @@ ${teachingSummary}
                 
                 const systemPrompt = `你是一位严格的学术编辑，擅长发现论文中"断言多、证据少"的薄弱环节。
 
-请仔细阅读论文，找出以下类型的薄弱语句：
+【教学标准】
+${teachingContentForReview}
+
+请仔细阅读论文，对照教学标准，找出以下类型的薄弱语句：
 1. 未经充分论证的结论性断言
 2. 引用资料未加分析就作为证据使用
 3. 逻辑推导过程不完整
 4. 与权威观点相悖但未作充分回应
 5. 使用模糊表述回避关键问题
+6. 不符合教学标准要求的表述
 
 要求：
 - 标注具体的句子（用引号引用）
@@ -2428,7 +2601,37 @@ ${teachingSummary}
                 return;
             }
             
+            if (teachingDocs.length === 0) {
+                alert('请先上传教学文档');
+                switchTab('teaching');
+                return;
+            }
+            
             resultDiv.innerHTML = '<div class="analyzing">AI正在分析学术立场</div>';
+            
+            const teachingContentRaw = teachingDocs.map(d => `【${d.name}】\n${d.content}`).join('\n\n');
+            const MAX_TEACHING_LEN = 8000;
+            let teachingContentForReview;
+            if (teachingContentRaw.length > MAX_TEACHING_LEN) {
+                const keyRulesPattern = /(?:必须|严禁|禁止|应当|需要|要求|评分标准|考核|打分|分值|扣分|分数段|合格|不合格|违反)[^\n。！？]{5,100}[。！？]?/gi;
+                const matches = teachingContentRaw.match(keyRulesPattern) || [];
+                const otherParagraphs = teachingContentRaw.split(/\n{2,}/).filter(p => {
+                    const trimmed = p.trim();
+                    return trimmed.length > 50 && !keyRulesPattern.test(trimmed);
+                });
+                teachingContentForReview = '【教学文档关键规则片段】\n\n';
+                if (matches.length > 0) {
+                    teachingContentForReview += '## 包含"必须/严禁/评分标准"等关键词的段落：\n' + matches.slice(0, 50).join('\n') + '\n\n';
+                }
+                if (otherParagraphs.length > 0) {
+                    teachingContentForReview += '## 其他规则段落：\n' + otherParagraphs.slice(0, 20).join('\n\n');
+                }
+                if (teachingSummary) {
+                    teachingContentForReview += '\n\n## AI辅助总结（仅供参考）：\n' + teachingSummary;
+                }
+            } else {
+                teachingContentForReview = teachingContentRaw;
+            }
             
             try {
                 const apiKey = document.getElementById('apiKey').value;
@@ -2436,15 +2639,34 @@ ${teachingSummary}
                 
                 const systemPrompt = `你是一位学术史专家，擅长分析论文作者在学术史中的立场。
 
-请分析论文的学术立场，包括但不限于：
+【教学标准】
+${teachingContentForReview}
+
+第一步：事实校验（前置检查）
+在进行分析之前，先检查论文是否存在根本性事实错误，包括：
+- 人物与作品的错误归属
+- 时代顺序颠倒
+- 引文明显错误或编造
+- 数字、时间等关键事实明显错误
+
+如果发现严重事实错误，请直接返回以下JSON格式，position_analysis字段设为false：
+{
+  "position_analysis": false,
+  "reason": "本文存在严重事实错误，无法进行有效的学术立场分析"
+}
+
+第二步：学术立场分析
+如果通过事实校验，请分析论文的学术立场，包括但不限于：
 1. 对前人研究成果的态度（继承、批判、超越）
 2. 方法论取向（实证、诠释、批判等）
 3. 核心概念的使用和理解
 4. 参考文献的倾向性
 5. 与当前学术主流的关系
+6. 与教学标准的符合程度
 
 请用以下JSON格式返回分析结果：
 {
+  "position_analysis": true,
   "positions": [
     {
       "axis_name": "坐标轴名称（如：信古-疑古）",
@@ -2486,16 +2708,28 @@ ${teachingSummary}
                 if (result.choices && result.choices[0]) {
                     let responseText = result.choices[0].message.content;
                     
+                    let positionAnalysis = null;
                     let positions = [];
                     try {
                         const jsonMatch = responseText.match(/\{[\s\S]*\}/);
                         if (jsonMatch) {
                             const parsed = JSON.parse(jsonMatch[0]);
+                            positionAnalysis = parsed.position_analysis;
                             positions = parsed.positions || [];
                         }
                     } catch {}
                     
-                    if (positions.length > 0) {
+                    if (positionAnalysis === false) {
+                        const html = `
+                            <div class="analysis-wrapper">
+                                <div class="analysis-result-title">学术立场分析</div>
+                                <div style="background: rgba(166, 124, 90, 0.1); border: 1px solid var(--accent-light); padding: 16px; border-radius: 6px; color: var(--accent);">
+                                    本文存在严重事实错误，无法进行有效的学术立场分析
+                                </div>
+                            </div>
+                        `;
+                        appendAnalysisResult(html);
+                    } else if (positions.length > 0) {
                         const pos = positions[0];
                         const marker = document.getElementById('stanceMarker');
                         if (marker) {
