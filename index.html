@@ -826,53 +826,6 @@
             margin-bottom: 20px;
         }
         
-        .community-category-tabs {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 20px;
-            padding: 12px;
-            background: var(--bg-secondary);
-            border-radius: 8px;
-        }
-        
-        .category-tab {
-            flex: 1;
-            padding: 10px 16px;
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--text-secondary);
-            background: var(--bg-card);
-            border: 1px solid var(--border-light);
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-align: center;
-        }
-        
-        .category-tab:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-        
-        .category-tab.active {
-            background: var(--accent);
-            border-color: var(--accent);
-            color: var(--white);
-        }
-        
-        .category-tab .count {
-            display: inline-block;
-            background: rgba(255,255,255,0.2);
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-size: 11px;
-            margin-left: 6px;
-        }
-        
-        .category-tab.active .count {
-            background: rgba(255,255,255,0.3);
-        }
-        
         .community-doc {
             background: var(--bg-card);
             border: 1px solid var(--border-light);
@@ -934,26 +887,6 @@
             text-align: center;
             padding: 60px;
             color: var(--text-muted);
-        }
-        
-        .doc-type-badge {
-            display: inline-block;
-            font-size: 10px;
-            padding: 2px 8px;
-            border-radius: 3px;
-            margin-right: 8px;
-            font-weight: 500;
-        }
-        
-        .doc-type-badge.teaching {
-            background: var(--accent);
-            color: var(--white);
-        }
-        
-        .doc-type-badge.review {
-            background: var(--bg-secondary);
-            color: var(--text-secondary);
-            border: 1px solid var(--border);
         }
         
         /* ========== Right Sidebar ========== */
@@ -1419,22 +1352,16 @@
                     <div class="content-header">
                         <h1 class="content-title">学术社区</h1>
                         <div class="content-meta">
-                            <span>查看和分享文档供他人使用</span>
+                            <span>查看和分享审核结果供他人使用</span>
                         </div>
                     </div>
                     
                     <div id="communityStatus" class="community-status">正在连接...</div>
                     
-                    <div class="community-category-tabs">
-                        <button class="category-tab active" onclick="switchCommunityCategory('all')">
-                            全部<span class="count" id="countAll">0</span>
-                        </button>
-                        <button class="category-tab" onclick="switchCommunityCategory('teaching')">
-                            教学文档<span class="count" id="countTeaching">0</span>
-                        </button>
-                        <button class="category-tab" onclick="switchCommunityCategory('review')">
-                            审核文档<span class="count" id="countReview">0</span>
-                        </button>
+                    <div style="display: flex; gap: 8px; margin-bottom: 16px;">
+                        <button onclick="filterCategory('all')" id="filterAll" style="padding: 6px 12px; font-size: 12px; border: 1px solid var(--border); border-radius: 5px; cursor: pointer; background: var(--accent); color: white;">全部</button>
+                        <button onclick="filterCategory('teaching')" id="filterTeaching" style="padding: 6px 12px; font-size: 12px; border: 1px solid var(--border); border-radius: 5px; cursor: pointer; background: var(--white); color: var(--text-secondary);">教学文档</button>
+                        <button onclick="filterCategory('review')" id="filterReview" style="padding: 6px 12px; font-size: 12px; border: 1px solid var(--border); border-radius: 5px; cursor: pointer; background: var(--white); color: var(--text-secondary);">审核文档</button>
                     </div>
                     
                     <div id="communityDocs"></div>
@@ -1513,6 +1440,7 @@
         
         let teachingSummary = '';
         let teachingDocs = [];
+        let currentCategoryFilter = 'all';
         
         const STORAGE_KEYS = {
             KNOWLEDGE_BASE: 'docReviewerKnowledgeBase',
@@ -1877,6 +1805,10 @@
                 renderTeachingDocsList();
             }
 
+            const categoryLabel = prompt('请输入文档分类（输入"教学"或"审核"）:', '教学');
+            if (!categoryLabel) return;
+            const category = categoryLabel.includes('审核') ? '审核文档' : '教学文档';
+            
             const docName = prompt('请输入教学文档名称（用于社区分享）:', 
                 teachingDocs.length > 1 ? `${teachingDocs.length}个教学文档` : teachingDocs[0].name);
             
@@ -1887,11 +1819,10 @@
             const combinedContent = teachingDocs.map(d => `【${d.name}】\n${d.content}`).join('\n\n');
 
             communityClient.from('community_docs').insert({
-                title: docName,
+                title: `[${category}] ` + docName,
                 content: combinedContent,
                 review_result: teachingSummary || '',
-                author: author,
-                doc_type: 'teaching'
+                author: author
             }).then(({ error }) => {
                 if (error) {
                     alert('上传失败: ' + error.message);
@@ -3222,8 +3153,6 @@ ${teachingContentForReview}
         }
         
         let communityClient = null;
-        let currentCommunityCategory = 'all';
-        let allCommunityDocs = [];
         
         function initCommunity() {
             try {
@@ -3247,13 +3176,6 @@ ${teachingContentForReview}
         
         function autoConnect() {
             initCommunity();
-        }
-        
-        function switchCommunityCategory(category) {
-            currentCommunityCategory = category;
-            document.querySelectorAll('.category-tab').forEach(tab => tab.classList.remove('active'));
-            document.querySelector(`.category-tab[onclick="switchCommunityCategory('${category}')"]`).classList.add('active');
-            renderCommunityDocs();
         }
         
         async function loadCommunityDocs() {
@@ -3281,7 +3203,7 @@ ${teachingContentForReview}
                 .from('community_docs')
                 .select('*')
                 .order('created_at', { ascending: false })
-                .limit(100);
+                .limit(30);
             
             if (error) {
                 console.error(error);
@@ -3289,48 +3211,36 @@ ${teachingContentForReview}
                 return;
             }
             
-            allCommunityDocs = data || [];
-            updateCategoryCounts();
-            renderCommunityDocs();
-        }
-        
-        function updateCategoryCounts() {
-            const teachingCount = allCommunityDocs.filter(d => d.doc_type === 'teaching').length;
-            const reviewCount = allCommunityDocs.filter(d => d.doc_type === 'review').length;
-            document.getElementById('countAll').textContent = allCommunityDocs.length;
-            document.getElementById('countTeaching').textContent = teachingCount;
-            document.getElementById('countReview').textContent = reviewCount;
-        }
-        
-        function renderCommunityDocs() {
-            const container = document.getElementById('communityDocs');
-            
-            let filteredDocs = allCommunityDocs;
-            if (currentCommunityCategory === 'teaching') {
-                filteredDocs = allCommunityDocs.filter(d => d.doc_type === 'teaching');
-            } else if (currentCommunityCategory === 'review') {
-                filteredDocs = allCommunityDocs.filter(d => d.doc_type === 'review');
-            }
-            
-            if (filteredDocs.length === 0) {
-                const emptyMsg = currentCommunityCategory === 'all' ? '暂无文档，成为第一个分享者' : 
-                                 currentCommunityCategory === 'teaching' ? '暂无教学文档' : '暂无审核文档';
-                container.innerHTML = `<div class="empty-community">${emptyMsg}</div>`;
+            if (!data || data.length === 0) {
+                container.innerHTML = '<div class="empty-community">暂无文档，成为第一个分享者</div>';
                 return;
             }
             
-            container.innerHTML = filteredDocs.map(doc => {
-                const isTeaching = doc.doc_type === 'teaching';
+            const filteredData = currentCategoryFilter === 'all' 
+                ? data 
+                : data.filter(doc => {
+                    const isTeaching = doc.title && (doc.title.startsWith('[教学文档]') || doc.title.startsWith('[教学标准]'));
+                    return currentCategoryFilter === 'teaching' ? isTeaching : !isTeaching;
+                });
+            
+            if (filteredData.length === 0) {
+                container.innerHTML = '<div class="empty-community">该分类下暂无文档</div>';
+                return;
+            }
+            
+            container.innerHTML = filteredData.map(doc => {
+                const isTeaching = doc.title && (doc.title.startsWith('[教学文档]') || doc.title.startsWith('[教学标准]'));
+                const categoryLabel = isTeaching ? '教学文档' : '审核文档';
                 return `
-                <div class="community-doc" style="${isTeaching ? 'border-left: 3px solid var(--accent);' : ''}">
+                <div class="community-doc" style="${isTeaching ? 'border-left: 3px solid var(--accent);' : 'border-left: 3px solid var(--accent-light);'}">
                     <div class="community-doc-title">
-                        <span class="doc-type-badge ${isTeaching ? 'teaching' : 'review'}">${isTeaching ? '教学文档' : '审核文档'}</span>
+                        <span style="background: ${isTeaching ? 'var(--accent)' : 'var(--accent-light)'}; color: white; font-size: 10px; padding: 2px 6px; border-radius: 3px; margin-right: 6px;">${categoryLabel}</span>
                         ${escapeHtml(doc.title)}
                     </div>
                     <div class="community-doc-meta">上传者: ${escapeHtml(doc.author || '匿名')} | ${formatDate(doc.created_at)}</div>
                     <div class="community-doc-content">${escapeHtml(doc.content?.substring(0, 150) || '')}${doc.content?.length > 150 ? '...' : ''}</div>
                     <div class="community-doc-actions">
-                        ${isTeaching ? '<button onclick="useCommunityDoc(\'' + doc.id + '\')">用作教学标准</button>' : ''}
+                        <button onclick="useCommunityDoc('${doc.id}')">用作教学标准</button>
                         <button onclick="viewCommunityDoc('${doc.id}')">查看详情</button>
                         <button onclick="deleteCommunityDoc(${doc.id})">删除</button>
                     </div>
@@ -3338,12 +3248,25 @@ ${teachingContentForReview}
             `}).join('');
         }
         
+        function filterCategory(category) {
+            currentCategoryFilter = category;
+            
+            document.getElementById('filterAll').style.background = category === 'all' ? 'var(--accent)' : 'var(--white)';
+            document.getElementById('filterAll').style.color = category === 'all' ? 'white' : 'var(--text-secondary)';
+            document.getElementById('filterTeaching').style.background = category === 'teaching' ? 'var(--accent)' : 'var(--white)';
+            document.getElementById('filterTeaching').style.color = category === 'teaching' ? 'white' : 'var(--text-secondary)';
+            document.getElementById('filterReview').style.background = category === 'review' ? 'var(--accent)' : 'var(--white)';
+            document.getElementById('filterReview').style.color = category === 'review' ? 'white' : 'var(--text-secondary)';
+            
+            loadCommunityDocs();
+        }
+        
         function useCommunityDoc(id) {
             if (!communityClient) return;
             communityClient.from('community_docs').select('*').eq('id', id).then(({ data }) => {
                 if (data && data[0]) {
                     const doc = data[0];
-                    const isTeaching = doc.doc_type === 'teaching';
+                    const isTeaching = doc.title && (doc.title.startsWith('[教学文档]') || doc.title.startsWith('[教学标准]'));
                     
                     if (isTeaching) {
                         teachingSummary = doc.review_result || doc.content;
@@ -3365,8 +3288,9 @@ ${teachingContentForReview}
                                 });
                             }
                             if (teachingDocs.length === 0) {
+                                const cleanTitle = doc.title.replace(/^\[教学文档\] /, '').replace(/^\[审核文档\] /, '').replace(/^\[教学标准\] /, '');
                                 teachingDocs.push({
-                                    name: doc.title,
+                                    name: cleanTitle,
                                     content: doc.content,
                                     size: new Blob([doc.content]).size,
                                     addedAt: new Date().toISOString()
@@ -3532,17 +3456,20 @@ ${teachingContentForReview}
             const reviewResult = document.getElementById('review-result').textContent;
             const author = prompt('你的名字:', '匿名') || '匿名';
             
+            const categoryLabel = prompt('请输入文档分类（输入"教学"或"审核"）:', '审核');
+            if (!categoryLabel) return;
+            const category = categoryLabel.includes('教学') ? '教学文档' : '审核文档';
+            
             if (!content.trim()) {
                 alert('请先审核文档');
                 return;
             }
             
             communityClient.from('community_docs').insert({
-                title: title,
+                title: `[${category}] ` + title,
                 content: content,
                 review_result: reviewResult,
-                author: author,
-                doc_type: 'review'
+                author: author
             }).then(({ error }) => {
                 if (error) {
                     alert('上传失败: ' + error.message);
