@@ -7,6 +7,8 @@
     <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
     <script src="references.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -824,6 +826,53 @@
             margin-bottom: 20px;
         }
         
+        .community-category-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            padding: 12px;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+        }
+        
+        .category-tab {
+            flex: 1;
+            padding: 10px 16px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+        
+        .category-tab:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .category-tab.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: var(--white);
+        }
+        
+        .category-tab .count {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 11px;
+            margin-left: 6px;
+        }
+        
+        .category-tab.active .count {
+            background: rgba(255,255,255,0.3);
+        }
+        
         .community-doc {
             background: var(--bg-card);
             border: 1px solid var(--border-light);
@@ -885,6 +934,26 @@
             text-align: center;
             padding: 60px;
             color: var(--text-muted);
+        }
+        
+        .doc-type-badge {
+            display: inline-block;
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 3px;
+            margin-right: 8px;
+            font-weight: 500;
+        }
+        
+        .doc-type-badge.teaching {
+            background: var(--accent);
+            color: var(--white);
+        }
+        
+        .doc-type-badge.review {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
         }
         
         /* ========== Right Sidebar ========== */
@@ -1225,9 +1294,9 @@
                     </div>
                     
                     <div class="file-upload-area" onclick="document.getElementById('teachingFile').click()">
-                        <input type="file" id="teachingFile" accept=".pdf,.docx,.doc,.txt,.md" multiple onchange="handleTeachingFiles(this)">
+                        <input type="file" id="teachingFile" accept=".pdf,.docx,.doc,.txt,.md,.jpg,.jpeg,.png,.gif,.bmp,.webp" multiple onchange="handleTeachingFiles(this)">
                         <p>点击上传教学文档（支持多选）</p>
-                        <p class="hint">支持 PDF、Word、文本、Markdown</p>
+                        <p class="hint">支持 PDF、Word、图片（OCR识别）、文本、Markdown</p>
                     </div>
                     
                     <div id="teachingDocsList" class="teaching-docs-list"></div>
@@ -1268,8 +1337,9 @@
                     </div>
                     
                     <div class="file-upload-area" onclick="document.getElementById('reviewFile').click()">
-                        <input type="file" id="reviewFile" accept=".pdf,.docx,.doc,.txt,.md" onchange="handleFileSelect(this, 'review')">
+                        <input type="file" id="reviewFile" accept=".pdf,.docx,.doc,.txt,.md,.jpg,.jpeg,.png,.gif,bmp,webp" onchange="handleFileSelect(this, 'review')">
                         <p>点击上传审核文档</p>
+                        <p class="hint">支持 PDF、Word、图片（OCR识别）</p>
                     </div>
                     
                     <textarea id="reviewContent" class="textarea-area academic-body" placeholder="或者直接粘贴待审核的文档内容..." style="min-height: 250px;"></textarea>
@@ -1349,11 +1419,24 @@
                     <div class="content-header">
                         <h1 class="content-title">学术社区</h1>
                         <div class="content-meta">
-                            <span>查看和分享审核结果供他人使用</span>
+                            <span>查看和分享文档供他人使用</span>
                         </div>
                     </div>
                     
                     <div id="communityStatus" class="community-status">正在连接...</div>
+                    
+                    <div class="community-category-tabs">
+                        <button class="category-tab active" onclick="switchCommunityCategory('all')">
+                            全部<span class="count" id="countAll">0</span>
+                        </button>
+                        <button class="category-tab" onclick="switchCommunityCategory('teaching')">
+                            教学文档<span class="count" id="countTeaching">0</span>
+                        </button>
+                        <button class="category-tab" onclick="switchCommunityCategory('review')">
+                            审核文档<span class="count" id="countReview">0</span>
+                        </button>
+                    </div>
+                    
                     <div id="communityDocs"></div>
                 </div>
             </main>
@@ -1502,6 +1585,7 @@
             const btn = input.closest('.file-upload-area').querySelector('p');
             
             const fileExt = file.name.split('.').pop().toLowerCase();
+            const imageExts = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'];
             
             if (fileExt === 'txt' || fileExt === 'md') {
                 const reader = new FileReader();
@@ -1529,12 +1613,132 @@
                     }
                     btn.textContent = `已加载: ${file.name}`;
                 } catch(e) {
-                    btn.textContent = '点击上传教学文档';
+                    btn.textContent = '点击上传审核文档';
                     alert('Word文档解析失败: ' + e.message + '\n请复制粘贴文档内容到下方文本框');
                 }
+            } else if (imageExts.includes(fileExt)) {
+                btn.textContent = '正在进行OCR识别...';
+                try {
+                    const result = await performOCR(file);
+                    document.getElementById(type + 'Content').value = result;
+                    if (type === 'review') {
+                        const nameInput = document.getElementById('docName');
+                        if (!nameInput.value) {
+                            nameInput.value = file.name.replace(/\.[^.]+$/, '');
+                        }
+                    }
+                    btn.textContent = `OCR识别完成: ${file.name}`;
+                } catch(e) {
+                    btn.textContent = '点击上传审核文档';
+                    alert('OCR识别失败: ' + e.message);
+                }
+            } else if (fileExt === 'pdf') {
+                btn.textContent = '正在解析PDF文档...';
+                try {
+                    const result = await parsePdf(file);
+                    document.getElementById(type + 'Content').value = result;
+                    if (type === 'review') {
+                        const nameInput = document.getElementById('docName');
+                        if (!nameInput.value) {
+                            nameInput.value = file.name.replace(/\.[^.]+$/, '');
+                        }
+                    }
+                    btn.textContent = `已加载: ${file.name}`;
+                } catch(e) {
+                    btn.textContent = '点击上传审核文档';
+                    alert('PDF解析失败: ' + e.message);
+                }
             } else {
-                alert('支持格式: TXT、MD、Word(.docx)\nPDF和其他格式请复制粘贴内容到下方文本框');
+                alert('不支持的格式: ' + fileExt + '\n文件: ' + file.name + '\n\n支持: TXT、MD、Word(.docx)、PDF、图片');
             }
+        }
+
+        async function performOCR(file) {
+            const worker = await Tesseract.createWorker('eng+chi_sim', 1, {
+                logger: m => {
+                    if (m.status === 'recognizing text') {
+                        console.log('OCR进度: ' + Math.round(m.progress * 100) + '%');
+                    }
+                }
+            });
+            
+            const { data: { text } } = await worker.recognize(file);
+            await worker.terminate();
+            
+            if (!text || text.trim().length === 0) {
+                throw new Error('未能识别出文字，请尝试更换图片或调整图片质量');
+            }
+            
+            return text;
+        }
+
+        if (typeof pdfjsLib !== 'undefined') {
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        }
+
+        async function parsePdf(file) {
+            if (typeof pdfjsLib === 'undefined') {
+                throw new Error('PDF.js 库未加载，请刷新页面');
+            }
+            const arrayBuffer = await file.arrayBuffer();
+            const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
+            const pdf = await loadingTask.promise;
+            let fullText = '';
+            
+            for (let i = 1; i <= pdf.numPages; i++) {
+                const page = await pdf.getPage(i);
+                const textContent = await page.getTextContent();
+                const pageText = textContent.items.map(item => item.str).join(' ');
+                fullText += pageText + '\n\n';
+            }
+            
+            if (!fullText.trim()) {
+                return await parseScannedPdf(file, pdf);
+            }
+            
+            return fullText;
+        }
+
+        async function parseScannedPdf(file, pdfDoc) {
+            if (typeof Tesseract === 'undefined') {
+                throw new Error('这是扫描件 PDF，无可提取文字，请将 PDF 页面截图后用图片 OCR 识别');
+            }
+            
+            let fullText = '';
+            const numPages = pdfDoc ? pdfDoc.numPages : 1;
+            
+            for (let i = 1; i <= numPages; i++) {
+                let page;
+                if (pdfDoc) {
+                    page = await pdfDoc.getPage(i);
+                } else {
+                    const loadingTask = pdfjsLib.getDocument({ data: await file.arrayBuffer() });
+                    const pdf = await loadingTask.promise;
+                    page = await pdf.getPage(i);
+                }
+                
+                const scale = 2.0;
+                const viewport = page.getViewport({ scale: scale });
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+                
+                await page.render({ canvasContext: context, viewport: viewport }).promise;
+                
+                const imageData = canvas.toDataURL('image/png');
+                const worker = await Tesseract.createWorker('eng+chi_sim');
+                const { data: { text } } = await worker.recognize(imageData);
+                await worker.terminate();
+                
+                fullText += text + '\n\n';
+            }
+            
+            if (!fullText.trim()) {
+                throw new Error('OCR 未能识别出文字，请尝试提高图片清晰度');
+            }
+            
+            return fullText;
         }
         
         async function parseDocx(file) {
@@ -1683,10 +1887,11 @@
             const combinedContent = teachingDocs.map(d => `【${d.name}】\n${d.content}`).join('\n\n');
 
             communityClient.from('community_docs').insert({
-                title: '[教学标准] ' + docName,
+                title: docName,
                 content: combinedContent,
                 review_result: teachingSummary || '',
-                author: author
+                author: author,
+                doc_type: 'teaching'
             }).then(({ error }) => {
                 if (error) {
                     alert('上传失败: ' + error.message);
@@ -1752,6 +1957,20 @@
                         content = await parseDocx(file);
                     } catch(e) {
                         alert(`文件 ${file.name} 解析失败: ${e.message}`);
+                        continue;
+                    }
+                } else if (fileExt === 'pdf') {
+                    try {
+                        content = await parsePdf(file);
+                    } catch(e) {
+                        alert(`文件 ${file.name} 解析失败: ${e.message}`);
+                        continue;
+                    }
+                } else if (['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'].includes(fileExt)) {
+                    try {
+                        content = await performOCR(file);
+                    } catch(e) {
+                        alert(`文件 ${file.name} OCR识别失败: ${e.message}`);
                         continue;
                     }
                 } else {
@@ -3003,6 +3222,8 @@ ${teachingContentForReview}
         }
         
         let communityClient = null;
+        let currentCommunityCategory = 'all';
+        let allCommunityDocs = [];
         
         function initCommunity() {
             try {
@@ -3026,6 +3247,13 @@ ${teachingContentForReview}
         
         function autoConnect() {
             initCommunity();
+        }
+        
+        function switchCommunityCategory(category) {
+            currentCommunityCategory = category;
+            document.querySelectorAll('.category-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelector(`.category-tab[onclick="switchCommunityCategory('${category}')"]`).classList.add('active');
+            renderCommunityDocs();
         }
         
         async function loadCommunityDocs() {
@@ -3053,7 +3281,7 @@ ${teachingContentForReview}
                 .from('community_docs')
                 .select('*')
                 .order('created_at', { ascending: false })
-                .limit(30);
+                .limit(100);
             
             if (error) {
                 console.error(error);
@@ -3061,23 +3289,48 @@ ${teachingContentForReview}
                 return;
             }
             
-            if (!data || data.length === 0) {
-                container.innerHTML = '<div class="empty-community">暂无文档，成为第一个分享者</div>';
+            allCommunityDocs = data || [];
+            updateCategoryCounts();
+            renderCommunityDocs();
+        }
+        
+        function updateCategoryCounts() {
+            const teachingCount = allCommunityDocs.filter(d => d.doc_type === 'teaching').length;
+            const reviewCount = allCommunityDocs.filter(d => d.doc_type === 'review').length;
+            document.getElementById('countAll').textContent = allCommunityDocs.length;
+            document.getElementById('countTeaching').textContent = teachingCount;
+            document.getElementById('countReview').textContent = reviewCount;
+        }
+        
+        function renderCommunityDocs() {
+            const container = document.getElementById('communityDocs');
+            
+            let filteredDocs = allCommunityDocs;
+            if (currentCommunityCategory === 'teaching') {
+                filteredDocs = allCommunityDocs.filter(d => d.doc_type === 'teaching');
+            } else if (currentCommunityCategory === 'review') {
+                filteredDocs = allCommunityDocs.filter(d => d.doc_type === 'review');
+            }
+            
+            if (filteredDocs.length === 0) {
+                const emptyMsg = currentCommunityCategory === 'all' ? '暂无文档，成为第一个分享者' : 
+                                 currentCommunityCategory === 'teaching' ? '暂无教学文档' : '暂无审核文档';
+                container.innerHTML = `<div class="empty-community">${emptyMsg}</div>`;
                 return;
             }
             
-            container.innerHTML = data.map(doc => {
-                const isTeaching = doc.title && doc.title.startsWith('[教学标准]');
+            container.innerHTML = filteredDocs.map(doc => {
+                const isTeaching = doc.doc_type === 'teaching';
                 return `
                 <div class="community-doc" style="${isTeaching ? 'border-left: 3px solid var(--accent);' : ''}">
                     <div class="community-doc-title">
-                        ${isTeaching ? '<span style="background: var(--accent); color: white; font-size: 10px; padding: 2px 6px; border-radius: 3px; margin-right: 6px;">教学标准</span>' : ''}
+                        <span class="doc-type-badge ${isTeaching ? 'teaching' : 'review'}">${isTeaching ? '教学文档' : '审核文档'}</span>
                         ${escapeHtml(doc.title)}
                     </div>
                     <div class="community-doc-meta">上传者: ${escapeHtml(doc.author || '匿名')} | ${formatDate(doc.created_at)}</div>
                     <div class="community-doc-content">${escapeHtml(doc.content?.substring(0, 150) || '')}${doc.content?.length > 150 ? '...' : ''}</div>
                     <div class="community-doc-actions">
-                        <button onclick="useCommunityDoc('${doc.id}')">用作教学标准</button>
+                        ${isTeaching ? '<button onclick="useCommunityDoc(\'' + doc.id + '\')">用作教学标准</button>' : ''}
                         <button onclick="viewCommunityDoc('${doc.id}')">查看详情</button>
                         <button onclick="deleteCommunityDoc(${doc.id})">删除</button>
                     </div>
@@ -3090,7 +3343,7 @@ ${teachingContentForReview}
             communityClient.from('community_docs').select('*').eq('id', id).then(({ data }) => {
                 if (data && data[0]) {
                     const doc = data[0];
-                    const isTeaching = doc.title && doc.title.startsWith('[教学标准]');
+                    const isTeaching = doc.doc_type === 'teaching';
                     
                     if (isTeaching) {
                         teachingSummary = doc.review_result || doc.content;
@@ -3113,7 +3366,7 @@ ${teachingContentForReview}
                             }
                             if (teachingDocs.length === 0) {
                                 teachingDocs.push({
-                                    name: doc.title.replace('[教学标准] ', ''),
+                                    name: doc.title,
                                     content: doc.content,
                                     size: new Blob([doc.content]).size,
                                     addedAt: new Date().toISOString()
@@ -3288,7 +3541,8 @@ ${teachingContentForReview}
                 title: title,
                 content: content,
                 review_result: reviewResult,
-                author: author
+                author: author,
+                doc_type: 'review'
             }).then(({ error }) => {
                 if (error) {
                     alert('上传失败: ' + error.message);
