@@ -1240,6 +1240,11 @@
                     
                     <button class="primary-btn" onclick="submitTeachingDoc()">理解文档</button>
                     
+                    <div style="display: flex; gap: 12px; margin-top: 12px;">
+                        <button class="primary-btn" style="flex: 1; background: var(--bg-card); border: 1px solid var(--accent); color: var(--accent);" onclick="uploadTeachingToKnowledgeBase()">上传到知识库</button>
+                        <button class="primary-btn" style="flex: 1; background: var(--bg-card); border: 1px solid var(--accent-light); color: var(--accent-light);" onclick="uploadTeachingToCommunity()">上传到社区</button>
+                    </div>
+                    
                     <div id="teaching-result" class="result-box hidden"></div>
                 </div>
                 
@@ -1574,6 +1579,123 @@
         
         function saveTeachingDocs() {
             localStorage.setItem(STORAGE_KEYS.TEACHING_DOCS, JSON.stringify(teachingDocs));
+        }
+
+        function uploadTeachingToKnowledgeBase() {
+            const apiKey = document.getElementById('apiKey').value;
+            if (!apiKey) {
+                alert('请先输入API Key');
+                return;
+            }
+
+            if (teachingDocs.length === 0) {
+                const manualContent = document.getElementById('teachingContent').value.trim();
+                if (!manualContent) {
+                    alert('请先上传教学文档或粘贴文档内容');
+                    return;
+                }
+                const name = '粘贴内容_' + new Date().toLocaleDateString('zh-CN');
+                teachingDocs.push({
+                    name: name,
+                    content: manualContent,
+                    size: new Blob([manualContent]).size,
+                    addedAt: new Date().toISOString()
+                });
+                saveTeachingDocs();
+                renderTeachingDocsList();
+                document.getElementById('teachingContent').value = '';
+            }
+
+            const docName = prompt('请输入文档名称（用于知识库标识）:', 
+                teachingDocs.length > 1 ? `${teachingDocs.length}个教学文档` : teachingDocs[0].name);
+            
+            if (!docName) return;
+
+            let kb = getKnowledgeBase();
+            const existingIndex = kb.findIndex(d => d.name === '[教学标准] ' + docName);
+            
+            const teachingKbItem = {
+                id: 'teaching_' + Date.now().toString(36),
+                name: '[教学标准] ' + docName,
+                type: 'teaching',
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString(),
+                summary: teachingSummary || '',
+                versions: teachingDocs.map(d => ({
+                    name: d.name,
+                    content: d.content,
+                    timestamp: d.addedAt
+                }))
+            };
+
+            if (existingIndex >= 0) {
+                kb[existingIndex] = teachingKbItem;
+            } else {
+                const teachingIndex = kb.findIndex(d => d.type === 'teaching');
+                if (teachingIndex >= 0) {
+                    kb[teachingIndex] = teachingKbItem;
+                } else {
+                    kb.unshift(teachingKbItem);
+                }
+            }
+
+            saveKnowledgeBase(kb);
+            alert('教学文档已上传到知识库！');
+            switchTab('knowledge');
+            renderKnowledgeBase();
+        }
+
+        async function uploadTeachingToCommunity() {
+            if (!communityClient) {
+                initCommunity();
+                await new Promise(resolve => setTimeout(resolve, 1000));
+            }
+
+            if (!communityClient) {
+                alert('连接社区失败，请稍后重试');
+                return;
+            }
+
+            if (teachingDocs.length === 0) {
+                const manualContent = document.getElementById('teachingContent').value.trim();
+                if (!manualContent) {
+                    alert('请先上传教学文档或粘贴文档内容');
+                    return;
+                }
+                const name = '粘贴内容_' + new Date().toLocaleDateString('zh-CN');
+                teachingDocs.push({
+                    name: name,
+                    content: manualContent,
+                    size: new Blob([manualContent]).size,
+                    addedAt: new Date().toISOString()
+                });
+                saveTeachingDocs();
+                renderTeachingDocsList();
+            }
+
+            const docName = prompt('请输入教学文档名称（用于社区分享）:', 
+                teachingDocs.length > 1 ? `${teachingDocs.length}个教学文档` : teachingDocs[0].name);
+            
+            if (!docName) return;
+
+            const author = prompt('请输入您的昵称:', '匿名') || '匿名';
+
+            const combinedContent = teachingDocs.map(d => `【${d.name}】\n${d.content}`).join('\n\n');
+
+            communityClient.from('community_docs').insert({
+                title: '[教学标准] ' + docName,
+                content: combinedContent,
+                review_result: teachingSummary || '',
+                author: author
+            }).then(({ error }) => {
+                if (error) {
+                    alert('上传失败: ' + error.message);
+                } else {
+                    alert('教学文档已上传到社区！其他用户可以使用此教学标准。');
+                    switchTab('community');
+                    loadCommunityDocs();
+                }
+            });
         }
         
         function renderTeachingDocsList() {
@@ -2944,9 +3066,14 @@ ${teachingContentForReview}
                 return;
             }
             
-            container.innerHTML = data.map(doc => `
-                <div class="community-doc">
-                    <div class="community-doc-title">${escapeHtml(doc.title)}</div>
+            container.innerHTML = data.map(doc => {
+                const isTeaching = doc.title && doc.title.startsWith('[教学标准]');
+                return `
+                <div class="community-doc" style="${isTeaching ? 'border-left: 3px solid var(--accent);' : ''}">
+                    <div class="community-doc-title">
+                        ${isTeaching ? '<span style="background: var(--accent); color: white; font-size: 10px; padding: 2px 6px; border-radius: 3px; margin-right: 6px;">教学标准</span>' : ''}
+                        ${escapeHtml(doc.title)}
+                    </div>
                     <div class="community-doc-meta">上传者: ${escapeHtml(doc.author || '匿名')} | ${formatDate(doc.created_at)}</div>
                     <div class="community-doc-content">${escapeHtml(doc.content?.substring(0, 150) || '')}${doc.content?.length > 150 ? '...' : ''}</div>
                     <div class="community-doc-actions">
@@ -2955,19 +3082,58 @@ ${teachingContentForReview}
                         <button onclick="deleteCommunityDoc(${doc.id})">删除</button>
                     </div>
                 </div>
-            `).join('');
+            `}).join('');
         }
         
         function useCommunityDoc(id) {
             if (!communityClient) return;
             communityClient.from('community_docs').select('*').eq('id', id).then(({ data }) => {
-                if (data && data[0] && data[0].review_result) {
-                    teachingSummary = data[0].review_result;
-                    document.getElementById('teaching-result').textContent = teachingSummary;
-                    document.getElementById('teaching-result').classList.remove('hidden');
-                    alert('已设为教学标准!');
-                } else {
-                    alert('该文档没有审核结果');
+                if (data && data[0]) {
+                    const doc = data[0];
+                    const isTeaching = doc.title && doc.title.startsWith('[教学标准]');
+                    
+                    if (isTeaching) {
+                        teachingSummary = doc.review_result || doc.content;
+                        if (doc.content) {
+                            const combinedContent = doc.content;
+                            teachingDocs = [];
+                            const nameMatch = combinedContent.match(/【([^】]+)】/g);
+                            const parts = combinedContent.split(/【[^】]+】\n/);
+                            if (nameMatch && nameMatch.length > 0) {
+                                parts.slice(1).forEach((part, i) => {
+                                    if (nameMatch[i]) {
+                                        teachingDocs.push({
+                                            name: nameMatch[i].replace(/【|】/g, ''),
+                                            content: part,
+                                            size: new Blob([part]).size,
+                                            addedAt: new Date().toISOString()
+                                        });
+                                    }
+                                });
+                            }
+                            if (teachingDocs.length === 0) {
+                                teachingDocs.push({
+                                    name: doc.title.replace('[教学标准] ', ''),
+                                    content: doc.content,
+                                    size: new Blob([doc.content]).size,
+                                    addedAt: new Date().toISOString()
+                                });
+                            }
+                            saveTeachingDocs();
+                            renderTeachingDocsList();
+                        }
+                        document.getElementById('teaching-result').textContent = teachingSummary;
+                        document.getElementById('teaching-result').classList.remove('hidden');
+                        alert('已设为教学标准!');
+                        switchTab('teaching');
+                    } else if (doc.review_result) {
+                        teachingSummary = doc.review_result;
+                        document.getElementById('teaching-result').textContent = teachingSummary;
+                        document.getElementById('teaching-result').classList.remove('hidden');
+                        alert('已设为教学标准!');
+                    } else {
+                        alert('该文档没有审核结果或教学标准');
+                    }
                 }
             });
         }
