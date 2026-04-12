@@ -1044,11 +1044,13 @@
             padding-bottom: 16px;
             border-bottom: 1px solid var(--border);
             margin-bottom: 20px;
+            flex-shrink: 0;
         }
         
         .fullscreen-content {
             flex: 1;
             overflow-y: auto;
+            overflow-x: hidden;
             font-size: 16px;
             line-height: 1.8;
             white-space: pre-wrap;
@@ -1066,7 +1068,10 @@
             background: rgba(255, 235, 59, 0.4);
             border-bottom: 2px solid var(--accent);
             cursor: pointer;
-            position: relative;
+            display: inline;
+            word-wrap: break-word;
+            max-width: 100%;
+            overflow-wrap: break-word;
         }
         
         .text-mark:hover {
@@ -1074,74 +1079,87 @@
         }
         
         .mark-popup {
-            position: absolute;
-            top: 100%;
-            left: 0;
+            position: fixed !important;
+            display: block !important;
             background: var(--bg-card);
             border: 1px solid var(--accent);
             border-radius: 8px;
             padding: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            z-index: 100;
-            min-width: 250px;
-            max-width: 350px;
-        }
-        
-        .mark-popup .marked-text {
-            font-size: 12px;
-            color: var(--text-muted);
-            padding: 8px;
-            background: var(--bg-secondary);
-            border-radius: 4px;
-            margin-bottom: 8px;
-            font-style: italic;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+            z-index: 9999;
+            min-width: 300px;
+            max-width: 400px;
+            overflow-x: hidden !important;
+            overflow-y: auto !important;
+            word-wrap: break-word !important;
+            word-break: break-all !important;
         }
         
         .mark-popup .comment-list {
-            max-height: 150px;
-            overflow-y: auto;
-            margin-bottom: 8px;
+            max-height: 300px;
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+            margin: 8px 0;
+            word-wrap: break-word;
+        }
+        
+        .mark-popup .comment-list::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .mark-popup .comment-list::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
         }
         
         .mark-popup .comment-item {
-            padding: 8px;
+            padding: 10px 12px;
             background: var(--bg-secondary);
-            border-radius: 4px;
-            margin-bottom: 6px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            word-wrap: break-word;
+            word-break: break-all;
+            overflow-x: hidden;
+            max-width: 100%;
         }
         
         .mark-popup .comment-item .author {
-            font-size: 11px;
+            font-size: 12px;
             color: var(--accent);
-            margin-bottom: 2px;
+            margin-bottom: 4px;
         }
         
         .mark-popup .comment-item .content {
-            font-size: 13px;
+            font-size: 14px;
             color: var(--text-primary);
+            line-height: 1.5;
+            word-wrap: break-word;
+            word-break: break-all;
+            white-space: pre-wrap;
+            overflow-wrap: break-word;
         }
         
         .mark-popup .comment-input {
             display: flex;
-            gap: 6px;
+            gap: 8px;
         }
         
         .mark-popup .comment-input input {
             flex: 1;
-            padding: 6px 8px;
+            padding: 10px 12px;
             border: 1px solid var(--border);
-            border-radius: 4px;
-            font-size: 12px;
+            border-radius: 6px;
+            font-size: 14px;
         }
         
         .mark-popup .comment-input button {
-            padding: 6px 12px;
+            padding: 10px 16px;
             background: var(--accent);
             color: white;
             border: none;
-            border-radius: 4px;
+            border-radius: 6px;
             cursor: pointer;
-            font-size: 12px;
+            font-size: 14px;
         }
         
         .mark-popup .close-btn {
@@ -1616,11 +1634,9 @@
         <div class="modal-content" style="max-width: 600px;">
             <button class="modal-close" onclick="document.getElementById('docModal').style.display='none'">关闭</button>
             <h3 id="modalTitle"></h3>
-            <div id="modalContent" style="background: var(--bg-secondary); padding: 14px; border-radius: 8px; max-height: 200px; overflow-y: auto; white-space: pre-wrap; margin-bottom: 14px;"></div>
-            <h4 style="font-size: 14px; margin-bottom: 8px; color: var(--text-secondary);">审核结果:</h4>
-            <div id="modalReview" style="background: var(--bg-secondary); padding: 14px; border-radius: 8px; max-height: 150px; overflow-y: auto; white-space: pre-wrap; margin-bottom: 16px;"></div>
+            <div id="modalContent" style="background: var(--bg-secondary); padding: 14px; border-radius: 8px; max-height: 300px; overflow-y: auto; white-space: pre-wrap;"></div>
             
-            <div style="border-top: 1px solid var(--border-light); padding-top: 16px;">
+            <div style="border-top: 1px solid var(--border-light); padding-top: 16px; margin-top: 16px;">
                 <h4 style="font-size: 14px; margin-bottom: 10px; color: var(--text-secondary);">评论</h4>
                 <div id="docComments" style="margin-bottom: 14px;"></div>
                 <div style="display: flex; gap: 8px;">
@@ -3845,7 +3861,6 @@ ${teachingContentForReview}
                     const doc = data[0];
                     document.getElementById('modalTitle').textContent = doc.title;
                     document.getElementById('modalContent').textContent = doc.content || '无';
-                    document.getElementById('modalReview').textContent = doc.review_result || '无';
                     document.getElementById('docModal').style.display = 'flex';
                     loadDocComments(id);
                 }
@@ -3991,7 +4006,7 @@ ${teachingContentForReview}
             textAnnotations.forEach((ann, index) => {
                 const escapedText = escapeHtml(ann.text);
                 const regex = new RegExp(escapeHtml(ann.text), 'g');
-                let markHtml = `<span class="text-mark" onclick="showMarkPopup(${index}, event)" data-index="${index}">${escapedText}</span>`;
+                let markHtml = `<span class="text-mark" onclick="showMarkPopup(${index})">${escapedText}</span>`;
                 html = html.replace(regex, markHtml);
             });
             
@@ -4040,38 +4055,51 @@ ${teachingContentForReview}
             selectedTextInfo = null;
         }
         
-        function showMarkPopup(index, event) {
-            event.stopPropagation();
-            
-            document.querySelectorAll('.mark-popup').forEach(p => p.remove());
+        function showMarkPopup(index) {
+            const existing = document.querySelector('.mark-popup');
+            if (existing) existing.remove();
             
             const ann = textAnnotations[index];
             const popup = document.createElement('div');
             popup.className = 'mark-popup';
             popup.innerHTML = `
-                <button class="close-btn" onclick="this.parentElement.remove()">×</button>
-                <button class="delete-mark" onclick="deleteAnnotation(${index})" style="position: absolute; top: 8px; right: 30px; background: none; border: none; color: #c00; cursor: pointer; font-size: 12px;">删除</button>
-                <div class="marked-text">"${escapeHtml(ann.text.substring(0, 50))}${ann.text.length > 50 ? '...' : ''}"</div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                    <span style="font-size:10px;color:var(--text-muted);">批注</span>
+                    <div>
+                        <button onclick="deleteAnnotation(${index})" style="background:none;border:none;color:#c00;cursor:pointer;font-size:11px;margin-right:4px;">删除</button>
+                        <button onclick="this.closest('.mark-popup').remove()" style="background:none;border:none;cursor:pointer;font-size:16px;color:var(--text-muted);">×</button>
+                    </div>
+                </div>
                 <div class="comment-list">
                     ${ann.comments.map((c, i) => `
                         <div class="comment-item">
-                            <div class="author">${escapeHtml(c.author)} · ${new Date(c.time).toLocaleString('zh-CN')}</div>
+                            <div class="author">${escapeHtml(c.author)} · ${new Date(c.time).toLocaleDateString('zh-CN')}</div>
                             <div class="content">${escapeHtml(c.content)}</div>
                         </div>
                     `).join('')}
                 </div>
                 <div class="comment-input">
-                    <input type="text" placeholder="添加回复..." onkeypress="if(event.key==='Enter')addReply(${index}, this.value);this.value='';">
+                    <input type="text" placeholder="添加回复..." onkeypress="if(event.key==='Enter'){addReply(${index}, this.value);this.value='';}">
                     <button onclick="addReply(${index}, this.previousElementSibling.value);this.previousElementSibling.value='';">发送</button>
                 </div>
             `;
             
-            const mark = event.target;
-            const rect = mark.getBoundingClientRect();
-            popup.style.left = '0';
-            popup.style.top = (rect.bottom + window.scrollY + 5) + 'px';
+            document.body.appendChild(popup);
             
-            document.getElementById('fullscreenContent').appendChild(popup);
+            const marks = document.querySelectorAll('.text-mark');
+            const mark = marks[index];
+            if (mark) {
+                const rect = mark.getBoundingClientRect();
+                let left = rect.right + 10;
+                if (left + 280 > window.innerWidth) {
+                    left = rect.left - 290;
+                }
+                popup.style.left = Math.max(10, left) + 'px';
+                popup.style.top = Math.max(10, rect.top - 20) + 'px';
+            } else {
+                popup.style.left = '100px';
+                popup.style.top = '100px';
+            }
         }
         
         function deleteAnnotation(index) {
@@ -4093,10 +4121,8 @@ ${teachingContentForReview}
             });
             
             saveAnnotations();
-            const popup = document.querySelector('.mark-popup');
-            if (popup) {
-                showMarkPopup(index, { target: popup.previousElementSibling, stopPropagation: () => {} });
-            }
+            document.querySelectorAll('.mark-popup').forEach(p => p.remove());
+            renderFullscreenContent();
             renderAnnotations();
         }
         
