@@ -1018,6 +1018,196 @@
             background: var(--text-primary);
         }
         
+        /* ========== Fullscreen Viewer ========== */
+        .fullscreen-viewer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--bg-primary);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            overflow: hidden;
+        }
+        
+        .fullscreen-viewer.hidden {
+            display: none;
+        }
+        
+        .fullscreen-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 20px;
+        }
+        
+        .fullscreen-content {
+            flex: 1;
+            overflow-y: auto;
+            font-size: 16px;
+            line-height: 1.8;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            position: relative;
+        }
+        
+        .fullscreen-content.selectable {
+            -webkit-user-select: text;
+            user-select: text;
+            cursor: text;
+        }
+        
+        .text-mark {
+            background: rgba(255, 235, 59, 0.4);
+            border-bottom: 2px solid var(--accent);
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .text-mark:hover {
+            background: rgba(255, 235, 59, 0.6);
+        }
+        
+        .mark-popup {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--bg-card);
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            padding: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 100;
+            min-width: 250px;
+            max-width: 350px;
+        }
+        
+        .mark-popup .marked-text {
+            font-size: 12px;
+            color: var(--text-muted);
+            padding: 8px;
+            background: var(--bg-secondary);
+            border-radius: 4px;
+            margin-bottom: 8px;
+            font-style: italic;
+        }
+        
+        .mark-popup .comment-list {
+            max-height: 150px;
+            overflow-y: auto;
+            margin-bottom: 8px;
+        }
+        
+        .mark-popup .comment-item {
+            padding: 8px;
+            background: var(--bg-secondary);
+            border-radius: 4px;
+            margin-bottom: 6px;
+        }
+        
+        .mark-popup .comment-item .author {
+            font-size: 11px;
+            color: var(--accent);
+            margin-bottom: 2px;
+        }
+        
+        .mark-popup .comment-item .content {
+            font-size: 13px;
+            color: var(--text-primary);
+        }
+        
+        .mark-popup .comment-input {
+            display: flex;
+            gap: 6px;
+        }
+        
+        .mark-popup .comment-input input {
+            flex: 1;
+            padding: 6px 8px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        
+        .mark-popup .comment-input button {
+            padding: 6px 12px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .mark-popup .close-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-size: 16px;
+        }
+        
+        .fullscreen-annotation {
+            padding: 16px;
+            background: var(--bg-card);
+            border-radius: 8px;
+            margin-top: 16px;
+            max-height: 200px;
+        }
+        
+        .fullscreen-annotation h4 {
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+        
+        .annotation-list {
+            max-height: 120px;
+            overflow-y: auto;
+        }
+        
+        .annotation-item {
+            padding: 10px;
+            background: var(--bg-secondary);
+            border-radius: 4px;
+            margin-bottom: 8px;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .annotation-item:hover {
+            background: var(--border);
+        }
+        
+        .annotation-item .author {
+            font-size: 11px;
+            color: var(--accent);
+            margin-bottom: 4px;
+        }
+        
+        .annotation-item .content {
+            font-size: 13px;
+            color: var(--text-primary);
+        }
+        
+        .annotation-item .delete-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: none;
+            border: none;
+            color: var(--accent-light);
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
         /* ========== Modal ========== */
         .modal {
             display: none;
@@ -1283,6 +1473,7 @@
                     
                     <button class="primary-btn" onclick="submitReviewDoc()">审核文档</button>
                     <button class="primary-btn" style="background: transparent; border: 1px solid var(--accent); color: var(--accent);" onclick="uploadToCommunity()">上传到社区</button>
+                    <button class="primary-btn" style="background: var(--bg-secondary); border: 1px solid var(--border); color: var(--text-secondary);" onclick="openCurrentDocFullscreen()">全屏阅读</button>
                     
                     <div id="review-result" class="result-box hidden"></div>
                     
@@ -1330,35 +1521,6 @@
                         </div>
                     </div>
                     
-                    <div class="sidebar-section" style="margin: 16px 0; padding: 16px; background: var(--bg-card); border-radius: 8px; border: 1px solid var(--border-light);">
-                        <div class="sidebar-title" style="margin-bottom: 12px;">经典文献参考管理</div>
-                        <div class="file-upload-area" style="margin-bottom: 12px;">
-                            <input type="file" id="refFileInput" accept=".json,.txt,.js,.docx" onchange="handleRefFileUpload(this)" style="display: none;">
-                            <div onclick="document.getElementById('refFileInput').click()" style="padding: 20px; border: 2px dashed var(--border); border-radius: 8px; text-align: center; cursor: pointer; background: var(--bg-secondary);">
-                                <p style="color: var(--text-muted); font-size: 13px;">📖 点击上传参考文件</p>
-                                <p style="color: var(--text-muted); font-size: 11px; margin-top: 4px;">支持 JSON/TXT/JS/DOCX 格式</p>
-                            </div>
-                        </div>
-                        <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
-                            <p>Word/文本格式要求（自动解析）：</p>
-                            <pre style="background: var(--bg-secondary); padding: 8px; border-radius: 4px; margin-top: 4px; white-space: pre-wrap; font-size: 11px;">《论语》
-## 仁
-孝弟也者，其为仁之本与
-里仁为美
-
-## 孝
-孟懿子问孝。子曰：无违。
-
-《孟子》
-## 性善
-人性之善也，犹水之就下也</pre>
-                        </div>
-                        <div style="display: flex; gap: 8px;">
-                            <button onclick="downloadReferences()" style="flex: 1; padding: 8px; font-size: 12px; border: 1px solid var(--accent); border-radius: 6px; cursor: pointer; background: var(--bg-card); color: var(--accent);">📥 下载当前参考</button>
-                            <button onclick="clearCustomReferences()" style="flex: 1; padding: 8px; font-size: 12px; border: 1px solid var(--accent-light); border-radius: 6px; cursor: pointer; background: var(--bg-card); color: var(--accent-light);">🗑️ 清空自定义</button>
-                        </div>
-                    </div>
-                    
                     <div class="kb-search-bar">
                         <input type="text" id="kbSearch" placeholder="搜索文档..." oninput="renderKnowledgeBase()">
                         <button onclick="exportKnowledgeBase()">导出</button>
@@ -1366,6 +1528,24 @@
                     </div>
                     
                     <div id="kbList"></div>
+                </div>
+                
+                <!-- 全屏阅读模式 -->
+                <div id="fullscreenViewer" class="fullscreen-viewer hidden">
+                    <div class="fullscreen-header">
+                        <span id="fullscreenTitle" style="font-weight: 600; font-size: 16px;"></span>
+                        <div style="display: flex; gap: 8px; align-items: center;">
+                            <button onclick="addTextAnnotation()" style="padding: 6px 12px; border: 1px solid var(--accent); border-radius: 4px; background: var(--accent); color: white; cursor: pointer;">添加批注</button>
+                            <button onclick="adjustFontSize(-1)" style="padding: 6px 10px; border: 1px solid var(--border); border-radius: 4px; background: var(--bg-card); cursor: pointer;">A-</button>
+                            <button onclick="adjustFontSize(1)" style="padding: 6px 10px; border: 1px solid var(--border); border-radius: 4px; background: var(--bg-card); cursor: pointer;">A+</button>
+                            <button onclick="toggleFullscreen()" style="padding: 6px 12px; border: 1px solid var(--border); border-radius: 4px; background: var(--bg-card); cursor: pointer;">关闭</button>
+                        </div>
+                    </div>
+                    <div id="fullscreenContent" class="fullscreen-content selectable" onmouseup="handleTextSelection()"></div>
+                    <div class="fullscreen-annotation">
+                        <h4>随文批注列表</h4>
+                        <div id="annotationList" class="annotation-list"></div>
+                    </div>
                 </div>
                 
                 <!-- Community Panel -->
@@ -1557,6 +1737,7 @@
         };
         
         window.onload = function() {
+            loadCustomReferences();
             loadTeachingDocs();
             loadKnowledgeBase();
             loadDefaultGradingStandard();
@@ -2114,20 +2295,65 @@
         }
         
         let customReferences = {};
+        let customExegesis = {};
+        let customCrossRefs = {};
         
         function loadCustomReferences() {
             const saved = localStorage.getItem('docReviewerCustomRefs');
             if (saved) {
                 try {
-                    customReferences = JSON.parse(saved);
+                    const data = JSON.parse(saved);
+                    customReferences = data.references || {};
+                    customExegesis = data.exegesis || {};
+                    customCrossRefs = data.crossRefs || {};
                 } catch(e) {
                     customReferences = {};
+                    customExegesis = {};
+                    customCrossRefs = {};
                 }
             }
         }
         
         function saveCustomReferences() {
-            localStorage.setItem('docReviewerCustomRefs', JSON.stringify(customReferences));
+            localStorage.setItem('docReviewerCustomRefs', JSON.stringify({
+                references: customReferences,
+                exegesis: customExegesis,
+                crossRefs: customCrossRefs
+            }));
+        }
+        
+        function getMergedExegesis() {
+            loadCustomReferences();
+            const merged = {};
+            for (const word in EXEGESIS_DATA) {
+                merged[word] = { ...EXEGESIS_DATA[word] };
+                if (customExegesis[word]) {
+                    merged[word] = { ...merged[word], ...customExegesis[word] };
+                }
+            }
+            for (const word in customExegesis) {
+                if (!merged[word]) {
+                    merged[word] = customExegesis[word];
+                }
+            }
+            return merged;
+        }
+        
+        function getMergedCrossRefs() {
+            loadCustomReferences();
+            const merged = {};
+            for (const topic in CROSS_REFERENCES) {
+                merged[topic] = { ...CROSS_REFERENCES[topic] };
+                if (customCrossRefs[topic]) {
+                    merged[topic] = { ...merged[topic], ...customCrossRefs[topic] };
+                }
+            }
+            for (const topic in customCrossRefs) {
+                if (!merged[topic]) {
+                    merged[topic] = customCrossRefs[topic];
+                }
+            }
+            return merged;
         }
         
         function getMergedReferences() {
@@ -2158,117 +2384,38 @@
             return merged;
         }
         
-        async function handleRefFileUpload(input) {
-            const file = input.files[0];
-            if (!file) return;
-            
-            try {
-                let content = '';
-                const ext = file.name.split('.').pop().toLowerCase();
-                
-                if (ext === 'json') {
-                    content = await file.text();
-                    const data = JSON.parse(content);
-                    mergeReferences(data);
-                } else if (ext === 'js') {
-                    const text = await file.text();
-                    const match = text.match(/const\s+CLASSICS_REFERENCES\s*=\s*(\{[\s\S]*?\});\s*$/m);
-                    if (match) {
-                        const data = eval('(' + match[1] + ')');
-                        mergeReferences(data);
-                    } else {
-                        alert('无法解析JS文件格式');
-                        return;
-                    }
-                } else if (ext === 'txt') {
-                    content = await file.text();
-                    const data = parseTextToReferences(content);
-                    mergeReferences(data);
-                } else if (ext === 'docx') {
-                    content = await parseDocx(file);
-                    const data = parseTextToReferences(content);
-                    mergeReferences(data);
-                }
-                
-                alert('参考数据已成功导入！');
-                input.value = '';
-            } catch(e) {
-                alert('导入失败: ' + e.message);
-                console.error(e);
-            }
-        }
-        
-        function mergeReferences(data) {
+        function getMergedExegesis() {
             loadCustomReferences();
-            for (const book in data) {
-                if (!customReferences[book]) {
-                    customReferences[book] = {};
-                }
-                for (const topic in data[book]) {
-                    if (!customReferences[book][topic]) {
-                        customReferences[book][topic] = [];
-                    }
-                    const existingLines = new Set(customReferences[book][topic].map(item => item.line));
-                    data[book][topic].forEach(item => {
-                        if (!existingLines.has(item.line)) {
-                            customReferences[book][topic].push(item);
-                        }
-                    });
+            const merged = {};
+            for (const word in EXEGESIS_DATA) {
+                merged[word] = { ...EXEGESIS_DATA[word] };
+                if (customExegesis[word]) {
+                    merged[word] = { ...merged[word], ...customExegesis[word] };
                 }
             }
-            saveCustomReferences();
-        }
-        
-        function parseTextToReferences(content) {
-            const data = {};
-            const lines = content.split('\n');
-            let currentBook = null;
-            let currentTopic = null;
-            
-            lines.forEach(line => {
-                line = line.trim();
-                if (!line) return;
-                
-                if (line.match(/^《.+》/)) {
-                    currentBook = line.replace(/[《》]/g, '');
-                    if (!data[currentBook]) data[currentBook] = {};
-                } else if (line.startsWith('##') || line.startsWith('**')) {
-                    currentTopic = line.replace(/^##\s*|\*\*+/g, '');
-                    if (currentBook && !data[currentBook][currentTopic]) {
-                        data[currentBook][currentTopic] = [];
-                    }
-                } else if (currentBook && currentTopic && line.match(/[，。；]/)) {
-                    data[currentBook][currentTopic].push({
-                        chapter: currentTopic,
-                        content: line,
-                        line: currentBook + currentTopic
-                    });
+            for (const word in customExegesis) {
+                if (!merged[word]) {
+                    merged[word] = customExegesis[word];
                 }
-            });
-            
-            return data;
+            }
+            return merged;
         }
         
-        function downloadReferences() {
-            const merged = getMergedReferences();
-            const content = `// 经典文献互证参考数据 (更新于 ${new Date().toLocaleString('zh-CN')})
-
-const CLASSICS_REFERENCES = ${JSON.stringify(merged, null, 4)};`;
-            
-            const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'references_updated.js';
-            a.click();
-            URL.revokeObjectURL(url);
-        }
-        
-        function clearCustomReferences() {
-            if (!confirm('确定要清空所有自定义参考数据吗？内置参考数据不会受影响。')) return;
-            customReferences = {};
-            saveCustomReferences();
-            alert('已清空自定义参考数据');
+        function getMergedCrossRefs() {
+            loadCustomReferences();
+            const merged = {};
+            for (const topic in CROSS_REFERENCES) {
+                merged[topic] = { ...CROSS_REFERENCES[topic] };
+                if (customCrossRefs[topic]) {
+                    merged[topic] = { ...merged[topic], ...customCrossRefs[topic] };
+                }
+            }
+            for (const topic in customCrossRefs) {
+                if (!merged[topic]) {
+                    merged[topic] = customCrossRefs[topic];
+                }
+            }
+            return merged;
         }
         
         function renderKnowledgeBase() {
@@ -3391,91 +3538,124 @@ ${teachingContentForReview}
         }
         
         function analyzeCitations(content) {
-            let rightPanelHtml = '';
-            let found = false;
             const refs = getMergedReferences();
+            const matches = [];
             
-            for (const [bookName, topics] of Object.entries(refs || {})) {
-                const bookPattern = new RegExp(bookName, 'i');
-                if (bookPattern.test(content)) {
-                    for (const [topic, citations] of Object.entries(topics)) {
-                        const topicPattern = new RegExp(topic, 'i');
-                        if (topicPattern.test(content)) {
-                            found = true;
-                            const citationItems = citations.slice(0, 3).map(c => `
-                                <div style="background: var(--white); padding: 8px 10px; border-radius: 4px; margin-bottom: 6px; border-left: 2px solid var(--accent);">
-                                    <div style="font-size: 11px; font-weight: 600; color: var(--accent); margin-bottom: 2px;">《${bookName}·${c.chapter}》</div>
-                                    <div style="font-size: 11px; font-style: italic; color: var(--text-secondary);">"${c.content.substring(0, 60)}..."</div>
-                                </div>
-                            `).join('');
-                            
-                            rightPanelHtml += `
-                                <div style="margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--border-light);">
-                                    <div style="font-size: 11px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px;">《${bookName}》论"${topic}"</div>
-                                    ${citationItems}
-                                </div>
-                            `;
-                            break;
-                        }
+            for (const [bookName, topics] of Object.entries(refs)) {
+                for (const [topic, citations] of Object.entries(topics)) {
+                    const topicLower = topic.toLowerCase();
+                    const topicPattern = new RegExp(topicLower.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+                    let matchCount = 0;
+                    let match;
+                    
+                    while ((match = topicPattern.exec(content)) !== null) {
+                        matchCount++;
+                    }
+                    
+                    if (matchCount > 0) {
+                        matches.push({
+                            bookName,
+                            topic,
+                            matchCount,
+                            citations: citations,
+                            totalCitations: citations.length
+                        });
                     }
                 }
             }
             
-            if (rightPanelHtml) {
+            matches.sort((a, b) => b.matchCount - a.matchCount);
+            
+            if (matches.length > 0) {
+                let rightPanelHtml = `<div style="max-height: 600px; overflow-y: auto;">
+                    <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px; padding: 8px; background: var(--bg-secondary); border-radius: 4px;">
+                        共匹配 ${matches.length} 个话题，${matches.reduce((sum, m) => sum + m.matchCount, 0)} 处提及
+                    </div>`;
+                
+                matches.forEach((m, idx) => {
+                    const citationItems = m.citations.map((c, cidx) => `
+                        <div style="background: var(--white); padding: 8px 10px; border-radius: 4px; margin-bottom: 4px; border-left: 2px solid var(--accent);">
+                            <div style="font-size: 11px; font-weight: 600; color: var(--accent); margin-bottom: 2px;">《${c.book || m.bookName}·${c.chapter}》 ${c.line || ''}</div>
+                            <div style="font-size: 11px; color: var(--text-primary); line-height: 1.5;">"${c.content}"</div>
+                        </div>
+                    `).join('');
+                    
+                    rightPanelHtml += `
+                        <div style="margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border-light);">
+                            <div style="font-size: 12px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                                <span style="background: var(--accent); color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px;">${idx + 1}</span>
+                                《${m.bookName}》论「${m.topic}」
+                                <span style="font-size: 10px; color: var(--accent-light); font-weight: normal;">(匹配 ${m.matchCount} 次，含 ${m.totalCitations} 条引文)</span>
+                            </div>
+                            ${citationItems}
+                        </div>
+                    `;
+                });
+                
+                rightPanelHtml += '</div>';
                 document.getElementById('citationPanelRight').innerHTML = rightPanelHtml;
-            } else if (!found) {
+            } else {
                 document.getElementById('citationPanelRight').innerHTML = '<p style="font-size: 12px; color: var(--text-muted); text-align: center; padding: 10px;">未检测到相关内容</p>';
             }
         }
         
         function analyzeExegesis(content) {
             const foundWords = [];
+            const exegesisData = getMergedExegesis();
             
-            for (const [word, data] of Object.entries(EXEGESIS_DATA || {})) {
-                const wordPattern = new RegExp(`[^字文]${word}[^字文]`, 'i');
+            for (const [word, data] of Object.entries(exegesisData)) {
+                const wordEscaped = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                const wordPattern = new RegExp(`[^字文]${wordEscaped}[^字文]`, 'gi');
                 if (wordPattern.test(content)) {
                     foundWords.push({ word, data });
                 }
             }
             
             if (foundWords.length > 0) {
-                const etymologyHtml = foundWords.slice(0, 3).map(item => `
+                const etymologyHtml = foundWords.map(item => `
                     <div class="etymology-item">
                         <div class="etymology-word">"${item.word}"</div>
                         <div class="etymology-def"><strong>【本义】</strong>${item.data.benyi}</div>
                         ${item.data.shuowen ? `<div class="etymology-def"><strong>【说文】</strong>"${item.data.shuowen}"</div>` : ''}
+                        ${item.data.source ? `<div class="etymology-def" style="font-size:10px;color:var(--text-muted);"><strong>【出处】</strong>${item.data.source}</div>` : ''}
                     </div>
                 `).join('');
                 
                 document.getElementById('etymologyPanel').innerHTML = etymologyHtml;
+            } else {
+                document.getElementById('etymologyPanel').innerHTML = '<p style="font-size: 12px; color: var(--text-muted); text-align: center; padding: 10px;">未检测到相关字词</p>';
             }
         }
         
         function analyzeCrossReferences(content) {
             const foundTopics = [];
+            const crossRefsData = getMergedCrossRefs();
             
-            for (const [topic, data] of Object.entries(CROSS_REFERENCES || {})) {
-                const topicPattern = new RegExp(topic, 'i');
+            for (const [topic, data] of Object.entries(crossRefsData)) {
+                const topicEscaped = topic.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                const topicPattern = new RegExp(topicEscaped, 'gi');
                 if (topicPattern.test(content)) {
                     foundTopics.push({ topic, data });
                 }
             }
             
             if (foundTopics.length > 0) {
-                const crossRefHtml = foundTopics.slice(0, 2).map(item => `
-                    <div class="cross-ref-item">
-                        <div class="cross-ref-source">您正在讨论"${item.topic}"</div>
-                        ${item.data.references.slice(0, 2).map(ref => `
-                            <div style="margin-top: 6px; padding-left: 8px; border-left: 2px solid var(--border);">
+                const crossRefHtml = foundTopics.map(item => `
+                    <div class="cross-ref-item" style="margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--border-light);">
+                        <div class="cross-ref-source" style="font-weight: 600; margin-bottom: 8px;">📚 您正在讨论「${item.topic}」</div>
+                        ${(item.data.references || []).map(ref => `
+                            <div style="margin-top: 6px; padding: 8px; background: var(--white); border-radius: 4px; border-left: 2px solid var(--accent);">
                                 <div style="font-size: 11px; color: var(--accent);">《${ref.book}·${ref.chapter}》</div>
-                                <div class="cross-ref-quote">"${ref.content.substring(0, 50)}..."</div>
+                                <div class="cross-ref-quote" style="font-size: 11px; color: var(--text-primary);">"${ref.content}"</div>
                             </div>
                         `).join('')}
-                        <div style="font-size: 11px; color: var(--accent); margin-top: 8px;">${item.data.suggestion}</div>
+                        ${item.data.suggestion ? `<div style="font-size: 11px; color: var(--accent); margin-top: 8px; padding: 8px; background: var(--bg-secondary); border-radius: 4px;"><strong>解读：</strong>${item.data.suggestion}</div>` : ''}
                     </div>
                 `).join('');
                 
                 document.getElementById('crossRefPanel').innerHTML = crossRefHtml;
+            } else {
+                document.getElementById('crossRefPanel').innerHTML = '<p style="font-size: 12px; color: var(--text-muted); text-align: center; padding: 10px;">未检测到相关话题</p>';
             }
         }
         
@@ -3569,6 +3749,7 @@ ${teachingContentForReview}
             container.innerHTML = filteredData.map(doc => {
                 const isTeaching = doc.title && (doc.title.startsWith('[教学文档]') || doc.title.startsWith('[教学标准]'));
                 const categoryLabel = isTeaching ? '教学文档' : '审核文档';
+                const titleEscaped = (doc.title || '').replace(/'/g, "\\'").replace(/`/g, "\\`");
                 return `
                 <div class="community-doc" style="${isTeaching ? 'border-left: 3px solid var(--accent);' : 'border-left: 3px solid var(--accent-light);'}">
                     <div class="community-doc-title">
@@ -3578,6 +3759,7 @@ ${teachingContentForReview}
                     <div class="community-doc-meta">上传者: ${escapeHtml(doc.author || '匿名')} | ${formatDate(doc.created_at)}</div>
                     <div class="community-doc-content">${escapeHtml(doc.content?.substring(0, 150) || '')}${doc.content?.length > 150 ? '...' : ''}</div>
                     <div class="community-doc-actions">
+                        <button onclick="openInFullscreen('${titleEscaped}', \`${(doc.content || '').replace(/`/g, '\\`').replace(/\$/g, '\\$')}\`)">全屏阅读</button>
                         <button onclick="useCommunityDoc('${doc.id}')">用作教学标准</button>
                         <button onclick="viewCommunityDoc('${doc.id}')">查看详情</button>
                         <button onclick="deleteCommunityDoc(${doc.id})">删除</button>
@@ -3784,6 +3966,186 @@ ${teachingContentForReview}
             }, 1000);
         }
         
+        let currentFullscreenDoc = null;
+        let textAnnotations = [];
+        let currentFontSize = 16;
+        let selectedTextInfo = null;
+        
+        function openInFullscreen(title, content) {
+            currentFullscreenDoc = { title, content };
+            currentFontSize = parseInt(localStorage.getItem('readerFontSize') || '18');
+            textAnnotations = JSON.parse(localStorage.getItem('textAnnotations_' + title.replace(/[^a-zA-Z0-9\u4e00-\u9fa5]/g, '_')) || '[]');
+            
+            document.getElementById('fullscreenTitle').textContent = title;
+            document.getElementById('fullscreenViewer').classList.remove('hidden');
+            
+            renderFullscreenContent();
+            renderAnnotations();
+        }
+        
+        function renderFullscreenContent() {
+            if (!currentFullscreenDoc) return;
+            
+            let html = escapeHtml(currentFullscreenDoc.content);
+            
+            textAnnotations.forEach((ann, index) => {
+                const escapedText = escapeHtml(ann.text);
+                const regex = new RegExp(escapeHtml(ann.text), 'g');
+                let markHtml = `<span class="text-mark" onclick="showMarkPopup(${index}, event)" data-index="${index}">${escapedText}</span>`;
+                html = html.replace(regex, markHtml);
+            });
+            
+            const contentDiv = document.getElementById('fullscreenContent');
+            contentDiv.innerHTML = html;
+            contentDiv.style.fontSize = currentFontSize + 'px';
+        }
+        
+        function handleTextSelection() {
+            const selection = window.getSelection();
+            const selectedText = selection.toString().trim();
+            
+            if (selectedText.length > 0 && selectedText.length < 500) {
+                selectedTextInfo = {
+                    text: selectedText,
+                    range: selection.getRangeAt(0)
+                };
+            } else {
+                selectedTextInfo = null;
+            }
+        }
+        
+        function addTextAnnotation() {
+            if (!selectedTextInfo) {
+                alert('请先选中要批注的文字');
+                return;
+            }
+            
+            const comment = prompt('为"' + selectedTextInfo.text.substring(0, 20) + '..."添加批注：', '');
+            if (!comment) return;
+            
+            textAnnotations.push({
+                text: selectedTextInfo.text,
+                comments: [{
+                    content: comment,
+                    author: '读者',
+                    time: new Date().toISOString()
+                }]
+            });
+            
+            saveAnnotations();
+            renderFullscreenContent();
+            renderAnnotations();
+            
+            window.getSelection().removeAllRanges();
+            selectedTextInfo = null;
+        }
+        
+        function showMarkPopup(index, event) {
+            event.stopPropagation();
+            
+            document.querySelectorAll('.mark-popup').forEach(p => p.remove());
+            
+            const ann = textAnnotations[index];
+            const popup = document.createElement('div');
+            popup.className = 'mark-popup';
+            popup.innerHTML = `
+                <button class="close-btn" onclick="this.parentElement.remove()">×</button>
+                <button class="delete-mark" onclick="deleteAnnotation(${index})" style="position: absolute; top: 8px; right: 30px; background: none; border: none; color: #c00; cursor: pointer; font-size: 12px;">删除</button>
+                <div class="marked-text">"${escapeHtml(ann.text.substring(0, 50))}${ann.text.length > 50 ? '...' : ''}"</div>
+                <div class="comment-list">
+                    ${ann.comments.map((c, i) => `
+                        <div class="comment-item">
+                            <div class="author">${escapeHtml(c.author)} · ${new Date(c.time).toLocaleString('zh-CN')}</div>
+                            <div class="content">${escapeHtml(c.content)}</div>
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="comment-input">
+                    <input type="text" placeholder="添加回复..." onkeypress="if(event.key==='Enter')addReply(${index}, this.value);this.value='';">
+                    <button onclick="addReply(${index}, this.previousElementSibling.value);this.previousElementSibling.value='';">发送</button>
+                </div>
+            `;
+            
+            const mark = event.target;
+            const rect = mark.getBoundingClientRect();
+            popup.style.left = '0';
+            popup.style.top = (rect.bottom + window.scrollY + 5) + 'px';
+            
+            document.getElementById('fullscreenContent').appendChild(popup);
+        }
+        
+        function deleteAnnotation(index) {
+            if (!confirm('确定删除此批注？')) return;
+            textAnnotations.splice(index, 1);
+            saveAnnotations();
+            renderFullscreenContent();
+            renderAnnotations();
+            document.querySelectorAll('.mark-popup').forEach(p => p.remove());
+        }
+        
+        function addReply(index, content) {
+            if (!content.trim()) return;
+            
+            textAnnotations[index].comments.push({
+                content: content,
+                author: '读者',
+                time: new Date().toISOString()
+            });
+            
+            saveAnnotations();
+            const popup = document.querySelector('.mark-popup');
+            if (popup) {
+                showMarkPopup(index, { target: popup.previousElementSibling, stopPropagation: () => {} });
+            }
+            renderAnnotations();
+        }
+        
+        function saveAnnotations() {
+            if (currentFullscreenDoc) {
+                const key = 'textAnnotations_' + currentFullscreenDoc.title.replace(/[^a-zA-Z0-9\u4e00-\u9fa5]/g, '_');
+                localStorage.setItem(key, JSON.stringify(textAnnotations));
+            }
+        }
+        
+        function renderAnnotations() {
+            const list = document.getElementById('annotationList');
+            if (textAnnotations.length === 0) {
+                list.innerHTML = '<p style="color: var(--text-muted); font-size: 12px;">选中文字后点击"添加批注"按钮添加段评</p>';
+                return;
+            }
+            
+            list.innerHTML = textAnnotations.map((ann, i) => `
+                <div class="annotation-item" onclick="showMarkPopup(${i}, {target: document.querySelectorAll('.text-mark')[${i}] || {getBoundingClientRect:()=>({bottom:0})}, stopPropagation:()=>{}})">
+                    <div class="author">${escapeHtml(ann.comments[0].author)} · ${new Date(ann.comments[0].time).toLocaleString('zh-CN')}</div>
+                    <div class="content">"${escapeHtml(ann.text.substring(0, 30))}${ann.text.length > 30 ? '...' : ''}"</div>
+                    <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">${ann.comments.length}条回复</div>
+                </div>
+            `).join('');
+        }
+        
+        function toggleFullscreen() {
+            document.getElementById('fullscreenViewer').classList.add('hidden');
+            document.querySelectorAll('.mark-popup').forEach(p => p.remove());
+        }
+        
+        function adjustFontSize(delta) {
+            currentFontSize = Math.max(12, Math.min(36, currentFontSize + delta));
+            document.getElementById('fullscreenContent').style.fontSize = currentFontSize + 'px';
+            localStorage.setItem('readerFontSize', currentFontSize);
+        }
+        
+        function openCurrentDocFullscreen() {
+            const content = document.getElementById('reviewContent').value;
+            const title = document.getElementById('docName').value.trim() || '未命名文档';
+            
+            if (!content.trim()) {
+                alert('请先输入文档内容');
+                return;
+            }
+            
+            openInFullscreen(title, content);
+        }
+        
         function doUpload() {
             if (!communityClient) {
                 alert('连接Supabase失败，请刷新重试');
@@ -3791,7 +4153,6 @@ ${teachingContentForReview}
             }
             const content = document.getElementById('reviewContent').value;
             const title = document.getElementById('docName').value.trim() || '未命名';
-            const reviewResult = document.getElementById('review-result').textContent;
             const author = prompt('你的名字:', '匿名') || '匿名';
             
             const categoryLabel = prompt('请输入文档分类（输入"教学"或"审核"）:', '审核');
@@ -3806,7 +4167,7 @@ ${teachingContentForReview}
             communityClient.from('community_docs').insert({
                 title: `[${category}] ` + title,
                 content: content,
-                review_result: reviewResult,
+                review_result: '',
                 author: author
             }).then(({ error }) => {
                 if (error) {
