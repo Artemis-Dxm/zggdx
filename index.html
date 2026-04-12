@@ -3775,7 +3775,7 @@ ${teachingContentForReview}
                     <div class="community-doc-meta">上传者: ${escapeHtml(doc.author || '匿名')} | ${formatDate(doc.created_at)}</div>
                     <div class="community-doc-content">${escapeHtml(doc.content?.substring(0, 150) || '')}${doc.content?.length > 150 ? '...' : ''}</div>
                     <div class="community-doc-actions">
-                        <button onclick="openInFullscreen('${titleEscaped}', \`${(doc.content || '').replace(/`/g, '\\`').replace(/\$/g, '\\$')}\`)">全屏阅读</button>
+                        <button onclick="openInFullscreen('${titleEscaped}', \`${(doc.content || '').replace(/`/g, '\\`').replace(/\$/g, '\\$')}\`, '${doc.id}')">全屏阅读</button>
                         <button onclick="useCommunityDoc('${doc.id}')">用作教学标准</button>
                         <button onclick="viewCommunityDoc('${doc.id}')">查看详情</button>
                         <button onclick="deleteCommunityDoc(${doc.id})">删除</button>
@@ -3985,17 +3985,111 @@ ${teachingContentForReview}
         let textAnnotations = [];
         let currentFontSize = 16;
         let selectedTextInfo = null;
+        let currentDocId = null;
         
-        function openInFullscreen(title, content) {
-            currentFullscreenDoc = { title, content };
+        async function openInFullscreen(title, content, docId = null) {
+            currentFullscreenDoc = { title, content, id: docId };
+            currentDocId = docId;
             currentFontSize = parseInt(localStorage.getItem('readerFontSize') || '18');
-            textAnnotations = JSON.parse(localStorage.getItem('textAnnotations_' + title.replace(/[^a-zA-Z0-9\u4e00-\u9fa5]/g, '_')) || '[]');
+            
+            if (docId) {
+                await loadAnnotationsFromSupabase(docId);
+            } else {
+                textAnnotations = JSON.parse(localStorage.getItem('textAnnotations_' + title.replace(/[^a-zA-Z0-9\u4e00-\u9fa5]/g, '_')) || '[]');
+            }
             
             document.getElementById('fullscreenTitle').textContent = title;
             document.getElementById('fullscreenViewer').classList.remove('hidden');
             
             renderFullscreenContent();
             renderAnnotations();
+        }
+        
+        async function loadAnnotationsFromSupabase(docId) {
+            if (!communityClient) {
+                const savedUrl = localStorage.getItem('sbUrl') || DEFAULT_URL;
+                const savedKey = localStorage.getItem('sbKey') || DEFAULT_KEY;
+                try {
+                    communityClient = window.supabase.createClient(savedUrl, savedKey);
+                } catch (e) {
+                    console.error('连接失败');
+                    textAnnotations = [];
+                    return;
+                }
+            }
+            
+            try {
+                const { data, error } = await communityClient
+                    .from('doc_annotations')
+                    .select('*')
+                    .eq('doc_id', docId);
+                
+                if (error) {
+                    console.error('加载批注失败:', error);
+                    textAnnotations = [];
+                    return;
+                }
+                
+                if (data && data.length > 0) {
+                    textAnnotations = data.map(item => ({
+                        text: item.marked_text,
+                        comments: item.comments || [],
+                        id: item.id
+                    }));
+                } else {
+                    textAnnotations = [];
+                }
+            } catch (e) {
+                console.error('加载批注失败:', e);
+                textAnnotations = [];
+            }
+        }
+        
+        async function saveAnnotationToSupabase(ann, docId) {
+            if (!communityClient) return;
+            
+            try {
+                const existing = await communityClient
+                    .from('doc_annotations')
+                    .select('id')
+                    .eq('doc_id', docId)
+                    .eq('marked_text', ann.text)
+                    .single();
+                
+                if (existing.data) {
+                    await communityClient
+                        .from('doc_annotations')
+                        .update({
+                            comments: ann.comments,
+                            updated_at: new Date().toISOString()
+                        })
+                        .eq('id', existing.data.id);
+                } else {
+                    await communityClient
+                        .from('doc_annotations')
+                        .insert({
+                            doc_id: docId,
+                            marked_text: ann.text,
+                            comments: ann.comments
+                        });
+                }
+            } catch (e) {
+                console.error('保存批注失败:', e);
+            }
+        }
+        
+        async function deleteAnnotationFromSupabase(docId, text) {
+            if (!communityClient) return;
+            
+            try {
+                await communityClient
+                    .from('doc_annotations')
+                    .delete()
+                    .eq('doc_id', docId)
+                    .eq('marked_text', text);
+            } catch (e) {
+                console.error('删除批注失败:', e);
+            }
         }
         
         function renderFullscreenContent() {
@@ -4038,18 +4132,24 @@ ${teachingContentForReview}
             const comment = prompt('为"' + selectedTextInfo.text.substring(0, 20) + '..."添加批注：', '');
             if (!comment) return;
             
-            textAnnotations.push({
+            const newAnnotation = {
                 text: selectedTextInfo.text,
                 comments: [{
                     content: comment,
                     author: '读者',
                     time: new Date().toISOString()
                 }]
-            });
+            };
+            
+            textAnnotations.push(newAnnotation);
             
             saveAnnotations();
             renderFullscreenContent();
             renderAnnotations();
+            
+            if (currentDocId) {
+                saveAnnotationToSupabase(newAnnotation, currentDocId);
+            }
             
             window.getSelection().removeAllRanges();
             selectedTextInfo = null;
@@ -4104,11 +4204,16 @@ ${teachingContentForReview}
         
         function deleteAnnotation(index) {
             if (!confirm('确定删除此批注？')) return;
+            const deletedText = textAnnotations[index].text;
             textAnnotations.splice(index, 1);
             saveAnnotations();
             renderFullscreenContent();
             renderAnnotations();
             document.querySelectorAll('.mark-popup').forEach(p => p.remove());
+            
+            if (currentDocId) {
+                deleteAnnotationFromSupabase(currentDocId, deletedText);
+            }
         }
         
         function addReply(index, content) {
@@ -4124,6 +4229,10 @@ ${teachingContentForReview}
             document.querySelectorAll('.mark-popup').forEach(p => p.remove());
             renderFullscreenContent();
             renderAnnotations();
+            
+            if (currentDocId) {
+                saveAnnotationToSupabase(textAnnotations[index], currentDocId);
+            }
         }
         
         function saveAnnotations() {
