@@ -1169,21 +1169,6 @@
                 <button class="nav-tab" onclick="switchTab('community')">学术社区</button>
             </nav>
         </div>
-<div class="header-right">
-            <select id="apiProvider" onchange="onApiProviderChange()" style="padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px; font-size: 12px; background: var(--white); margin-right: 8px;">
-                <option value="zhipu">智谱AI</option>
-                <option value="deepseek">DeepSeek</option>
-                <option value="moonshot">月之暗面(Kimi)</option>
-                <option value="openai">OpenAI</option>
-                <option value="anthropic">Anthropic</option>
-            </select>
-            <input type="password" id="apiKey" class="api-key-input" placeholder="API Key">
-            <a href="https://open.bigmodel.cn/" target="_blank" id="apiApplyLink" style="font-size: 11px; color: var(--accent); text-decoration: none; padding: 4px 8px; background: var(--bg-secondary); border-radius: 4px;">申请API</a>
-            <label style="display: flex; align-items: center; gap: 4px; font-size: 12px; color: var(--text-muted);">
-                <input type="checkbox" id="rememberApiKey" checked>
-                记住
-            </label>
-        </div>
     </header>
     
     <!-- Main Content -->
@@ -1345,6 +1330,35 @@
                         </div>
                     </div>
                     
+                    <div class="sidebar-section" style="margin: 16px 0; padding: 16px; background: var(--bg-card); border-radius: 8px; border: 1px solid var(--border-light);">
+                        <div class="sidebar-title" style="margin-bottom: 12px;">经典文献参考管理</div>
+                        <div class="file-upload-area" style="margin-bottom: 12px;">
+                            <input type="file" id="refFileInput" accept=".json,.txt,.js,.docx" onchange="handleRefFileUpload(this)" style="display: none;">
+                            <div onclick="document.getElementById('refFileInput').click()" style="padding: 20px; border: 2px dashed var(--border); border-radius: 8px; text-align: center; cursor: pointer; background: var(--bg-secondary);">
+                                <p style="color: var(--text-muted); font-size: 13px;">📖 点击上传参考文件</p>
+                                <p style="color: var(--text-muted); font-size: 11px; margin-top: 4px;">支持 JSON/TXT/JS/DOCX 格式</p>
+                            </div>
+                        </div>
+                        <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
+                            <p>Word/文本格式要求（自动解析）：</p>
+                            <pre style="background: var(--bg-secondary); padding: 8px; border-radius: 4px; margin-top: 4px; white-space: pre-wrap; font-size: 11px;">《论语》
+## 仁
+孝弟也者，其为仁之本与
+里仁为美
+
+## 孝
+孟懿子问孝。子曰：无违。
+
+《孟子》
+## 性善
+人性之善也，犹水之就下也</pre>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <button onclick="downloadReferences()" style="flex: 1; padding: 8px; font-size: 12px; border: 1px solid var(--accent); border-radius: 6px; cursor: pointer; background: var(--bg-card); color: var(--accent);">📥 下载当前参考</button>
+                            <button onclick="clearCustomReferences()" style="flex: 1; padding: 8px; font-size: 12px; border: 1px solid var(--accent-light); border-radius: 6px; cursor: pointer; background: var(--bg-card); color: var(--accent-light);">🗑️ 清空自定义</button>
+                        </div>
+                    </div>
+                    
                     <div class="kb-search-bar">
                         <input type="text" id="kbSearch" placeholder="搜索文档..." oninput="renderKnowledgeBase()">
                         <button onclick="exportKnowledgeBase()">导出</button>
@@ -1440,37 +1454,14 @@
     </div>
     
     <script>
-        const API_BASE = '';
         const KB_MAX_VERSIONS = 10;
         const KB_MAX_DOCS = 50;
         const KB_MAX_SIZE = 2 * 1024 * 1024;
         
-        const API_PROVIDERS = {
-            zhipu: {
-                name: '智谱AI',
-                endpoint: 'https://open.bigmodel.cn/api/paas/v4/chat/completions',
-                model: 'glm-4-flash'
-            },
-            openai: {
-                name: 'OpenAI',
-                endpoint: 'https://api.openai.com/v1/chat/completions',
-                model: 'gpt-3.5-turbo'
-            },
-            anthropic: {
-                name: 'Anthropic',
-                endpoint: 'https://api.anthropic.com/v1/messages',
-                model: 'claude-3-haiku-20240307'
-            },
-            moonshot: {
-                name: '月之暗面',
-                endpoint: 'https://api.moonshot.cn/v1/chat/completions',
-                model: 'moonshot-v1-8k'
-            },
-            deepseek: {
-                name: 'DeepSeek',
-                endpoint: 'https://api.deepseek.com/v1/chat/completions',
-                model: 'deepseek-chat'
-            }
+        const DEEPSEEK_CONFIG = {
+            endpoint: 'https://api.deepseek.com/v1/chat/completions',
+            model: 'deepseek-chat',
+            apiKey: 'sk-0fcf461177a8400093391308fe56ac60'
         };
         
         let teachingSummary = '';
@@ -1565,63 +1556,7 @@
             TEACHING_DOCS: 'docReviewerTeachingDocs'
         };
         
-        const API_URLS = {
-            zhipu: {
-                name: '智谱AI',
-                url: 'https://open.bigmodel.cn/',
-                guide: 'https://open.bigmodel.cn/usercenter/apikeys'
-            },
-            deepseek: {
-                name: 'DeepSeek',
-                url: 'https://platform.deepseek.com/',
-                guide: 'https://platform.deepseek.com/api_keys'
-            },
-            moonshot: {
-                name: '月之暗面',
-                url: 'https://www.moonshot.cn/',
-                guide: 'https://www.moonshot.cn/console/api-keys'
-            },
-            openai: {
-                name: 'OpenAI',
-                url: 'https://openai.com/',
-                guide: 'https://platform.openai.com/api-keys'
-            },
-            anthropic: {
-                name: 'Anthropic',
-                url: 'https://www.anthropic.com/',
-                guide: 'https://console.anthropic.com/settings/keys'
-            }
-        };
-        
-        function onApiProviderChange() {
-            const provider = document.getElementById('apiProvider').value;
-            const apiInfo = API_URLS[provider];
-            if (apiInfo) {
-                const link = document.getElementById('apiApplyLink');
-                link.href = apiInfo.guide;
-                link.textContent = '获取' + apiInfo.name + ' Key';
-            }
-            saveApiKey();
-        }
-        
         window.onload = function() {
-            const savedKey = localStorage.getItem('docReviewerApiKey');
-            if (savedKey) {
-                document.getElementById('apiKey').value = savedKey;
-            }
-            
-            const savedProvider = localStorage.getItem('docReviewerApiProvider');
-            if (savedProvider) {
-                document.getElementById('apiProvider').value = savedProvider;
-            }
-            onApiProviderChange();
-            
-            const rememberCheck = document.getElementById('rememberApiKey');
-            const savedRemember = localStorage.getItem('docReviewerRemember');
-            if (savedRemember !== null) {
-                rememberCheck.checked = savedRemember === 'true';
-            }
-            
             loadTeachingDocs();
             loadKnowledgeBase();
             loadDefaultGradingStandard();
@@ -1642,59 +1577,20 @@
             }
         }
         
-        function saveApiKey() {
-            const remember = document.getElementById('rememberApiKey').checked;
-            localStorage.setItem('docReviewerRemember', remember);
-            if (remember) {
-                localStorage.setItem('docReviewerApiKey', document.getElementById('apiKey').value);
-                localStorage.setItem('docReviewerApiProvider', document.getElementById('apiProvider').value);
-            } else {
-                localStorage.removeItem('docReviewerApiKey');
-                localStorage.removeItem('docReviewerApiProvider');
-            }
-        }
-        
-        function getApiConfig() {
-            const provider = document.getElementById('apiProvider').value;
-            return API_PROVIDERS[provider] || API_PROVIDERS.zhipu;
-        }
-        
         async function callAIApi(messages, customModel = null) {
-            const apiKey = document.getElementById('apiKey').value;
-            if (!apiKey) {
-                throw new Error('请输入API Key');
-            }
+            const apiKey = DEEPSEEK_CONFIG.apiKey;
             
-            const config = getApiConfig();
-            const isProxy = !!API_BASE;
-            const model = customModel || config.model;
+            const model = customModel || DEEPSEEK_CONFIG.model;
             
-            let requestBody, headers;
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + apiKey
+            };
             
-            if (config.name === 'Anthropic') {
-                headers = {
-                    'Content-Type': 'application/json',
-                    'x-api-key': apiKey,
-                    'anthropic-version': '2023-06-01'
-                };
-                const lastMsg = messages[messages.length - 1];
-                requestBody = {
-                    model: model,
-                    max_tokens: 4096,
-                    messages: messages.slice(0, -1).concat({ role: 'user', content: lastMsg.content })
-                };
-            } else {
-                headers = {
-                    'Content-Type': 'application/json'
-                };
-                if (!isProxy) {
-                    headers['Authorization'] = 'Bearer ' + apiKey;
-                }
-                requestBody = {
-                    model: model,
-                    messages: messages
-                };
-            }
+            const requestBody = {
+                model: model,
+                messages: messages
+            };
             
             const fetchOptions = {
                 method: 'POST',
@@ -1702,17 +1598,21 @@
                 body: JSON.stringify(requestBody)
             };
             
-            const endpoint = isProxy ? API_BASE : config.endpoint;
-            const response = await fetch(endpoint, fetchOptions);
+            const response = await fetch(DEEPSEEK_CONFIG.endpoint, fetchOptions);
             const result = await response.json();
             
             if (result.error) {
-                throw new Error(result.error.message || JSON.stringify(result));
+                let errorMsg = result.error.message || JSON.stringify(result);
+                if (errorMsg.includes('invalid_token') || errorMsg.includes('令牌已过期') || errorMsg.includes('验证不正确')) {
+                    errorMsg = 'API Key无效或已过期，请检查Key是否正确';
+                }
+                if (errorMsg.includes('Insufficient Balance') || errorMsg.includes('insufficient_balance')) {
+                    errorMsg = 'API余额不足，请充值';
+                }
+                throw new Error(errorMsg);
             }
             
-            if (config.name === 'Anthropic') {
-                return result.content[0].text;
-            } else if (result.choices && result.choices[0]) {
+            if (result.choices && result.choices[0]) {
                 return result.choices[0].message.content;
             } else {
                 throw new Error(JSON.stringify(result));
@@ -1748,13 +1648,6 @@
         async function handleFileSelect(input, type) {
             const file = input.files[0];
             if (!file) return;
-            
-            const apiKey = document.getElementById('apiKey').value;
-            if (!apiKey) {
-                alert('请先输入API Key');
-                input.value = '';
-                return;
-            }
             
             const btn = input.closest('.file-upload-area').querySelector('p');
             
@@ -1960,12 +1853,6 @@
         }
 
         function uploadTeachingToKnowledgeBase() {
-            const apiKey = document.getElementById('apiKey').value;
-            if (!apiKey) {
-                alert('请先输入API Key');
-                return;
-            }
-
             if (teachingDocs.length === 0) {
                 const manualContent = document.getElementById('teachingContent').value.trim();
                 if (!manualContent) {
@@ -2123,13 +2010,6 @@
             const files = Array.from(input.files);
             if (files.length === 0) return;
             
-            const apiKey = document.getElementById('apiKey').value;
-            if (!apiKey) {
-                alert('请先输入API Key');
-                input.value = '';
-                return;
-            }
-            
             const btn = input.closest('.file-upload-area').querySelector('p');
             btn.textContent = '正在加载文件...';
             
@@ -2231,6 +2111,164 @@
             const kb = getKnowledgeBase();
             const size = new Blob([JSON.stringify(kb)]).size;
             document.getElementById('storageWarning').classList.toggle('hidden', size < KB_MAX_SIZE * 0.8);
+        }
+        
+        let customReferences = {};
+        
+        function loadCustomReferences() {
+            const saved = localStorage.getItem('docReviewerCustomRefs');
+            if (saved) {
+                try {
+                    customReferences = JSON.parse(saved);
+                } catch(e) {
+                    customReferences = {};
+                }
+            }
+        }
+        
+        function saveCustomReferences() {
+            localStorage.setItem('docReviewerCustomRefs', JSON.stringify(customReferences));
+        }
+        
+        function getMergedReferences() {
+            loadCustomReferences();
+            const merged = {};
+            for (const book in CLASSICS_REFERENCES) {
+                merged[book] = { ...CLASSICS_REFERENCES[book] };
+                if (customReferences[book]) {
+                    for (const topic in customReferences[book]) {
+                        if (merged[book][topic]) {
+                            const existingLines = new Set(merged[book][topic].map(item => item.line));
+                            customReferences[book][topic].forEach(item => {
+                                if (!existingLines.has(item.line)) {
+                                    merged[book][topic].push(item);
+                                }
+                            });
+                        } else {
+                            merged[book][topic] = customReferences[book][topic];
+                        }
+                    }
+                }
+            }
+            for (const book in customReferences) {
+                if (!merged[book]) {
+                    merged[book] = customReferences[book];
+                }
+            }
+            return merged;
+        }
+        
+        async function handleRefFileUpload(input) {
+            const file = input.files[0];
+            if (!file) return;
+            
+            try {
+                let content = '';
+                const ext = file.name.split('.').pop().toLowerCase();
+                
+                if (ext === 'json') {
+                    content = await file.text();
+                    const data = JSON.parse(content);
+                    mergeReferences(data);
+                } else if (ext === 'js') {
+                    const text = await file.text();
+                    const match = text.match(/const\s+CLASSICS_REFERENCES\s*=\s*(\{[\s\S]*?\});\s*$/m);
+                    if (match) {
+                        const data = eval('(' + match[1] + ')');
+                        mergeReferences(data);
+                    } else {
+                        alert('无法解析JS文件格式');
+                        return;
+                    }
+                } else if (ext === 'txt') {
+                    content = await file.text();
+                    const data = parseTextToReferences(content);
+                    mergeReferences(data);
+                } else if (ext === 'docx') {
+                    content = await parseDocx(file);
+                    const data = parseTextToReferences(content);
+                    mergeReferences(data);
+                }
+                
+                alert('参考数据已成功导入！');
+                input.value = '';
+            } catch(e) {
+                alert('导入失败: ' + e.message);
+                console.error(e);
+            }
+        }
+        
+        function mergeReferences(data) {
+            loadCustomReferences();
+            for (const book in data) {
+                if (!customReferences[book]) {
+                    customReferences[book] = {};
+                }
+                for (const topic in data[book]) {
+                    if (!customReferences[book][topic]) {
+                        customReferences[book][topic] = [];
+                    }
+                    const existingLines = new Set(customReferences[book][topic].map(item => item.line));
+                    data[book][topic].forEach(item => {
+                        if (!existingLines.has(item.line)) {
+                            customReferences[book][topic].push(item);
+                        }
+                    });
+                }
+            }
+            saveCustomReferences();
+        }
+        
+        function parseTextToReferences(content) {
+            const data = {};
+            const lines = content.split('\n');
+            let currentBook = null;
+            let currentTopic = null;
+            
+            lines.forEach(line => {
+                line = line.trim();
+                if (!line) return;
+                
+                if (line.match(/^《.+》/)) {
+                    currentBook = line.replace(/[《》]/g, '');
+                    if (!data[currentBook]) data[currentBook] = {};
+                } else if (line.startsWith('##') || line.startsWith('**')) {
+                    currentTopic = line.replace(/^##\s*|\*\*+/g, '');
+                    if (currentBook && !data[currentBook][currentTopic]) {
+                        data[currentBook][currentTopic] = [];
+                    }
+                } else if (currentBook && currentTopic && line.match(/[，。；]/)) {
+                    data[currentBook][currentTopic].push({
+                        chapter: currentTopic,
+                        content: line,
+                        line: currentBook + currentTopic
+                    });
+                }
+            });
+            
+            return data;
+        }
+        
+        function downloadReferences() {
+            const merged = getMergedReferences();
+            const content = `// 经典文献互证参考数据 (更新于 ${new Date().toLocaleString('zh-CN')})
+
+const CLASSICS_REFERENCES = ${JSON.stringify(merged, null, 4)};`;
+            
+            const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'references_updated.js';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+        
+        function clearCustomReferences() {
+            if (!confirm('确定要清空所有自定义参考数据吗？内置参考数据不会受影响。')) return;
+            customReferences = {};
+            saveCustomReferences();
+            alert('已清空自定义参考数据');
         }
         
         function renderKnowledgeBase() {
@@ -2472,12 +2510,8 @@
         }
         
         async function submitTeachingDoc() {
-            saveApiKey();
-            const apiKey = document.getElementById('apiKey').value;
             const manualContent = document.getElementById('teachingContent').value.trim();
             const resultDiv = document.getElementById('teaching-result');
-            
-            if (!apiKey) { alert('请输入API Key'); return; }
             
             if (manualContent && teachingDocs.length > 0) {
                 const name = '粘贴内容_' + new Date().toLocaleDateString('zh-CN');
@@ -2557,15 +2591,12 @@
         }
         
         async function submitReviewDoc() {
-            saveApiKey();
-            const apiKey = document.getElementById('apiKey').value;
             const content = document.getElementById('reviewContent').value;
             const docName = document.getElementById('docName').value.trim() || '未命名文档_' + Date.now();
             const resultDiv = document.getElementById('review-result');
             const scoreSection = document.getElementById('aiScoreSection');
             const progressSection = document.getElementById('progressSection');
             
-            if (!apiKey) { alert('请输入API Key'); return; }
             if (!content.trim()) { alert('请输入文档内容'); return; }
             if (teachingDocs.length === 0) {
                 loadDefaultGradingStandard();
@@ -2917,87 +2948,60 @@ ${content}
                     userPrompt = `请审核文档（文档名: ${docName}）。`;
                 }
                 
-                const isProxy = !!API_BASE;
-                const requestBody = isProxy ? {
-                    api_key: apiKey,
-                    action: 'review',
-                    content: content,
-                    teaching_summary: teachingSummary,
-                    previous_version: previousVersion
-                } : {
-                    model: 'glm-4-flash',
-                    messages: [
-                        { role: 'system', content: systemPrompt },
-                        { role: 'user', content: userPrompt }
-                    ],
-                    temperature: 0
-                };
+                const messages = [
+                    { role: 'system', content: systemPrompt },
+                    { role: 'user', content: userPrompt }
+                ];
                 
-                const fetchOptions = {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(requestBody)
-                };
+                const reviewText = await callAIApi(messages);
+                resultDiv.textContent = reviewText;
                 
-                if (!isProxy) {
-                    fetchOptions.headers['Authorization'] = 'Bearer ' + apiKey;
-                }
+                const scoreMatch = reviewText.match(/最终评分[：:]\s*(\d+(?:\.\d+)?)/) || reviewText.match(/评分[：:]\s*(\d+(?:\.\d+)?)/);
+                const progressMatch = reviewText.match(/与上版本相比[：:]\s*(进步↑|退步↓|持平→)/);
+                let aiScore = null;
                 
-                const response = await fetch(API_BASE || 'https://open.bigmodel.cn/api/paas/v4/chat/completions', fetchOptions);
-                
-                const result = await response.json();
-                
-                if (result.choices && result.choices[0]) {
-                    const reviewText = result.choices[0].message.content;
-                    resultDiv.textContent = reviewText;
-                    
-                    const scoreMatch = reviewText.match(/最终评分[：:]\s*(\d+(?:\.\d+)?)/) || reviewText.match(/评分[：:]\s*(\d+(?:\.\d+)?)/);
-                    const progressMatch = reviewText.match(/与上版本相比[：:]\s*(进步↑|退步↓|持平→)/);
-                    let aiScore = null;
-                    
-                    if (scoreMatch) {
-                        aiScore = parseFloat(scoreMatch[1]);
-                        document.getElementById('scoreValue').textContent = aiScore + '/10';
-                        const literScore = Math.round((aiScore / 10) * 3 * 10) / 10;
-                        const yiliScore = Math.round((aiScore / 10) * 3 * 10) / 10;
-                        const structScore = Math.round((aiScore / 10) * 2 * 10) / 10;
-                        const acadScore = Math.round((aiScore / 10) * 2 * 10) / 10;
-                        document.getElementById('semScore').textContent = literScore.toFixed(1);
-                        document.getElementById('etyScore').textContent = yiliScore.toFixed(1);
-                        document.getElementById('argScore').textContent = structScore.toFixed(1);
-                        document.getElementById('refScore').textContent = acadScore.toFixed(1);
-                    } else {
-                        const simpleMatch = reviewText.match(/评分[：:]\s*(\d+(?:\.\d+)?)/);
-                        if (simpleMatch) {
-                            aiScore = parseFloat(simpleMatch[1]);
-                            document.getElementById('scoreValue').textContent = aiScore + '/10';
-                        } else {
-                            document.getElementById('scoreValue').textContent = '未评定';
-                        }
-                    }
-                    
-                    if (isUpdate && progressMatch) {
-                        progressSection.classList.remove('hidden');
-                        const progressType = progressMatch[1];
-                        const isPositive = progressType === '进步↑';
-                        const isNegative = progressType === '退步↓';
-                        
-                        document.getElementById('progressContent').innerHTML = `
-                            <div class="compare-highlight">
-                                <h5>${progressType} ${isPositive ? '继续保持！' : isNegative ? '需要加强改进' : '稳中有进'}</h5>
-                                <p>此版本与上一版本(${previousVersion.score || '未评分'}分)相比: <strong>${progressType}</strong></p>
-                            </div>
-                        `;
-                    }
-                    
-                    saveToKnowledgeBase(docName, content, reviewText, aiScore);
-                    renderKnowledgeBase();
-                    renderVersionList();
-                    
+                if (scoreMatch) {
+                    aiScore = parseFloat(scoreMatch[1]);
+                    document.getElementById('scoreValue').textContent = aiScore + '/10';
+                    const literScore = Math.round((aiScore / 10) * 3 * 10) / 10;
+                    const yiliScore = Math.round((aiScore / 10) * 3 * 10) / 10;
+                    const structScore = Math.round((aiScore / 10) * 2 * 10) / 10;
+                    const acadScore = Math.round((aiScore / 10) * 2 * 10) / 10;
+                    document.getElementById('semScore').textContent = literScore.toFixed(1);
+                    document.getElementById('etyScore').textContent = yiliScore.toFixed(1);
+                    document.getElementById('argScore').textContent = structScore.toFixed(1);
+                    document.getElementById('refScore').textContent = acadScore.toFixed(1);
                 } else {
-                    resultDiv.textContent = '错误: ' + (result.error?.message || JSON.stringify(result));
-                    document.getElementById('scoreValue').textContent = '错误';
+                    const simpleMatch = reviewText.match(/评分[：:]\s*(\d+(?:\.\d+)?)/);
+                    if (simpleMatch) {
+                        aiScore = parseFloat(simpleMatch[1]);
+                        document.getElementById('scoreValue').textContent = aiScore + '/10';
+                    } else {
+                        document.getElementById('scoreValue').textContent = '未评定';
+                    }
                 }
+                
+                if (isUpdate && progressMatch) {
+                    progressSection.classList.remove('hidden');
+                    const progressType = progressMatch[1];
+                    const isPositive = progressType === '进步↑';
+                    const isNegative = progressType === '退步↓';
+                    
+                    document.getElementById('progressContent').innerHTML = `
+                        <div class="compare-highlight">
+                            <h5>${progressType} ${isPositive ? '继续保持！' : isNegative ? '需要加强改进' : '稳中有进'}</h5>
+                            <p>此版本与上一版本(${previousVersion.score || '未评分'}分)相比: <strong>${progressType}</strong></p>
+                        </div>
+                    `;
+                }
+                
+                analyzeCitations(content);
+                analyzeExegesis(content);
+                analyzeCrossReferences(content);
+                
+                saveToKnowledgeBase(docName, content, reviewText, aiScore);
+                renderKnowledgeBase();
+                renderVersionList();
             } catch (e) {
                 resultDiv.textContent = '请求失败: ' + e.message;
                 document.getElementById('scoreValue').textContent = '失败';
@@ -3044,9 +3048,6 @@ ${content}
             }
             
             try {
-                const apiKey = document.getElementById('apiKey').value;
-                const isProxy = !!API_BASE;
-                
                 const systemPrompt = `你是一位严格的学术评审专家，擅长从不同学术立场对论文进行质疑。
 
 【教学标准】
@@ -3071,70 +3072,44 @@ ${teachingContentForReview}
   ]
 }`;
 
-                const requestBody = isProxy ? {
-                    api_key: apiKey,
-                    action: 'question_gen',
-                    content: content,
-                    teaching_summary: teachingSummary
-                } : {
-                    model: 'glm-4-flash',
-                    messages: [
-                        { role: 'system', content: systemPrompt },
-                        { role: 'user', content: '请对以下论文进行预设质疑生成：\n\n' + content }
-                    ],
-                    temperature: 0
-                };
+                const messages = [
+                    { role: 'system', content: systemPrompt },
+                    { role: 'user', content: '请对以下论文进行预设质疑生成：\n\n' + content }
+                ];
                 
-                const fetchOptions = {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(requestBody)
-                };
+                const responseText = await callAIApi(messages);
                 
-                if (!isProxy) {
-                    fetchOptions.headers['Authorization'] = 'Bearer ' + apiKey;
-                }
-                
-                const response = await fetch(API_BASE || 'https://open.bigmodel.cn/api/paas/v4/chat/completions', fetchOptions);
-                const result = await response.json();
-                
-                if (result.choices && result.choices[0]) {
-                    let responseText = result.choices[0].message.content;
-                    
-                    let questions = [];
-                    try {
-                        const jsonMatch = responseText.match(/\{[\s\S]*\}/);
-                        if (jsonMatch) {
-                            const parsed = JSON.parse(jsonMatch[0]);
-                            questions = parsed.questions || [];
-                        }
-                    } catch {}
-                    
-                    if (questions.length > 0) {
-                        const html = `
-                            <div class="analysis-wrapper">
-                                <div class="analysis-result-title">核心论点质疑</div>
-                                ${questions.map((q, i) => `
-                                    <div class="question-item">
-                                        <div class="quote">"${escapeHtml(q.thesis)}"</div>
-                                        <div><strong>质疑：</strong>${escapeHtml(q.question)}</div>
-                                        <div class="response"><strong>回应方向：</strong>${escapeHtml(q.possible_response)}</div>
-                                    </div>
-                                `).join('')}
-                            </div>
-                        `;
-                        appendAnalysisResult(html);
-                    } else {
-                        const html = `
-                            <div class="analysis-wrapper">
-                                <div class="analysis-result-title">核心论点质疑</div>
-                                <pre style="white-space: pre-wrap; font-size: 13px;">${escapeHtml(responseText)}</pre>
-                            </div>
-                        `;
-                        appendAnalysisResult(html);
+                let questions = [];
+                try {
+                    const jsonMatch = responseText.match(/\{[\s\S]*\}/);
+                    if (jsonMatch) {
+                        const parsed = JSON.parse(jsonMatch[0]);
+                        questions = parsed.questions || [];
                     }
+                } catch {}
+                
+                if (questions.length > 0) {
+                    const html = `
+                        <div class="analysis-wrapper">
+                            <div class="analysis-result-title">核心论点质疑</div>
+                            ${questions.map((q, i) => `
+                                <div class="question-item">
+                                    <div class="quote">"${escapeHtml(q.thesis)}"</div>
+                                    <div><strong>质疑：</strong>${escapeHtml(q.question)}</div>
+                                    <div class="response"><strong>回应方向：</strong>${escapeHtml(q.possible_response)}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                    appendAnalysisResult(html);
                 } else {
-                    appendAnalysisResult('<div class="analysis-wrapper" style="color: var(--accent-light);">生成失败: ' + (result.error?.message || JSON.stringify(result)) + '</div>');
+                    const html = `
+                        <div class="analysis-wrapper">
+                            <div class="analysis-result-title">核心论点质疑</div>
+                            <pre style="white-space: pre-wrap; font-size: 13px;">${escapeHtml(responseText)}</pre>
+                        </div>
+                    `;
+                    appendAnalysisResult(html);
                 }
             } catch (e) {
                 appendAnalysisResult('<div class="analysis-wrapper" style="color: var(--accent-light);">请求失败: ' + e.message + '</div>');
@@ -3181,9 +3156,6 @@ ${teachingContentForReview}
             }
             
             try {
-                const apiKey = document.getElementById('apiKey').value;
-                const isProxy = !!API_BASE;
-                
                 const systemPrompt = `你是一位严格的学术编辑，擅长发现论文中"断言多、证据少"的薄弱环节。
 
 【教学标准】
@@ -3213,70 +3185,45 @@ ${teachingContentForReview}
   ]
 }`;
 
-                const requestBody = isProxy ? {
-                    api_key: apiKey,
-                    action: 'weakness_check',
-                    content: content
-                } : {
-                    model: 'glm-4-flash',
-                    messages: [
-                        { role: 'system', content: systemPrompt },
-                        { role: 'user', content: '请检测以下论文的薄弱环节：\n\n' + content }
-                    ],
-                    temperature: 0
-                };
+                const messages = [
+                    { role: 'system', content: systemPrompt },
+                    { role: 'user', content: '请检测以下论文的薄弱环节：\n\n' + content }
+                ];
                 
-                const fetchOptions = {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(requestBody)
-                };
+                const responseText = await callAIApi(messages);
                 
-                if (!isProxy) {
-                    fetchOptions.headers['Authorization'] = 'Bearer ' + apiKey;
-                }
-                
-                const response = await fetch(API_BASE || 'https://open.bigmodel.cn/api/paas/v4/chat/completions', fetchOptions);
-                const result = await response.json();
-                
-                if (result.choices && result.choices[0]) {
-                    let responseText = result.choices[0].message.content;
-                    
-                    let weakPoints = [];
-                    try {
-                        const jsonMatch = responseText.match(/\{[\s\S]*\}/);
-                        if (jsonMatch) {
-                            const parsed = JSON.parse(jsonMatch[0]);
-                            weakPoints = parsed.weak_points || [];
-                        }
-                    } catch {}
-                    
-                    if (weakPoints.length > 0) {
-                        const html = `
-                            <div class="analysis-wrapper">
-                                <div class="analysis-result-title">薄弱环节检测</div>
-                                <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">共发现 ${weakPoints.length} 处需要加强的论断：</p>
-                                ${weakPoints.map((w, i) => `
-                                    <div class="weakness-item">
-                                        <div class="sentence">"${escapeHtml(w.sentence)}"</div>
-                                        <div style="margin: 8px 0;"><strong>问题：</strong>${escapeHtml(w.reason)}</div>
-                                        <div class="suggestion"><strong>建议：</strong>${escapeHtml(w.suggestion)}</div>
-                                    </div>
-                                `).join('')}
-                            </div>
-                        `;
-                        appendAnalysisResult(html);
-                    } else {
-                        const html = `
-                            <div class="analysis-wrapper">
-                                <div class="analysis-result-title">薄弱环节检测</div>
-                                <pre style="white-space: pre-wrap; font-size: 13px;">${escapeHtml(responseText)}</pre>
-                            </div>
-                        `;
-                        appendAnalysisResult(html);
+                let weakPoints = [];
+                try {
+                    const jsonMatch = responseText.match(/\{[\s\S]*\}/);
+                    if (jsonMatch) {
+                        const parsed = JSON.parse(jsonMatch[0]);
+                        weakPoints = parsed.weak_points || [];
                     }
+                } catch {}
+                
+                if (weakPoints.length > 0) {
+                    const html = `
+                        <div class="analysis-wrapper">
+                            <div class="analysis-result-title">薄弱环节检测</div>
+                            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">共发现 ${weakPoints.length} 处需要加强的论断：</p>
+                            ${weakPoints.map((w, i) => `
+                                <div class="weakness-item">
+                                    <div class="sentence">"${escapeHtml(w.sentence)}"</div>
+                                    <div style="margin: 8px 0;"><strong>问题：</strong>${escapeHtml(w.reason)}</div>
+                                    <div class="suggestion"><strong>建议：</strong>${escapeHtml(w.suggestion)}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                    appendAnalysisResult(html);
                 } else {
-                    appendAnalysisResult('<div class="analysis-wrapper" style="color: var(--accent-light);">检测失败: ' + (result.error?.message || JSON.stringify(result)) + '</div>');
+                    const html = `
+                        <div class="analysis-wrapper">
+                            <div class="analysis-result-title">薄弱环节检测</div>
+                            <pre style="white-space: pre-wrap; font-size: 13px;">${escapeHtml(responseText)}</pre>
+                        </div>
+                    `;
+                    appendAnalysisResult(html);
                 }
             } catch (e) {
                 appendAnalysisResult('<div class="analysis-wrapper" style="color: var(--accent-light);">请求失败: ' + e.message + '</div>');
@@ -3323,9 +3270,6 @@ ${teachingContentForReview}
             }
             
             try {
-                const apiKey = document.getElementById('apiKey').value;
-                const isProxy = !!API_BASE;
-                
                 const systemPrompt = `你是一位学术史专家，擅长分析论文作者在学术史中的立场。
 
 【教学标准】
@@ -3369,88 +3313,63 @@ ${teachingContentForReview}
   ]
 }`;
 
-                const requestBody = isProxy ? {
-                    api_key: apiKey,
-                    action: 'position_analysis',
-                    content: content
-                } : {
-                    model: 'glm-4-flash',
-                    messages: [
-                        { role: 'system', content: systemPrompt },
-                        { role: 'user', content: '请分析以下论文的学术立场：\n\n' + content }
-                    ],
-                    temperature: 0
-                };
+                const messages = [
+                    { role: 'system', content: systemPrompt },
+                    { role: 'user', content: '请分析以下论文的学术立场：\n\n' + content }
+                ];
                 
-                const fetchOptions = {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(requestBody)
-                };
+                const responseText = await callAIApi(messages);
                 
-                if (!isProxy) {
-                    fetchOptions.headers['Authorization'] = 'Bearer ' + apiKey;
-                }
-                
-                const response = await fetch(API_BASE || 'https://open.bigmodel.cn/api/paas/v4/chat/completions', fetchOptions);
-                const result = await response.json();
-                
-                if (result.choices && result.choices[0]) {
-                    let responseText = result.choices[0].message.content;
-                    
-                    let positionAnalysis = null;
-                    let positions = [];
-                    try {
-                        const jsonMatch = responseText.match(/\{[\s\S]*\}/);
-                        if (jsonMatch) {
-                            const parsed = JSON.parse(jsonMatch[0]);
-                            positionAnalysis = parsed.position_analysis;
-                            positions = parsed.positions || [];
-                        }
-                    } catch {}
-                    
-                    if (positionAnalysis === false) {
-                        const html = `
-                            <div class="analysis-wrapper">
-                                <div class="analysis-result-title">学术立场分析</div>
-                                <div style="background: rgba(166, 124, 90, 0.1); border: 1px solid var(--accent-light); padding: 16px; border-radius: 6px; color: var(--accent);">
-                                    本文存在严重事实错误，无法进行有效的学术立场分析
-                                </div>
-                            </div>
-                        `;
-                        appendAnalysisResult(html);
-                    } else if (positions.length > 0) {
-                        const pos = positions[0];
-                        const marker = document.getElementById('stanceMarker');
-                        if (marker) {
-                            marker.style.left = (pos.marker_position || 50) + '%';
-                        }
-                        
-                        let html = `
-                            <div class="analysis-wrapper">
-                                <div class="analysis-result-title">学术立场分析</div>
-                                ${positions.map(p => `
-                                    <div style="background: var(--bg-secondary); padding: 12px; border-radius: 6px; margin-bottom: 10px;">
-                                        <div style="font-weight: 600; margin-bottom: 8px;">${escapeHtml(p.axis_name)}</div>
-                                        <div style="margin-bottom: 6px;"><strong>立场：</strong>${escapeHtml(p.marker_label)}</div>
-                                        <div style="font-size: 12px; color: var(--text-secondary);"><strong>依据：</strong>${escapeHtml(p.evidence)}</div>
-                                        ${p.warning ? `<div style="font-size: 12px; color: var(--accent-light); margin-top: 6px;">${escapeHtml(p.warning)}</div>` : ''}
-                                    </div>
-                                `).join('')}
-                            </div>
-                        `;
-                        appendAnalysisResult(html);
-                    } else {
-                        const html = `
-                            <div class="analysis-wrapper">
-                                <div class="analysis-result-title">学术立场分析</div>
-                                <pre style="white-space: pre-wrap; font-size: 13px;">${escapeHtml(responseText)}</pre>
-                            </div>
-                        `;
-                        appendAnalysisResult(html);
+                let positionAnalysis = null;
+                let positions = [];
+                try {
+                    const jsonMatch = responseText.match(/\{[\s\S]*\}/);
+                    if (jsonMatch) {
+                        const parsed = JSON.parse(jsonMatch[0]);
+                        positionAnalysis = parsed.position_analysis;
+                        positions = parsed.positions || [];
                     }
+                } catch {}
+                
+                if (positionAnalysis === false) {
+                    const html = `
+                        <div class="analysis-wrapper">
+                            <div class="analysis-result-title">学术立场分析</div>
+                            <div style="background: rgba(166, 124, 90, 0.1); border: 1px solid var(--accent-light); padding: 16px; border-radius: 6px; color: var(--accent);">
+                                本文存在严重事实错误，无法进行有效的学术立场分析
+                            </div>
+                        </div>
+                    `;
+                    appendAnalysisResult(html);
+                } else if (positions.length > 0) {
+                    const pos = positions[0];
+                    const marker = document.getElementById('stanceMarker');
+                    if (marker) {
+                        marker.style.left = (pos.marker_position || 50) + '%';
+                    }
+                    
+                    const html = `
+                        <div class="analysis-wrapper">
+                            <div class="analysis-result-title">学术立场分析</div>
+                            ${positions.map(p => `
+                                <div style="background: var(--bg-secondary); padding: 12px; border-radius: 6px; margin-bottom: 10px;">
+                                    <div style="font-weight: 600; margin-bottom: 8px;">${escapeHtml(p.axis_name)}</div>
+                                    <div style="margin-bottom: 6px;"><strong>立场：</strong>${escapeHtml(p.marker_label)}</div>
+                                    <div style="font-size: 12px; color: var(--text-secondary);"><strong>依据：</strong>${escapeHtml(p.evidence)}</div>
+                                    ${p.warning ? `<div style="font-size: 12px; color: var(--accent-light); margin-top: 6px;">${escapeHtml(p.warning)}</div>` : ''}
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                    appendAnalysisResult(html);
                 } else {
-                    appendAnalysisResult('<div class="analysis-wrapper" style="color: var(--accent-light);">分析失败: ' + (result.error?.message || JSON.stringify(result)) + '</div>');
+                    const html = `
+                        <div class="analysis-wrapper">
+                            <div class="analysis-result-title">学术立场分析</div>
+                            <pre style="white-space: pre-wrap; font-size: 13px;">${escapeHtml(responseText)}</pre>
+                        </div>
+                    `;
+                    appendAnalysisResult(html);
                 }
             } catch (e) {
                 appendAnalysisResult('<div class="analysis-wrapper" style="color: var(--accent-light);">请求失败: ' + e.message + '</div>');
@@ -3474,8 +3393,9 @@ ${teachingContentForReview}
         function analyzeCitations(content) {
             let rightPanelHtml = '';
             let found = false;
+            const refs = getMergedReferences();
             
-            for (const [bookName, topics] of Object.entries(CLASSICS_REFERENCES || {})) {
+            for (const [bookName, topics] of Object.entries(refs || {})) {
                 const bookPattern = new RegExp(bookName, 'i');
                 if (bookPattern.test(content)) {
                     for (const [topic, citations] of Object.entries(topics)) {
