@@ -4049,35 +4049,53 @@ ${teachingContentForReview}
             if (!currentFullscreenDoc) return;
             
             const originalText = currentFullscreenDoc.content;
-            const matches = [];
+            const allRanges = [];
             
-            textAnnotations.forEach((ann, index) => {
-                const searchText = ann.text;
-                if (!searchText) return;
+            textAnnotations.forEach((ann, annIndex) => {
+                if (!ann.text) return;
                 
                 let searchFrom = 0;
-                let pos;
-                while ((pos = originalText.indexOf(searchText, searchFrom)) !== -1) {
-                    matches.push({
+                while (true) {
+                    const pos = originalText.indexOf(ann.text, searchFrom);
+                    if (pos === -1) break;
+                    
+                    allRanges.push({
                         start: pos,
-                        end: pos + searchText.length,
-                        index: index,
-                        text: searchText
+                        end: pos + ann.text.length,
+                        annIndex: annIndex
                     });
                     searchFrom = pos + 1;
                 }
             });
             
-            matches.sort((a, b) => b.start - a.start);
+            allRanges.sort((a, b) => b.start - a.start);
             
-            let result = originalText;
-            for (const m of matches) {
-                const escapedText = escapeHtml(m.text);
-                const markHtml = `<span class="text-mark" onclick="showMarkPopup(${m.index})">${escapedText}</span>`;
-                result = result.slice(0, m.start) + markHtml + result.slice(m.end);
+            let parts = [];
+            let pos = 0;
+            
+            for (const range of allRanges) {
+                if (range.end <= pos) continue;
+                
+                if (range.start > pos) {
+                    parts.push({ type: 'text', content: originalText.slice(pos, range.start) });
+                }
+                
+                parts.push({ type: 'mark', content: textAnnotations[range.annIndex].text, annIndex: range.annIndex });
+                pos = range.end;
             }
             
-            let html = escapeHtml(result);
+            if (pos < originalText.length) {
+                parts.push({ type: 'text', content: originalText.slice(pos) });
+            }
+            
+            let html = '';
+            for (const part of parts) {
+                if (part.type === 'text') {
+                    html += escapeHtml(part.content);
+                } else {
+                    html += `<span class="text-mark" onclick="showMarkPopup(${part.annIndex})">${escapeHtml(part.content)}</span>`;
+                }
+            }
             
             const contentDiv = document.getElementById('fullscreenContent');
             contentDiv.innerHTML = html;
@@ -4374,60 +4392,70 @@ ${teachingContentForReview}
             });
         }
         
-        function openCommunityDocFullscreen(id) {
+        async function openCommunityDocFullscreen(id) {
             if (!communityClient) {
                 alert('正在连接社区，请稍后重试');
                 return;
             }
             
-            communityClient.from('community_docs').select('*').eq('id', id).then(async ({ data, error }) => {
+            try {
+                const { data, error } = await communityClient
+                    .from('community_docs')
+                    .select('*')
+                    .eq('id', id);
+                
                 if (error) {
                     alert('加载文档失败: ' + error.message);
                     return;
                 }
-                if (data && data[0]) {
-                    const doc = data[0];
-                    const title = (doc.title || '未命名文档').replace(/^\[审核文档\] /, '').replace(/^\[教学文档\] /, '').replace(/^\[教学标准\] /, '');
-                    const content = doc.content || '';
-                    
-                    document.getElementById('fullscreenTitle').textContent = title;
-                    document.getElementById('fullscreenViewer').classList.remove('hidden');
-                    
-                    currentFullscreenDoc = { title, content, id: doc.id };
-                    currentDocId = doc.id;
-                    currentFontSize = parseInt(localStorage.getItem('readerFontSize') || '18');
-                    
-                    const localAnnotations = JSON.parse(localStorage.getItem('textAnnotations_' + doc.id) || '[]');
-                    textAnnotations = [];
-                    
-                    await loadAnnotationsFromSupabase(doc.id);
-                    
-                    const localMap = new Map();
-                    localAnnotations.forEach(a => localMap.set(a.text, a));
-                    
-                    textAnnotations.forEach(a => {
-                        if (a.id) {
-                            const localAnn = localMap.get(a.text);
-                            if (localAnn) {
-                                const existingIds = new Set(a.comments.map(c => c.id));
-                                localAnn.comments.forEach(c => {
-                                    if (!c.id || !existingIds.has(c.id)) {
-                                        a.comments.push(c);
-                                    }
-                                });
-                                localMap.delete(a.text);
-                            }
-                        }
-                    });
-                    
-                    localMap.forEach(a => textAnnotations.push(a));
-                    
-                    renderFullscreenContent();
-                    renderAnnotations();
-                } else {
+                
+                if (!data || !data[0]) {
                     alert('文档不存在或已删除');
+                    return;
                 }
-            });
+                
+                const doc = data[0];
+                const title = (doc.title || '未命名文档').replace(/^\[审核文档\] /, '').replace(/^\[教学文档\] /, '').replace(/^\[教学标准\] /, '');
+                const content = doc.content || '';
+                
+                document.getElementById('fullscreenTitle').textContent = title;
+                document.getElementById('fullscreenViewer').classList.remove('hidden');
+                
+                currentFullscreenDoc = { title, content, id: doc.id };
+                currentDocId = doc.id;
+                currentFontSize = parseInt(localStorage.getItem('readerFontSize') || '18');
+                
+                const localAnnotations = JSON.parse(localStorage.getItem('textAnnotations_' + doc.id) || '[]');
+                textAnnotations = [];
+                
+                await loadAnnotationsFromSupabase(doc.id);
+                
+                const localMap = new Map();
+                localAnnotations.forEach(a => localMap.set(a.text, a));
+                
+                textAnnotations.forEach(a => {
+                    if (a.id) {
+                        const localAnn = localMap.get(a.text);
+                        if (localAnn) {
+                            const existingIds = new Set(a.comments.map(c => c.id));
+                            localAnn.comments.forEach(c => {
+                                if (!c.id || !existingIds.has(c.id)) {
+                                    a.comments.push(c);
+                                }
+                            });
+                            localMap.delete(a.text);
+                        }
+                    }
+                });
+                
+                localMap.forEach(a => textAnnotations.push(a));
+                
+                renderFullscreenContent();
+                renderAnnotations();
+            } catch (e) {
+                console.error('加载文档失败:', e);
+                alert('加载文档失败: ' + e.message);
+            }
         }
         
         window.addEventListener('load', function() {
