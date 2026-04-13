@@ -4048,14 +4048,36 @@ ${teachingContentForReview}
         function renderFullscreenContent() {
             if (!currentFullscreenDoc) return;
             
-            let html = escapeHtml(currentFullscreenDoc.content);
+            const originalText = currentFullscreenDoc.content;
+            const matches = [];
             
             textAnnotations.forEach((ann, index) => {
-                const escapedText = escapeHtml(ann.text);
-                const regex = new RegExp(escapeHtml(ann.text), 'g');
-                let markHtml = `<span class="text-mark" onclick="showMarkPopup(${index})">${escapedText}</span>`;
-                html = html.replace(regex, markHtml);
+                const searchText = ann.text;
+                if (!searchText) return;
+                
+                let searchFrom = 0;
+                let pos;
+                while ((pos = originalText.indexOf(searchText, searchFrom)) !== -1) {
+                    matches.push({
+                        start: pos,
+                        end: pos + searchText.length,
+                        index: index,
+                        text: searchText
+                    });
+                    searchFrom = pos + 1;
+                }
             });
+            
+            matches.sort((a, b) => b.start - a.start);
+            
+            let result = originalText;
+            for (const m of matches) {
+                const escapedText = escapeHtml(m.text);
+                const markHtml = `<span class="text-mark" onclick="showMarkPopup(${m.index})">${escapedText}</span>`;
+                result = result.slice(0, m.start) + markHtml + result.slice(m.end);
+            }
+            
+            let html = escapeHtml(result);
             
             const contentDiv = document.getElementById('fullscreenContent');
             contentDiv.innerHTML = html;
@@ -4190,7 +4212,9 @@ ${teachingContentForReview}
         
         function saveAnnotations() {
             if (currentFullscreenDoc) {
-                const key = 'textAnnotations_' + currentFullscreenDoc.title.replace(/[^a-zA-Z0-9\u4e00-\u9fa5]/g, '_');
+                const key = currentFullscreenDoc.id 
+                    ? 'textAnnotations_' + currentFullscreenDoc.id 
+                    : 'textAnnotations_' + currentFullscreenDoc.title.replace(/[^a-zA-Z0-9\u4e00-\u9fa5]/g, '_');
                 localStorage.setItem(key, JSON.stringify(textAnnotations));
             }
         }
@@ -4356,7 +4380,7 @@ ${teachingContentForReview}
                 return;
             }
             
-            communityClient.from('community_docs').select('*').eq('id', id).then(({ data, error }) => {
+            communityClient.from('community_docs').select('*').eq('id', id).then(async ({ data, error }) => {
                 if (error) {
                     alert('加载文档失败: ' + error.message);
                     return;
@@ -4373,7 +4397,30 @@ ${teachingContentForReview}
                     currentDocId = doc.id;
                     currentFontSize = parseInt(localStorage.getItem('readerFontSize') || '18');
                     
-                    textAnnotations = JSON.parse(localStorage.getItem('textAnnotations_' + doc.id) || '[]');
+                    const localAnnotations = JSON.parse(localStorage.getItem('textAnnotations_' + doc.id) || '[]');
+                    textAnnotations = [];
+                    
+                    await loadAnnotationsFromSupabase(doc.id);
+                    
+                    const localMap = new Map();
+                    localAnnotations.forEach(a => localMap.set(a.text, a));
+                    
+                    textAnnotations.forEach(a => {
+                        if (a.id) {
+                            const localAnn = localMap.get(a.text);
+                            if (localAnn) {
+                                const existingIds = new Set(a.comments.map(c => c.id));
+                                localAnn.comments.forEach(c => {
+                                    if (!c.id || !existingIds.has(c.id)) {
+                                        a.comments.push(c);
+                                    }
+                                });
+                                localMap.delete(a.text);
+                            }
+                        }
+                    });
+                    
+                    localMap.forEach(a => textAnnotations.push(a));
                     
                     renderFullscreenContent();
                     renderAnnotations();
