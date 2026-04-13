@@ -1069,13 +1069,12 @@
             border-bottom: 2px solid var(--accent);
             cursor: pointer;
             display: inline;
-            word-wrap: break-word;
-            max-width: 100%;
-            overflow-wrap: break-word;
+            padding: 0 2px;
+            border-radius: 2px;
         }
         
         .text-mark:hover {
-            background: rgba(255, 235, 59, 0.6);
+            background: rgba(255, 235, 59, 0.7);
         }
         
         .mark-popup {
@@ -3984,11 +3983,25 @@ ${teachingContentForReview}
                 }
                 
                 if (data && data.length > 0) {
-                    textAnnotations = data.map(item => ({
-                        text: item.marked_text,
-                        comments: item.comments || [],
-                        id: item.id
-                    }));
+                    textAnnotations = data.map(item => {
+                        let comments = item.comments;
+                        if (typeof comments === 'string') {
+                            try {
+                                comments = JSON.parse(comments);
+                            } catch (e) {
+                                comments = [];
+                            }
+                        }
+                        if (!Array.isArray(comments)) {
+                            comments = [];
+                        }
+                        return {
+                            text: item.marked_text,
+                            comments: comments,
+                            id: item.id
+                        };
+                    });
+                    console.log('从Supabase加载的批注:', textAnnotations);
                 } else {
                     textAnnotations = [];
                 }
@@ -4049,10 +4062,20 @@ ${teachingContentForReview}
             if (!currentFullscreenDoc) return;
             
             const originalText = currentFullscreenDoc.content;
+            
+            if (textAnnotations.length === 0) {
+                document.getElementById('fullscreenContent').innerHTML = escapeHtml(originalText);
+                return;
+            }
+            
+            console.log('开始渲染批注，批注列表:', textAnnotations);
             const allRanges = [];
             
+            let markId = 1;
             textAnnotations.forEach((ann, annIndex) => {
-                if (!ann.text) return;
+                if (!ann.text) {
+                    return;
+                }
                 
                 let searchFrom = 0;
                 while (true) {
@@ -4062,30 +4085,47 @@ ${teachingContentForReview}
                     allRanges.push({
                         start: pos,
                         end: pos + ann.text.length,
-                        annIndex: annIndex
+                        annIndex: annIndex,
+                        markId: markId++
                     });
                     searchFrom = pos + 1;
                 }
             });
             
-            allRanges.sort((a, b) => b.start - a.start);
+            console.log('找到的匹配数量:', allRanges.length);
+            console.log('匹配详情:', allRanges);
             
-            let parts = [];
-            let pos = 0;
-            
-            for (const range of allRanges) {
-                if (range.end <= pos) continue;
-                
-                if (range.start > pos) {
-                    parts.push({ type: 'text', content: originalText.slice(pos, range.start) });
-                }
-                
-                parts.push({ type: 'mark', content: textAnnotations[range.annIndex].text, annIndex: range.annIndex });
-                pos = range.end;
+            if (allRanges.length === 0) {
+                console.warn('批注文本在文档中未找到匹配');
+                document.getElementById('fullscreenContent').innerHTML = escapeHtml(originalText);
+                return;
             }
             
-            if (pos < originalText.length) {
-                parts.push({ type: 'text', content: originalText.slice(pos) });
+            allRanges.sort((a, b) => a.start - b.start);
+            
+            let parts = [];
+            let processedEnd = 0;
+            
+            for (let i = 0; i < allRanges.length; i++) {
+                const range = allRanges[i];
+                const prevRange = allRanges[i - 1];
+                
+                if (prevRange && range.start === prevRange.start && range.end === prevRange.end) {
+                    parts.push({ type: 'mark', content: textAnnotations[range.annIndex].text, annIndex: range.annIndex, markId: range.markId });
+                    processedEnd = Math.max(processedEnd, range.end);
+                    continue;
+                }
+                
+                if (range.start > processedEnd) {
+                    parts.push({ type: 'text', content: originalText.slice(processedEnd, range.start) });
+                }
+                
+                parts.push({ type: 'mark', content: textAnnotations[range.annIndex].text, annIndex: range.annIndex, markId: range.markId });
+                processedEnd = range.end;
+            }
+            
+            if (processedEnd < originalText.length) {
+                parts.push({ type: 'text', content: originalText.slice(processedEnd) });
             }
             
             let html = '';
@@ -4093,13 +4133,16 @@ ${teachingContentForReview}
                 if (part.type === 'text') {
                     html += escapeHtml(part.content);
                 } else {
-                    html += `<span class="text-mark" onclick="showMarkPopup(${part.annIndex})">${escapeHtml(part.content)}</span>`;
+                    html += `<span class="text-mark" data-mark-id="${part.markId}" data-ann-index="${part.annIndex}" onclick="showMarkPopup(${part.annIndex}, ${part.markId})">${escapeHtml(part.content)}</span>`;
                 }
             }
             
             const contentDiv = document.getElementById('fullscreenContent');
             contentDiv.innerHTML = html;
             contentDiv.style.fontSize = currentFontSize + 'px';
+            
+            const markCount = contentDiv.querySelectorAll('.text-mark').length;
+            console.log('渲染完成，共生成', markCount, '个批注标记');
         }
         
         function handleTextSelection() {
@@ -4148,11 +4191,16 @@ ${teachingContentForReview}
             selectedTextInfo = null;
         }
         
-        function showMarkPopup(index) {
+        function showMarkPopup(index, markId) {
             const existing = document.querySelector('.mark-popup');
             if (existing) existing.remove();
             
             const ann = textAnnotations[index];
+            if (!ann || !ann.comments || ann.comments.length === 0) {
+                alert('批注内容为空');
+                return;
+            }
+            
             const popup = document.createElement('div');
             popup.className = 'mark-popup';
             popup.innerHTML = `
@@ -4166,8 +4214,8 @@ ${teachingContentForReview}
                 <div class="comment-list">
                     ${ann.comments.map((c, i) => `
                         <div class="comment-item">
-                            <div class="author">${escapeHtml(c.author)} · ${new Date(c.time).toLocaleDateString('zh-CN')}</div>
-                            <div class="content">${escapeHtml(c.content)}</div>
+                            <div class="author">${escapeHtml(c.author || '未知')} · ${new Date(c.time).toLocaleDateString('zh-CN')}</div>
+                            <div class="content">${escapeHtml(c.content || '')}</div>
                         </div>
                     `).join('')}
                 </div>
@@ -4179,8 +4227,7 @@ ${teachingContentForReview}
             
             document.body.appendChild(popup);
             
-            const marks = document.querySelectorAll('.text-mark');
-            const mark = marks[index];
+            const mark = markId !== undefined ? document.querySelector(`.text-mark[data-mark-id="${markId}"]`) : document.querySelectorAll('.text-mark')[index];
             if (mark) {
                 const rect = mark.getBoundingClientRect();
                 let left = rect.right + 10;
@@ -4244,13 +4291,18 @@ ${teachingContentForReview}
                 return;
             }
             
-            list.innerHTML = textAnnotations.map((ann, i) => `
-                <div class="annotation-item" onclick="showMarkPopup(${i}, {target: document.querySelectorAll('.text-mark')[${i}] || {getBoundingClientRect:()=>({bottom:0})}, stopPropagation:()=>{}})">
-                    <div class="author">${escapeHtml(ann.comments[0].author)} · ${new Date(ann.comments[0].time).toLocaleString('zh-CN')}</div>
-                    <div class="content">"${escapeHtml(ann.text.substring(0, 30))}${ann.text.length > 30 ? '...' : ''}"</div>
-                    <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">${ann.comments.length}条回复</div>
+            list.innerHTML = textAnnotations.map((ann, i) => {
+                const firstComment = ann.comments && ann.comments[0] ? ann.comments[0] : { author: '未知', time: new Date().toISOString() };
+                const marks = document.querySelectorAll(`.text-mark[data-ann-index="${i}"]`);
+                const firstMark = marks[0];
+                const onclick = firstMark ? `showMarkPopup(${i}, ${firstMark.dataset.markId})` : `showMarkPopup(${i})`;
+                return `
+                <div class="annotation-item" onclick="${onclick}">
+                    <div class="author">${escapeHtml(firstComment.author || '未知')} · ${new Date(firstComment.time).toLocaleString('zh-CN')}</div>
+                    <div class="content">"${escapeHtml((ann.text || '').substring(0, 30))}${(ann.text || '').length > 30 ? '...' : ''}"</div>
+                    <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">${(ann.comments || []).length}条回复</div>
                 </div>
-            `).join('');
+            `}).join('');
         }
         
         function toggleFullscreen() {
@@ -4430,16 +4482,20 @@ ${teachingContentForReview}
                 
                 await loadAnnotationsFromSupabase(doc.id);
                 
+                console.log('批注加载完成，当前批注数:', textAnnotations.length);
+                console.log('批注内容:', textAnnotations);
+                
                 const localMap = new Map();
                 localAnnotations.forEach(a => localMap.set(a.text, a));
                 
                 textAnnotations.forEach(a => {
                     if (a.id) {
                         const localAnn = localMap.get(a.text);
-                        if (localAnn) {
-                            const existingIds = new Set(a.comments.map(c => c.id));
-                            localAnn.comments.forEach(c => {
+                        if (localAnn && localAnn.comments) {
+                            const existingIds = new Set((a.comments || []).map(c => c.id));
+                            (localAnn.comments || []).forEach(c => {
                                 if (!c.id || !existingIds.has(c.id)) {
+                                    if (!a.comments) a.comments = [];
                                     a.comments.push(c);
                                 }
                             });
@@ -4449,6 +4505,9 @@ ${teachingContentForReview}
                 });
                 
                 localMap.forEach(a => textAnnotations.push(a));
+                
+                console.log('批注合并完成，最终批注数:', textAnnotations.length);
+                console.log('最终批注列表:', textAnnotations);
                 
                 renderFullscreenContent();
                 renderAnnotations();
