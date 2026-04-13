@@ -3775,7 +3775,7 @@ ${teachingContentForReview}
                     <div class="community-doc-meta">上传者: ${escapeHtml(doc.author || '匿名')} | ${formatDate(doc.created_at)}</div>
                     <div class="community-doc-content">${escapeHtml(doc.content?.substring(0, 150) || '')}${doc.content?.length > 150 ? '...' : ''}</div>
                     <div class="community-doc-actions">
-                        <button onclick="openInFullscreen('${titleEscaped}', \`${(doc.content || '').replace(/`/g, '\\`').replace(/\$/g, '\\$')}\`, '${doc.id}')">全屏阅读</button>
+                        <button onclick="openCommunityDocFullscreen('${doc.id}')">全屏阅读</button>
                         <button onclick="useCommunityDoc('${doc.id}')">用作教学标准</button>
                         <button onclick="viewCommunityDoc('${doc.id}')">查看详情</button>
                         <button onclick="deleteCommunityDoc(${doc.id})">删除</button>
@@ -3795,60 +3795,6 @@ ${teachingContentForReview}
             document.getElementById('filterReview').style.color = category === 'review' ? 'white' : 'var(--text-secondary)';
             
             loadCommunityDocs();
-        }
-        
-        function useCommunityDoc(id) {
-            if (!communityClient) return;
-            communityClient.from('community_docs').select('*').eq('id', id).then(({ data }) => {
-                if (data && data[0]) {
-                    const doc = data[0];
-                    const isTeaching = doc.title && (doc.title.startsWith('[教学文档]') || doc.title.startsWith('[教学标准]'));
-                    
-                    if (isTeaching) {
-                        teachingSummary = doc.review_result || doc.content;
-                        if (doc.content) {
-                            const combinedContent = doc.content;
-                            teachingDocs = [];
-                            const nameMatch = combinedContent.match(/【([^】]+)】/g);
-                            const parts = combinedContent.split(/【[^】]+】\n/);
-                            if (nameMatch && nameMatch.length > 0) {
-                                parts.slice(1).forEach((part, i) => {
-                                    if (nameMatch[i]) {
-                                        teachingDocs.push({
-                                            name: nameMatch[i].replace(/【|】/g, ''),
-                                            content: part,
-                                            size: new Blob([part]).size,
-                                            addedAt: new Date().toISOString()
-                                        });
-                                    }
-                                });
-                            }
-                            if (teachingDocs.length === 0) {
-                                const cleanTitle = doc.title.replace(/^\[教学文档\] /, '').replace(/^\[审核文档\] /, '').replace(/^\[教学标准\] /, '');
-                                teachingDocs.push({
-                                    name: cleanTitle,
-                                    content: doc.content,
-                                    size: new Blob([doc.content]).size,
-                                    addedAt: new Date().toISOString()
-                                });
-                            }
-                            saveTeachingDocs();
-                            renderTeachingDocsList();
-                        }
-                        document.getElementById('teaching-result').textContent = teachingSummary;
-                        document.getElementById('teaching-result').classList.remove('hidden');
-                        alert('已设为教学标准!');
-                        switchTab('teaching');
-                    } else if (doc.review_result) {
-                        teachingSummary = doc.review_result;
-                        document.getElementById('teaching-result').textContent = teachingSummary;
-                        document.getElementById('teaching-result').classList.remove('hidden');
-                        alert('已设为教学标准!');
-                    } else {
-                        alert('该文档没有审核结果或教学标准');
-                    }
-                }
-            });
         }
         
         let currentDocId = null;
@@ -4285,7 +4231,7 @@ ${teachingContentForReview}
                 alert('连接Supabase失败，请刷新重试');
                 return;
             }
-            const content = document.getElementById('reviewContent').value;
+            let content = document.getElementById('reviewContent').value;
             const title = document.getElementById('docName').value.trim() || '未命名';
             const author = prompt('你的名字:', '匿名') || '匿名';
             
@@ -4296,6 +4242,37 @@ ${teachingContentForReview}
             if (!content.trim()) {
                 alert('请先审核文档');
                 return;
+            }
+            
+            const gradingKeywords = ['评分标准', '文献考据', '义理分析', '结构逻辑', '学术规范', '3分标准', '2分标准', '1-0分标准', '扣2分', '扣4分', '总分10'];
+            const hasGradingContent = gradingKeywords.some(keyword => content.includes(keyword));
+            
+            if (hasGradingContent) {
+                const lines = content.split('\n');
+                let cleanLines = [];
+                let foundGradingSection = false;
+                
+                for (let i = 0; i < lines.length; i++) {
+                    const line = lines[i];
+                    if (line.includes('评分标准') && i < 5) {
+                        foundGradingSection = true;
+                        continue;
+                    }
+                    if (foundGradingSection && (line.includes('前言与适用范围') || line.includes('评分标准框架总述'))) {
+                        continue;
+                    }
+                    if (line.includes('前言与适用范围') || line.includes('评分标准框架总述')) {
+                        continue;
+                    }
+                    cleanLines.push(line);
+                }
+                
+                content = cleanLines.join('\n').trim();
+                
+                if (!content) {
+                    alert('无法提取审核文档内容，仅包含评分标准');
+                    return;
+                }
             }
             
             communityClient.from('community_docs').insert({
@@ -4309,6 +4286,91 @@ ${teachingContentForReview}
                 } else {
                     alert('上传成功!');
                     loadCommunityDocs();
+                }
+            });
+        }
+        
+        function useCommunityDoc(id) {
+            if (!communityClient) return;
+            communityClient.from('community_docs').select('*').eq('id', id).then(({ data }) => {
+                if (data && data[0]) {
+                    const doc = data[0];
+                    const isTeaching = doc.title && (doc.title.startsWith('[教学文档]') || doc.title.startsWith('[教学标准]'));
+                    
+                    if (isTeaching) {
+                        teachingSummary = doc.review_result || doc.content;
+                        if (doc.content) {
+                            const combinedContent = doc.content;
+                            teachingDocs = [];
+                            const nameMatch = combinedContent.match(/【([^】]+)】/g);
+                            const parts = combinedContent.split(/【[^】]+】\n/);
+                            if (nameMatch && nameMatch.length > 0) {
+                                parts.slice(1).forEach((part, i) => {
+                                    if (nameMatch[i]) {
+                                        teachingDocs.push({
+                                            name: nameMatch[i].replace(/【|】/g, ''),
+                                            content: part,
+                                            size: new Blob([part]).size,
+                                            addedAt: new Date().toISOString()
+                                        });
+                                    }
+                                });
+                            }
+                            if (teachingDocs.length === 0) {
+                                const cleanTitle = doc.title.replace(/^\[教学文档\] /, '').replace(/^\[审核文档\] /, '').replace(/^\[教学标准\] /, '');
+                                teachingDocs.push({
+                                    name: cleanTitle,
+                                    content: doc.content,
+                                    size: new Blob([doc.content]).size,
+                                    addedAt: new Date().toISOString()
+                                });
+                            }
+                            saveTeachingDocs();
+                            renderTeachingDocsList();
+                        }
+                        document.getElementById('teaching-result').textContent = teachingSummary;
+                        document.getElementById('teaching-result').classList.remove('hidden');
+                        alert('已设为教学标准!');
+                        switchTab('teaching');
+                    } else {
+                        document.getElementById('docName').value = doc.title.replace(/^\[审核文档\] /, '').replace(/^\[教学文档\] /, '').replace(/^\[教学标准\] /, '');
+                        document.getElementById('reviewContent').value = doc.content || '';
+                        alert('已加载到审核区域!');
+                        switchTab('review');
+                    }
+                }
+            });
+        }
+        
+        function openCommunityDocFullscreen(id) {
+            if (!communityClient) {
+                alert('正在连接社区，请稍后重试');
+                return;
+            }
+            
+            communityClient.from('community_docs').select('*').eq('id', id).then(({ data, error }) => {
+                if (error) {
+                    alert('加载文档失败: ' + error.message);
+                    return;
+                }
+                if (data && data[0]) {
+                    const doc = data[0];
+                    const title = (doc.title || '未命名文档').replace(/^\[审核文档\] /, '').replace(/^\[教学文档\] /, '').replace(/^\[教学标准\] /, '');
+                    const content = doc.content || '';
+                    
+                    document.getElementById('fullscreenTitle').textContent = title;
+                    document.getElementById('fullscreenViewer').classList.remove('hidden');
+                    
+                    currentFullscreenDoc = { title, content, id: doc.id };
+                    currentDocId = doc.id;
+                    currentFontSize = parseInt(localStorage.getItem('readerFontSize') || '18');
+                    
+                    textAnnotations = JSON.parse(localStorage.getItem('textAnnotations_' + doc.id) || '[]');
+                    
+                    renderFullscreenContent();
+                    renderAnnotations();
+                } else {
+                    alert('文档不存在或已删除');
                 }
             });
         }
