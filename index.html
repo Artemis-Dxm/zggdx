@@ -2050,7 +2050,9 @@
         }
 
         function uploadTeachingToKnowledgeBase() {
-            if (teachingDocs.length === 0) {
+            const userTeachingDocs = teachingDocs.filter(d => !d.isBuiltIn);
+            
+            if (userTeachingDocs.length === 0) {
                 const manualContent = document.getElementById('teachingContent').value.trim();
                 if (!manualContent) {
                     alert('请先上传教学文档或粘贴文档内容');
@@ -2069,7 +2071,7 @@
             }
 
             const docName = prompt('请输入文档名称（用于知识库标识）:', 
-                teachingDocs.length > 1 ? `${teachingDocs.length}个教学文档` : teachingDocs[0].name);
+                userTeachingDocs.length > 1 ? `${userTeachingDocs.length}个教学文档` : userTeachingDocs[0].name);
             
             if (!docName) return;
 
@@ -2083,7 +2085,7 @@
                 createdAt: new Date().toISOString(),
                 updatedAt: new Date().toISOString(),
                 summary: teachingSummary || '',
-                versions: teachingDocs.map(d => ({
+                versions: userTeachingDocs.map(d => ({
                     name: d.name,
                     content: d.content,
                     timestamp: d.addedAt
@@ -2146,7 +2148,13 @@
 
             const author = prompt('请输入您的昵称:', '匿名') || '匿名';
 
-            const combinedContent = teachingDocs.map(d => `【${d.name}】\n${d.content}`).join('\n\n');
+            const userTeachingDocs = teachingDocs.filter(d => !d.isBuiltIn);
+            if (userTeachingDocs.length === 0) {
+                alert('没有可上传的教学文档（内置标准不可上传到社区）');
+                return;
+            }
+            
+            const combinedContent = userTeachingDocs.map(d => `【${d.name}】\n${d.content}`).join('\n\n');
 
             communityClient.from('community_docs').insert({
                 title: `[${category}] ` + docName,
