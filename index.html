@@ -1077,6 +1077,16 @@
             background: rgba(255, 235, 59, 0.7);
         }
         
+        .text-mark.mark-highlight {
+            background: rgba(255, 165, 0, 0.8) !important;
+            animation: highlight-pulse 1.5s ease-out;
+        }
+        
+        @keyframes highlight-pulse {
+            0% { background: rgba(255, 165, 0, 0.9); transform: scale(1.02); }
+            100% { background: rgba(255, 235, 59, 0.4); transform: scale(1); }
+        }
+        
         .mark-popup {
             position: fixed !important;
             display: block !important;
@@ -4293,16 +4303,26 @@ ${teachingContentForReview}
             
             list.innerHTML = textAnnotations.map((ann, i) => {
                 const firstComment = ann.comments && ann.comments[0] ? ann.comments[0] : { author: '未知', time: new Date().toISOString() };
-                const marks = document.querySelectorAll(`.text-mark[data-ann-index="${i}"]`);
-                const firstMark = marks[0];
-                const onclick = firstMark ? `showMarkPopup(${i}, ${firstMark.dataset.markId})` : `showMarkPopup(${i})`;
                 return `
-                <div class="annotation-item" onclick="${onclick}">
+                <div class="annotation-item" onclick="jumpToAnnotation(${i})">
                     <div class="author">${escapeHtml(firstComment.author || '未知')} · ${new Date(firstComment.time).toLocaleString('zh-CN')}</div>
                     <div class="content">"${escapeHtml((ann.text || '').substring(0, 30))}${(ann.text || '').length > 30 ? '...' : ''}"</div>
                     <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">${(ann.comments || []).length}条回复</div>
                 </div>
             `}).join('');
+        }
+        
+        function jumpToAnnotation(index) {
+            const marks = document.querySelectorAll(`.text-mark[data-ann-index="${index}"]`);
+            if (marks.length > 0) {
+                const firstMark = marks[0];
+                firstMark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                firstMark.classList.add('mark-highlight');
+                setTimeout(() => firstMark.classList.remove('mark-highlight'), 1500);
+                showMarkPopup(index, parseInt(firstMark.dataset.markId));
+            } else {
+                showMarkPopup(index);
+            }
         }
         
         function toggleFullscreen() {
