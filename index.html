@@ -381,6 +381,77 @@
             margin-bottom: 12px;
         }
         
+        .format-info-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 8px;
+            background: var(--bg-secondary);
+            border-radius: 4px;
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-left: 8px;
+        }
+        
+        .format-info-badge .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+        
+        .format-info-badge .dot.color { background: #e74c3c; }
+        .format-info-badge .dot.size { background: #3498db; }
+        
+        .formatted-preview {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+            line-height: 1.8;
+            font-size: 14px;
+        }
+        
+        .formatted-preview:empty {
+            display: none;
+        }
+        
+        .formatted-preview span[style*="font-weight: bold"] {
+            font-weight: bold;
+        }
+        
+        .formatted-preview span[style*="font-style: italic"] {
+            font-style: italic;
+        }
+        
+        .formatted-preview span[style*="text-decoration: underline"] {
+            text-decoration: underline;
+        }
+        
+        .format-toggle {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .format-toggle button {
+            padding: 6px 12px;
+            font-size: 12px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            cursor: pointer;
+            background: var(--white);
+            color: var(--text-secondary);
+        }
+        
+        .format-toggle button.active {
+            background: var(--accent);
+            color: var(--white);
+            border-color: var(--accent);
+        }
+        
         .textarea-area {
             width: 100%;
             min-height: 150px;
@@ -1438,10 +1509,12 @@
                     <div class="file-upload-area" onclick="document.getElementById('teachingFile').click()">
                         <input type="file" id="teachingFile" accept=".pdf,.docx,.doc,.txt,.md,.jpg,.jpeg,.png,.gif,.bmp,.webp" multiple onchange="handleTeachingFiles(this)">
                         <p>点击上传教学文档（支持多选）</p>
-                        <p class="hint">支持 PDF、Word、图片（OCR识别）、文本、Markdown</p>
+                        <p class="hint">支持 PDF、Word（自动识别颜色和字体大小）、图片（OCR识别）、文本、Markdown</p>
                     </div>
                     
                     <div id="teachingDocsList" class="teaching-docs-list"></div>
+                    
+                    <div id="teachingPreview" class="formatted-preview" style="display:none;"></div>
                     
                     <textarea id="teachingContent" class="textarea-area" placeholder="或者直接粘贴文档内容..."></textarea>
                     
@@ -1481,8 +1554,10 @@
                     <div class="file-upload-area" onclick="document.getElementById('reviewFile').click()">
                         <input type="file" id="reviewFile" accept=".pdf,.docx,.doc,.txt,.md,.jpg,.jpeg,.png,.gif,bmp,webp" onchange="handleFileSelect(this, 'review')">
                         <p>点击上传审核文档</p>
-                        <p class="hint">支持 PDF、Word、图片（OCR识别）</p>
+                        <p class="hint">支持 PDF、Word（自动识别颜色和字体大小）、图片（OCR识别）</p>
                     </div>
+                    
+                    <div id="reviewPreview" class="formatted-preview" style="display:none;"></div>
                     
                     <textarea id="reviewContent" class="textarea-area academic-body" placeholder="或者直接粘贴待审核的文档内容..." style="min-height: 250px;"></textarea>
                     
@@ -1562,6 +1637,7 @@
                     <div class="fullscreen-header">
                         <span id="fullscreenTitle" style="font-weight: 600; font-size: 16px;"></span>
                         <div style="display: flex; gap: 8px; align-items: center;">
+                            <span id="formatIndicator" style="font-size: 11px; color: var(--text-muted); display: none;">含格式</span>
                             <button onclick="addTextAnnotation()" style="padding: 6px 12px; border: 1px solid var(--accent); border-radius: 4px; background: var(--accent); color: white; cursor: pointer;">添加批注</button>
                             <button onclick="adjustFontSize(-1)" style="padding: 6px 10px; border: 1px solid var(--border); border-radius: 4px; background: var(--bg-card); cursor: pointer;">A-</button>
                             <button onclick="adjustFontSize(1)" style="padding: 6px 10px; border: 1px solid var(--border); border-radius: 4px; background: var(--bg-card); cursor: pointer;">A+</button>
@@ -1864,6 +1940,8 @@
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     document.getElementById(type + 'Content').value = e.target.result;
+                    const preview = document.getElementById(type + 'Preview');
+                    if (preview) preview.innerHTML = '';
                     if (type === 'review') {
                         const nameInput = document.getElementById('docName');
                         if (!nameInput.value) {
@@ -1874,17 +1952,41 @@
                 };
                 reader.readAsText(file);
             } else if (fileExt === 'docx') {
-                btn.textContent = '正在解析Word文档...';
+                btn.textContent = '正在解析Word文档（含格式）...';
                 try {
                     const result = await parseDocx(file);
-                    document.getElementById(type + 'Content').value = result;
+                    const hasFormat = result.includes('style="');
+                    
+                    document.getElementById(type + 'Content').value = hasFormat ? convertToPlainText(result) : result;
+                    
+                    const preview = document.getElementById(type + 'Preview');
+                    if (preview) {
+                        if (hasFormat) {
+                            preview.innerHTML = '<div class="format-toggle"><button class="active" onclick="togglePreview(this, \'' + type + '\', \'formatted\')">带格式预览</button><button onclick="togglePreview(this, \'' + type + '\', \'plain\')">纯文本预览</button></div><div id="' + type + 'FormattedContent" class="formatted-preview" style="display:block;">' + result + '</div><div id="' + type + 'PlainContent" class="formatted-preview" style="display:none;">' + escapeHtml(convertToPlainText(result)) + '</div>';
+                            
+                            const formatInfo = extractFormatInfo(result);
+                            let formatBadge = '<span class="format-info-badge">';
+                            if (formatInfo.hasColors) {
+                                formatBadge += '<span class="dot color"></span>彩色文字';
+                            }
+                            if (formatInfo.hasFontSizes) {
+                                if (formatInfo.hasColors) formatBadge += ' ';
+                                formatBadge += '<span class="dot size"></span>不同字号';
+                            }
+                            formatBadge += '</span>';
+                            preview.insertAdjacentHTML('beforeend', formatBadge);
+                        } else {
+                            preview.innerHTML = '';
+                        }
+                    }
+                    
                     if (type === 'review') {
                         const nameInput = document.getElementById('docName');
                         if (!nameInput.value) {
                             nameInput.value = file.name.replace(/\.[^.]+$/, '');
                         }
                     }
-                    btn.textContent = `已加载: ${file.name}`;
+                    btn.textContent = `已加载: ${file.name}${hasFormat ? ' (含格式)' : ''}`;
                 } catch(e) {
                     btn.textContent = '点击上传审核文档';
                     alert('Word文档解析失败: ' + e.message + '\n请复制粘贴文档内容到下方文本框');
@@ -1894,6 +1996,8 @@
                 try {
                     const result = await performOCR(file);
                     document.getElementById(type + 'Content').value = result;
+                    const preview = document.getElementById(type + 'Preview');
+                    if (preview) preview.innerHTML = '';
                     if (type === 'review') {
                         const nameInput = document.getElementById('docName');
                         if (!nameInput.value) {
@@ -1910,6 +2014,8 @@
                 try {
                     const result = await parsePdf(file);
                     document.getElementById(type + 'Content').value = result;
+                    const preview = document.getElementById(type + 'Preview');
+                    if (preview) preview.innerHTML = '';
                     if (type === 'review') {
                         const nameInput = document.getElementById('docName');
                         if (!nameInput.value) {
@@ -1923,6 +2029,23 @@
                 }
             } else {
                 alert('不支持的格式: ' + fileExt + '\n文件: ' + file.name + '\n\n支持: TXT、MD、Word(.docx)、PDF、图片');
+            }
+        }
+        
+        function togglePreview(btn, type, mode) {
+            const parent = btn.parentElement;
+            parent.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            const formattedDiv = document.getElementById(type + 'FormattedContent');
+            const plainDiv = document.getElementById(type + 'PlainContent');
+            
+            if (mode === 'formatted') {
+                if (formattedDiv) formattedDiv.style.display = 'block';
+                if (plainDiv) plainDiv.style.display = 'none';
+            } else {
+                if (formattedDiv) formattedDiv.style.display = 'none';
+                if (plainDiv) plainDiv.style.display = 'block';
             }
         }
 
@@ -2024,24 +2147,148 @@
                     throw new Error('无效的Word文档');
                 }
                 
+                const stylesXml = await zip.file("word/styles.xml")?.async("string");
+                
                 const parser = new DOMParser();
                 const xmlDoc = parser.parseFromString(documentXml, "text/xml");
-                const paragraphs = xmlDoc.getElementsByTagName("w:p");
+                const stylesDoc = stylesXml ? parser.parseFromString(stylesXml, "text/xml") : null;
+                
+                const namespaces = {
+                    w: 'http://schemas.openxmlformats.org/wordprocessingml/2006/main'
+                };
+                
+                const paragraphs = xmlDoc.getElementsByTagNameNS(namespaces.w, 'p');
                 
                 const textParts = [];
                 for (let p of paragraphs) {
-                    const texts = p.getElementsByTagName("w:t");
-                    let text = "";
-                    for (let t of texts) {
-                        text += t.textContent || "";
+                    const runs = p.getElementsByTagNameNS(namespaces.w, 'r');
+                    let paragraphHtml = '';
+                    
+                    for (let run of runs) {
+                        const texts = run.getElementsByTagNameNS(namespaces.w, 't');
+                        let text = '';
+                        for (let t of texts) {
+                            text += t.textContent || '';
+                        }
+                        
+                        if (!text) continue;
+                        
+                        let style = '';
+                        const rPr = run.getElementsByTagNameNS(namespaces.w, 'rPr')[0];
+                        
+                        if (rPr) {
+                            const colorEl = rPr.getElementsByTagNameNS(namespaces.w, 'color')[0];
+                            const szEl = rPr.getElementsByTagNameNS(namespaces.w, 'sz')[0];
+                            const szCsEl = rPr.getElementsByTagNameNS(namespaces.w, 'szCs')[0];
+                            const bEl = rPr.getElementsByTagNameNS(namespaces.w, 'b')[0];
+                            const iEl = rPr.getElementsByTagNameNS(namespaces.w, 'i')[0];
+                            const uEl = rPr.getElementsByTagNameNS(namespaces.w, 'u')[0];
+                            
+                            if (colorEl && colorEl.getAttribute('w:val')) {
+                                const color = '#' + colorEl.getAttribute('w:val').slice(-6);
+                                style += `color:${color};`;
+                            }
+                            
+                            if ((szEl && szEl.getAttribute('w:val')) || (szCsEl && szCsEl.getAttribute('w:val'))) {
+                                const halfPt = parseInt(szCsEl?.getAttribute('w:val') || szEl?.getAttribute('w:val') || '21');
+                                const pt = halfPt / 2;
+                                style += `font-size:${pt}pt;`;
+                            }
+                            
+                            if (bEl) style += 'font-weight:bold;';
+                            if (iEl) style += 'font-style:italic;';
+                            if (uEl) {
+                                const uVal = uEl.getAttribute('w:val');
+                                if (uVal && uVal !== 'none') style += 'text-decoration:underline;';
+                            }
+                        }
+                        
+                        const pPr = p.getElementsByTagNameNS(namespaces.w, 'pPr')[0];
+                        if (pPr) {
+                            const pStyleEl = pPr.getElementsByTagNameNS(namespaces.w, 'pStyle')[0];
+                            if (pStyleEl) {
+                                const styleId = pStyleEl.getAttribute('w:val');
+                                if (stylesDoc) {
+                                    const styleEls = stylesDoc.getElementsByTagNameNS(namespaces.w, 'style');
+                                    for (let s of styleEls) {
+                                        if (s.getAttribute('w:styleId') === styleId) {
+                                            const rPrInStyle = s.getElementsByTagNameNS(namespaces.w, 'rPr')[0];
+                                            if (rPrInStyle) {
+                                                const colorEl = rPrInStyle.getElementsByTagNameNS(namespaces.w, 'color')[0];
+                                                const szEl = rPrInStyle.getElementsByTagNameNS(namespaces.w, 'sz')[0];
+                                                if (colorEl && colorEl.getAttribute('w:val')) {
+                                                    const color = '#' + colorEl.getAttribute('w:val').slice(-6);
+                                                    style += `color:${color};`;
+                                                }
+                                                if (szEl && szEl.getAttribute('w:val')) {
+                                                    const halfPt = parseInt(szEl.getAttribute('w:val'));
+                                                    const pt = halfPt / 2;
+                                                    style += `font-size:${pt}pt;`;
+                                                }
+                                            }
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        
+                        if (style) {
+                            paragraphHtml += `<span style="${style}">${escapeHtml(text)}</span>`;
+                        } else {
+                            paragraphHtml += escapeHtml(text);
+                        }
                     }
-                    if (text.trim()) textParts.push(text);
+                    
+                    if (paragraphHtml.trim()) {
+                        textParts.push(paragraphHtml);
+                    }
                 }
                 
-                return textParts.join("\n");
+                return textParts.join('\n');
             } catch (e) {
                 throw new Error('解析失败: ' + e.message);
             }
+        }
+        
+        function convertToPlainText(htmlContent) {
+            const div = document.createElement('div');
+            div.innerHTML = htmlContent;
+            return div.textContent || div.innerText || '';
+        }
+        
+        function extractFormatInfo(htmlContent) {
+            const div = document.createElement('div');
+            div.innerHTML = htmlContent;
+            
+            const formatInfo = {
+                hasColors: false,
+                hasFontSizes: false,
+                colors: new Set(),
+                fontSizes: new Set()
+            };
+            
+            const spans = div.querySelectorAll('span');
+            spans.forEach(span => {
+                const style = span.getAttribute('style') || '';
+                if (style.includes('color:')) {
+                    formatInfo.hasColors = true;
+                    const match = style.match(/color:\s*([^;]+)/);
+                    if (match) formatInfo.colors.add(match[1]);
+                }
+                if (style.includes('font-size:')) {
+                    formatInfo.hasFontSizes = true;
+                    const match = style.match(/font-size:\s*([^;]+)/);
+                    if (match) formatInfo.fontSizes.add(match[1]);
+                }
+            });
+            
+            return {
+                hasColors: formatInfo.hasColors,
+                hasFontSizes: formatInfo.hasFontSizes,
+                colors: Array.from(formatInfo.colors),
+                fontSizes: Array.from(formatInfo.fontSizes)
+            };
         }
         
         function loadTeachingDocs() {
@@ -2071,6 +2318,7 @@
                 teachingDocs.push({
                     name: name,
                     content: manualContent,
+                    formattedContent: null,
                     size: new Blob([manualContent]).size,
                     addedAt: new Date().toISOString()
                 });
@@ -2097,6 +2345,7 @@
                 versions: userTeachingDocs.map(d => ({
                     name: d.name,
                     content: d.content,
+                    formattedContent: d.formattedContent || null,
                     timestamp: d.addedAt
                 }))
             };
@@ -2113,7 +2362,9 @@
             }
 
             saveKnowledgeBase(kb);
-            alert('教学文档已上传到知识库！');
+            
+            const hasFormat = userTeachingDocs.some(d => d.formattedContent);
+            alert('教学文档已上传到知识库！' + (hasFormat ? ' (格式信息已保留)' : ''));
             switchTab('knowledge');
             renderKnowledgeBase();
         }
@@ -2139,6 +2390,7 @@
                 teachingDocs.push({
                     name: name,
                     content: manualContent,
+                    formattedContent: null,
                     size: new Blob([manualContent]).size,
                     addedAt: new Date().toISOString()
                 });
@@ -2164,17 +2416,34 @@
             }
             
             const combinedContent = userTeachingDocs.map(d => `【${d.name}】\n${d.content}`).join('\n\n');
+            
+            let combinedFormattedContent = null;
+            const formattedDocs = userTeachingDocs.filter(d => d.formattedContent);
+            if (formattedDocs.length > 0) {
+                combinedFormattedContent = formattedDocs.map(d => {
+                    if (d.formattedContent) {
+                        return `【${d.name}】\n${d.formattedContent}`;
+                    }
+                    return `【${d.name}】\n${escapeHtml(d.content)}`;
+                }).join('\n\n');
+            }
 
-            communityClient.from('community_docs').insert({
+            const insertData = {
                 title: `[${category}] ` + docName,
                 content: combinedContent,
                 review_result: teachingSummary || '',
                 author: author
-            }).then(({ error }) => {
+            };
+            
+            if (combinedFormattedContent) {
+                insertData.formatted_content = combinedFormattedContent;
+            }
+
+            communityClient.from('community_docs').insert(insertData).then(({ error }) => {
                 if (error) {
                     alert('上传失败: ' + error.message);
                 } else {
-                    alert('教学文档已上传到社区！其他用户可以使用此教学标准。');
+                    alert('教学文档已上传到社区！' + (combinedFormattedContent ? ' (格式信息已保留)' : '') + '\n其他用户可以使用此教学标准。');
                     switchTab('community');
                     loadCommunityDocs();
                 }
@@ -2228,15 +2497,25 @@
             btn.textContent = '正在加载文件...';
             
             let loadedCount = 0;
+            let hasAnyFormat = false;
+            let latestFormattedContent = '';
+            
             for (const file of files) {
                 const fileExt = file.name.split('.').pop().toLowerCase();
                 
                 let content = '';
+                let isFormatted = false;
+                
                 if (fileExt === 'txt' || fileExt === 'md') {
                     content = await file.text();
                 } else if (fileExt === 'docx') {
                     try {
                         content = await parseDocx(file);
+                        isFormatted = content.includes('style="');
+                        if (isFormatted) {
+                            hasAnyFormat = true;
+                            latestFormattedContent = content;
+                        }
                     } catch(e) {
                         alert(`文件 ${file.name} 解析失败: ${e.message}`);
                         continue;
@@ -2260,18 +2539,22 @@
                     continue;
                 }
                 
+                const plainContent = isFormatted ? convertToPlainText(content) : content;
+                
                 const existingIndex = teachingDocs.findIndex(d => d.name === file.name);
                 if (existingIndex >= 0) {
                     teachingDocs[existingIndex] = {
                         name: file.name,
-                        content: content,
+                        content: plainContent,
+                        formattedContent: isFormatted ? content : null,
                         size: file.size,
                         addedAt: new Date().toISOString()
                     };
                 } else {
                     teachingDocs.push({
                         name: file.name,
-                        content: content,
+                        content: plainContent,
+                        formattedContent: isFormatted ? content : null,
                         size: file.size,
                         addedAt: new Date().toISOString()
                     });
@@ -2283,7 +2566,29 @@
             saveTeachingDocs();
             renderTeachingDocsList();
             
-            btn.textContent = `已加载 ${loadedCount} 个文件`;
+            const previewDiv = document.getElementById('teachingPreview');
+            if (previewDiv) {
+                if (hasAnyFormat) {
+                    const formatInfo = extractFormatInfo(latestFormattedContent);
+                    let formatBadge = '<div style="margin-bottom: 10px; font-size: 12px; color: var(--accent);">';
+                    formatBadge += '<span style="font-weight: 600;">检测到格式信息:</span>';
+                    if (formatInfo.hasColors) {
+                        formatBadge += ' | <span style="color: #e74c3c;">●</span> 彩色文字';
+                    }
+                    if (formatInfo.hasFontSizes) {
+                        formatBadge += ' | <span style="color: #3498db;">●</span> 不同字号';
+                    }
+                    formatBadge += '</div>';
+                    
+                    previewDiv.innerHTML = formatBadge + latestFormattedContent;
+                    previewDiv.style.display = 'block';
+                } else {
+                    previewDiv.innerHTML = '';
+                    previewDiv.style.display = 'none';
+                }
+            }
+            
+            btn.textContent = `已加载 ${loadedCount} 个文件${hasAnyFormat ? ' (部分含格式)' : ''}`;
             input.value = '';
         }
         
@@ -2568,6 +2873,28 @@
             document.getElementById('docName').value = doc.name;
             document.getElementById('reviewContent').value = latest.content;
             
+            const preview = document.getElementById('reviewPreview');
+            if (preview) {
+                if (latest.formattedContent) {
+                    preview.innerHTML = '<div class="format-toggle"><button class="active" onclick="togglePreview(this, \'review\', \'formatted\')">带格式预览</button><button onclick="togglePreview(this, \'review\', \'plain\')">纯文本预览</button></div><div id="reviewFormattedContent" class="formatted-preview" style="display:block;">' + latest.formattedContent + '</div><div id="reviewPlainContent" class="formatted-preview" style="display:none;">' + escapeHtml(latest.content) + '</div>';
+                    
+                    const formatInfo = extractFormatInfo(latest.formattedContent);
+                    let formatBadge = '<span class="format-info-badge">';
+                    if (formatInfo.hasColors) {
+                        formatBadge += '<span class="dot color"></span>彩色文字';
+                    }
+                    if (formatInfo.hasFontSizes) {
+                        if (formatInfo.hasColors) formatBadge += ' ';
+                        formatBadge += '<span class="dot size"></span>不同字号';
+                    }
+                    formatBadge += '</span>';
+                    preview.insertAdjacentHTML('beforeend', formatBadge);
+                } else {
+                    preview.innerHTML = '';
+                    preview.style.display = 'none';
+                }
+            }
+            
             switchTab('review');
             renderVersionList();
         }
@@ -2649,12 +2976,22 @@
         function saveToKnowledgeBase(docName, content, review, score) {
             let kb = getKnowledgeBase();
             
+            const preview = document.getElementById('reviewPreview');
+            let formattedContent = null;
+            if (preview) {
+                const formattedDiv = preview.querySelector('.formatted-preview:not([style*="display: none"])');
+                if (formattedDiv && formattedDiv.innerHTML) {
+                    formattedContent = formattedDiv.innerHTML;
+                }
+            }
+            
             const existingIndex = kb.findIndex(d => d.name === docName);
             
             if (existingIndex >= 0) {
                 const doc = kb[existingIndex];
                 doc.versions.push({
                     content: content.substring(0, 50000),
+                    formattedContent: formattedContent ? formattedContent.substring(0, 100000) : null,
                     review: review ? review.substring(0, 5000) : null,
                     score: score,
                     timestamp: new Date().toISOString()
@@ -2679,6 +3016,7 @@
                     updatedAt: new Date().toISOString(),
                     versions: [{
                         content: content.substring(0, 50000),
+                        formattedContent: formattedContent ? formattedContent.substring(0, 100000) : null,
                         review: review ? review.substring(0, 5000) : null,
                         score: score,
                         timestamp: new Date().toISOString()
@@ -2698,6 +3036,7 @@
                 teachingDocs.push({
                     name: name,
                     content: manualContent,
+                    formattedContent: null,
                     size: new Blob([manualContent]).size,
                     addedAt: new Date().toISOString()
                 });
@@ -2714,6 +3053,7 @@
                 teachingDocs.push({
                     name: '粘贴内容_' + new Date().toLocaleDateString('zh-CN'),
                     content: manualContent,
+                    formattedContent: null,
                     size: new Blob([manualContent]).size,
                     addedAt: new Date().toISOString()
                 });
@@ -3823,7 +4163,14 @@ ${teachingContentForReview}
                 if (data && data[0]) {
                     const doc = data[0];
                     document.getElementById('modalTitle').textContent = doc.title;
-                    document.getElementById('modalContent').textContent = doc.content || '无';
+                    
+                    const modalContent = document.getElementById('modalContent');
+                    if (doc.formatted_content) {
+                        modalContent.innerHTML = doc.formatted_content;
+                    } else {
+                        modalContent.textContent = doc.content || '无';
+                    }
+                    
                     document.getElementById('docModal').style.display = 'flex';
                     loadDocComments(id);
                 }
@@ -4072,9 +4419,14 @@ ${teachingContentForReview}
             if (!currentFullscreenDoc) return;
             
             const originalText = currentFullscreenDoc.content;
+            const formattedContent = currentFullscreenDoc.formattedContent;
             
             if (textAnnotations.length === 0) {
-                document.getElementById('fullscreenContent').innerHTML = escapeHtml(originalText);
+                if (formattedContent) {
+                    document.getElementById('fullscreenContent').innerHTML = formattedContent;
+                } else {
+                    document.getElementById('fullscreenContent').innerHTML = escapeHtml(originalText);
+                }
                 return;
             }
             
@@ -4107,52 +4459,81 @@ ${teachingContentForReview}
             
             if (allRanges.length === 0) {
                 console.warn('批注文本在文档中未找到匹配');
-                document.getElementById('fullscreenContent').innerHTML = escapeHtml(originalText);
+                if (formattedContent) {
+                    document.getElementById('fullscreenContent').innerHTML = formattedContent;
+                } else {
+                    document.getElementById('fullscreenContent').innerHTML = escapeHtml(originalText);
+                }
                 return;
             }
             
             allRanges.sort((a, b) => a.start - b.start);
             
-            let parts = [];
-            let processedEnd = 0;
-            
-            for (let i = 0; i < allRanges.length; i++) {
-                const range = allRanges[i];
-                const prevRange = allRanges[i - 1];
+            if (formattedContent) {
+                let html = formattedContent;
                 
-                if (prevRange && range.start === prevRange.start && range.end === prevRange.end) {
+                allRanges.forEach((range, idx) => {
+                    const ann = textAnnotations[range.annIndex];
+                    const markId = range.markId;
+                    
+                    html = html.replace(
+                        new RegExp(escapeRegExp(ann.text), 'g'),
+                        `<span class="text-mark" data-mark-id="${markId}" data-ann-index="${range.annIndex}" onclick="showMarkPopup(${range.annIndex}, ${markId})">${ann.text}</span>`
+                    );
+                });
+                
+                const contentDiv = document.getElementById('fullscreenContent');
+                contentDiv.innerHTML = html;
+                contentDiv.style.fontSize = currentFontSize + 'px';
+                
+                const markCount = contentDiv.querySelectorAll('.text-mark').length;
+                console.log('渲染完成，共生成', markCount, '个批注标记');
+            } else {
+                let parts = [];
+                let processedEnd = 0;
+                
+                for (let i = 0; i < allRanges.length; i++) {
+                    const range = allRanges[i];
+                    const prevRange = allRanges[i - 1];
+                    
+                    if (prevRange && range.start === prevRange.start && range.end === prevRange.end) {
+                        parts.push({ type: 'mark', content: textAnnotations[range.annIndex].text, annIndex: range.annIndex, markId: range.markId });
+                        processedEnd = Math.max(processedEnd, range.end);
+                        continue;
+                    }
+                    
+                    if (range.start > processedEnd) {
+                        parts.push({ type: 'text', content: originalText.slice(processedEnd, range.start) });
+                    }
+                    
                     parts.push({ type: 'mark', content: textAnnotations[range.annIndex].text, annIndex: range.annIndex, markId: range.markId });
-                    processedEnd = Math.max(processedEnd, range.end);
-                    continue;
+                    processedEnd = range.end;
                 }
                 
-                if (range.start > processedEnd) {
-                    parts.push({ type: 'text', content: originalText.slice(processedEnd, range.start) });
+                if (processedEnd < originalText.length) {
+                    parts.push({ type: 'text', content: originalText.slice(processedEnd) });
                 }
                 
-                parts.push({ type: 'mark', content: textAnnotations[range.annIndex].text, annIndex: range.annIndex, markId: range.markId });
-                processedEnd = range.end;
-            }
-            
-            if (processedEnd < originalText.length) {
-                parts.push({ type: 'text', content: originalText.slice(processedEnd) });
-            }
-            
-            let html = '';
-            for (const part of parts) {
-                if (part.type === 'text') {
-                    html += escapeHtml(part.content);
-                } else {
-                    html += `<span class="text-mark" data-mark-id="${part.markId}" data-ann-index="${part.annIndex}" onclick="showMarkPopup(${part.annIndex}, ${part.markId})">${escapeHtml(part.content)}</span>`;
+                let html = '';
+                for (const part of parts) {
+                    if (part.type === 'text') {
+                        html += escapeHtml(part.content);
+                    } else {
+                        html += `<span class="text-mark" data-mark-id="${part.markId}" data-ann-index="${part.annIndex}" onclick="showMarkPopup(${part.annIndex}, ${part.markId})">${escapeHtml(part.content)}</span>`;
+                    }
                 }
+                
+                const contentDiv = document.getElementById('fullscreenContent');
+                contentDiv.innerHTML = html;
+                contentDiv.style.fontSize = currentFontSize + 'px';
+                
+                const markCount = contentDiv.querySelectorAll('.text-mark').length;
+                console.log('渲染完成，共生成', markCount, '个批注标记');
             }
-            
-            const contentDiv = document.getElementById('fullscreenContent');
-            contentDiv.innerHTML = html;
-            contentDiv.style.fontSize = currentFontSize + 'px';
-            
-            const markCount = contentDiv.querySelectorAll('.text-mark').length;
-            console.log('渲染完成，共生成', markCount, '个批注标记');
+        }
+        
+        function escapeRegExp(string) {
+            return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
         }
         
         function handleTextSelection() {
@@ -4337,15 +4718,52 @@ ${teachingContentForReview}
         }
         
         function openCurrentDocFullscreen() {
-            const content = document.getElementById('reviewContent').value;
+            const plainContent = document.getElementById('reviewContent').value;
             const title = document.getElementById('docName').value.trim() || '未命名文档';
             
-            if (!content.trim()) {
+            if (!plainContent.trim()) {
                 alert('请先输入文档内容');
                 return;
             }
             
-            openInFullscreen(title, content);
+            const preview = document.getElementById('reviewPreview');
+            let formattedContent = null;
+            
+            if (preview) {
+                const formattedDiv = preview.querySelector('.formatted-preview:not([style*="display: none"])');
+                if (formattedDiv && formattedDiv.innerHTML) {
+                    formattedContent = formattedDiv.innerHTML;
+                }
+            }
+            
+            openInFullscreen(title, plainContent, null, formattedContent);
+        }
+        
+        async function openInFullscreen(title, content, docId = null, formattedContent = null) {
+            currentFullscreenDoc = { title, content, id: docId, formattedContent };
+            currentDocId = docId;
+            currentFontSize = parseInt(localStorage.getItem('readerFontSize') || '18');
+            
+            if (docId) {
+                await loadAnnotationsFromSupabase(docId);
+            } else {
+                textAnnotations = JSON.parse(localStorage.getItem('textAnnotations_' + title.replace(/[^a-zA-Z0-9\u4e00-\u9fa5]/g, '_')) || '[]');
+            }
+            
+            document.getElementById('fullscreenTitle').textContent = title;
+            document.getElementById('fullscreenViewer').classList.remove('hidden');
+            
+            const formatIndicator = document.getElementById('formatIndicator');
+            if (formatIndicator) {
+                if (formattedContent) {
+                    formatIndicator.style.display = 'inline';
+                } else {
+                    formatIndicator.style.display = 'none';
+                }
+            }
+            
+            renderFullscreenContent();
+            renderAnnotations();
         }
         
         function doUpload() {
@@ -4354,6 +4772,16 @@ ${teachingContentForReview}
                 return;
             }
             let content = document.getElementById('reviewContent').value;
+            let formattedContent = null;
+            
+            const preview = document.getElementById('reviewPreview');
+            if (preview) {
+                const formattedDiv = preview.querySelector('.formatted-preview:not([style*="display: none"])');
+                if (formattedDiv && formattedDiv.innerHTML) {
+                    formattedContent = formattedDiv.innerHTML;
+                }
+            }
+            
             const title = document.getElementById('docName').value.trim() || '未命名';
             const author = prompt('你的名字:', '匿名') || '匿名';
             
@@ -4397,16 +4825,22 @@ ${teachingContentForReview}
                 }
             }
             
-            communityClient.from('community_docs').insert({
+            const insertData = {
                 title: `[${category}] ` + title,
                 content: content,
                 review_result: '',
                 author: author
-            }).then(({ error }) => {
+            };
+            
+            if (formattedContent) {
+                insertData.formatted_content = formattedContent;
+            }
+            
+            communityClient.from('community_docs').insert(insertData).then(({ error }) => {
                 if (error) {
                     alert('上传失败: ' + error.message);
                 } else {
-                    alert('上传成功!');
+                    alert('上传成功!' + (formattedContent ? ' (格式信息已保留)' : ''));
                     loadCommunityDocs();
                 }
             });
@@ -4432,6 +4866,7 @@ ${teachingContentForReview}
                                         teachingDocs.push({
                                             name: nameMatch[i].replace(/【|】/g, ''),
                                             content: part,
+                                            formattedContent: null,
                                             size: new Blob([part]).size,
                                             addedAt: new Date().toISOString()
                                         });
@@ -4443,6 +4878,7 @@ ${teachingContentForReview}
                                 teachingDocs.push({
                                     name: cleanTitle,
                                     content: doc.content,
+                                    formattedContent: doc.formatted_content || null,
                                     size: new Blob([doc.content]).size,
                                     addedAt: new Date().toISOString()
                                 });
@@ -4452,12 +4888,30 @@ ${teachingContentForReview}
                         }
                         document.getElementById('teaching-result').textContent = teachingSummary;
                         document.getElementById('teaching-result').classList.remove('hidden');
-                        alert('已设为教学标准!');
+                        alert('已设为教学标准!' + (doc.formatted_content ? ' (格式信息已保留)' : ''));
                         switchTab('teaching');
                     } else {
                         document.getElementById('docName').value = doc.title.replace(/^\[审核文档\] /, '').replace(/^\[教学文档\] /, '').replace(/^\[教学标准\] /, '');
                         document.getElementById('reviewContent').value = doc.content || '';
-                        alert('已加载到审核区域!');
+                        
+                        const preview = document.getElementById('reviewPreview');
+                        if (preview && doc.formatted_content) {
+                            preview.innerHTML = '<div class="format-toggle"><button class="active" onclick="togglePreview(this, \'review\', \'formatted\')">带格式预览</button><button onclick="togglePreview(this, \'review\', \'plain\')">纯文本预览</button></div><div id="reviewFormattedContent" class="formatted-preview" style="display:block;">' + doc.formatted_content + '</div><div id="reviewPlainContent" class="formatted-preview" style="display:none;">' + escapeHtml(doc.content) + '</div>';
+                            
+                            const formatInfo = extractFormatInfo(doc.formatted_content);
+                            let formatBadge = '<span class="format-info-badge">';
+                            if (formatInfo.hasColors) {
+                                formatBadge += '<span class="dot color"></span>彩色文字';
+                            }
+                            if (formatInfo.hasFontSizes) {
+                                if (formatInfo.hasColors) formatBadge += ' ';
+                                formatBadge += '<span class="dot size"></span>不同字号';
+                            }
+                            formatBadge += '</span>';
+                            preview.insertAdjacentHTML('beforeend', formatBadge);
+                        }
+                        
+                        alert('已加载到审核区域!' + (doc.formatted_content ? ' (格式信息已保留)' : ''));
                         switchTab('review');
                     }
                 }
@@ -4489,11 +4943,12 @@ ${teachingContentForReview}
                 const doc = data[0];
                 const title = (doc.title || '未命名文档').replace(/^\[审核文档\] /, '').replace(/^\[教学文档\] /, '').replace(/^\[教学标准\] /, '');
                 const content = doc.content || '';
+                const formattedContent = doc.formatted_content || null;
                 
                 document.getElementById('fullscreenTitle').textContent = title;
                 document.getElementById('fullscreenViewer').classList.remove('hidden');
                 
-                currentFullscreenDoc = { title, content, id: doc.id };
+                currentFullscreenDoc = { title, content, id: doc.id, formattedContent };
                 currentDocId = doc.id;
                 currentFontSize = parseInt(localStorage.getItem('readerFontSize') || '18');
                 
