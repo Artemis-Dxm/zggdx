@@ -142,9 +142,21 @@
         }
         
         .three-column-layout {
-            display: grid;
-            grid-template-columns: 280px 1fr 300px;
+            display: flex;
             min-height: calc(100vh - 64px);
+        }
+
+        .sidebar-left {
+            flex-shrink: 0;
+        }
+
+        .main-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .sidebar-right {
+            flex-shrink: 0;
         }
         
         /* ========== Left Sidebar ========== */
@@ -970,6 +982,30 @@
             height: calc(100vh - 64px);
             overflow-y: auto;
         }
+
+        .resize-toggle {
+            position: absolute;
+            left: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 50px;
+            background: var(--border);
+            border-radius: 6px 0 0 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 14px;
+            z-index: 20;
+            transition: all 0.2s;
+        }
+
+        .resize-toggle:hover {
+            background: var(--accent);
+            color: white;
+        }
         
         .right-card {
             background: var(--bg-card);
@@ -1673,7 +1709,8 @@
             </main>
             
             <!-- Right Sidebar -->
-            <aside class="sidebar-right">
+            <aside class="sidebar-right" id="sidebarRight">
+                <div class="resize-toggle" onclick="toggleWidth()">◀</div>
                 <button class="share-btn" onclick="runAutoAnalysis()" style="margin-bottom: 16px;">手动检测文本</button>
                 
                 <div class="right-card">
@@ -1836,6 +1873,22 @@
             KNOWLEDGE_BASE: 'docReviewerKnowledgeBase',
             TEACHING_DOCS: 'docReviewerTeachingDocs'
         };
+        
+        let sidebarExpanded = false;
+        
+        function toggleWidth() {
+            const sidebar = document.getElementById('sidebarRight');
+            const btn = sidebar.querySelector('.resize-toggle');
+            if (sidebarExpanded) {
+                sidebar.style.width = '300px';
+                btn.innerHTML = '◀';
+                sidebarExpanded = false;
+            } else {
+                sidebar.style.width = '450px';
+                btn.innerHTML = '▶';
+                sidebarExpanded = true;
+            }
+        }
         
         window.onload = function() {
             loadCustomReferences();
