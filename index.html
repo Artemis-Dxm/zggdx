@@ -2678,45 +2678,21 @@
         }
         
         function getMergedCrossRefs() {
-            loadCustomReferences();
-            const merged = {};
-            for (const topic in CROSS_REFERENCES) {
-                merged[topic] = { ...CROSS_REFERENCES[topic] };
-                if (customCrossRefs[topic]) {
-                    merged[topic] = { ...merged[topic], ...customCrossRefs[topic] };
-                }
-            }
-            for (const topic in customCrossRefs) {
-                if (!merged[topic]) {
-                    merged[topic] = customCrossRefs[topic];
-                }
-            }
-            return merged;
+            return getMergedReferences();
         }
         
         function getMergedReferences() {
             loadCustomReferences();
-            const merged = {};
-            for (const book in CLASSICS_REFERENCES) {
-                merged[book] = { ...CLASSICS_REFERENCES[book] };
-                if (customReferences[book]) {
+            const merged = [...CLASSICS_REFERENCES];
+            for (const book in customReferences) {
+                if (Array.isArray(customReferences[book])) {
+                    merged.push(...customReferences[book]);
+                } else {
                     for (const topic in customReferences[book]) {
-                        if (merged[book][topic]) {
-                            const existingLines = new Set(merged[book][topic].map(item => item.line));
-                            customReferences[book][topic].forEach(item => {
-                                if (!existingLines.has(item.line)) {
-                                    merged[book][topic].push(item);
-                                }
-                            });
-                        } else {
-                            merged[book][topic] = customReferences[book][topic];
+                        if (Array.isArray(customReferences[book][topic])) {
+                            merged.push(...customReferences[book][topic]);
                         }
                     }
-                }
-            }
-            for (const book in customReferences) {
-                if (!merged[book]) {
-                    merged[book] = customReferences[book];
                 }
             }
             return merged;
@@ -2740,20 +2716,7 @@
         }
         
         function getMergedCrossRefs() {
-            loadCustomReferences();
-            const merged = {};
-            for (const topic in CROSS_REFERENCES) {
-                merged[topic] = { ...CROSS_REFERENCES[topic] };
-                if (customCrossRefs[topic]) {
-                    merged[topic] = { ...merged[topic], ...customCrossRefs[topic] };
-                }
-            }
-            for (const topic in customCrossRefs) {
-                if (!merged[topic]) {
-                    merged[topic] = customCrossRefs[topic];
-                }
-            }
-            return merged;
+            return getMergedReferences();
         }
         
         function renderKnowledgeBase() {
@@ -3913,64 +3876,105 @@ ${teachingContentForReview}
         function analyzeCitations(content) {
             const refs = getMergedReferences();
             const matches = [];
+            const contentLower = content.toLowerCase();
             
-            for (const [bookName, topics] of Object.entries(refs)) {
-                for (const [topic, citations] of Object.entries(topics)) {
-                    const topicLower = topic.toLowerCase();
-                    const topicPattern = new RegExp(topicLower.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
-                    let matchCount = 0;
-                    let match;
-                    
-                    while ((match = topicPattern.exec(content)) !== null) {
-                        matchCount++;
-                    }
-                    
-                    if (matchCount > 0) {
-                        matches.push({
-                            bookName,
-                            topic,
-                            matchCount,
-                            citations: citations,
-                            totalCitations: citations.length
-                        });
-                    }
+            if (Array.isArray(refs)) {
+                for (const citation of refs) {
+                    const keywords = [
+                        citation.classic_title,
+                        citation.chapter,
+                        citation.verse ? String(citation.verse) : '',
+                        citation.scripture_content,
+                        citation.translation
+                    ].filter(Boolean);
+            
+            let matchCount = 0;
+            for (const keyword of keywords) {
+                const pattern = new RegExp(keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+                let match;
+                while ((match = pattern.exec(contentLower)) !== null) {
+                    matchCount++;
                 }
             }
             
-            matches.sort((a, b) => b.matchCount - a.matchCount);
-            
-            if (matches.length > 0) {
-                let rightPanelHtml = `<div style="max-height: 600px; overflow-y: auto;">
-                    <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px; padding: 8px; background: var(--bg-secondary); border-radius: 4px;">
-                        共匹配 ${matches.length} 个话题，${matches.reduce((sum, m) => sum + m.matchCount, 0)} 处提及
-                    </div>`;
-                
-                matches.forEach((m, idx) => {
-                    const citationItems = m.citations.map((c, cidx) => `
-                        <div style="background: var(--white); padding: 8px 10px; border-radius: 4px; margin-bottom: 4px; border-left: 2px solid var(--accent);">
-                            <div style="font-size: 11px; font-weight: 600; color: var(--accent); margin-bottom: 2px;">《${c.book || m.bookName}·${c.chapter}》 ${c.line || ''}</div>
-                            <div style="font-size: 11px; color: var(--text-primary); line-height: 1.5;">"${c.content}"</div>
-                        </div>
-                    `).join('');
-                    
-                    rightPanelHtml += `
-                        <div style="margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border-light);">
-                            <div style="font-size: 12px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
-                                <span style="background: var(--accent); color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px;">${idx + 1}</span>
-                                《${m.bookName}》论「${m.topic}」
-                                <span style="font-size: 10px; color: var(--accent-light); font-weight: normal;">(匹配 ${m.matchCount} 次，含 ${m.totalCitations} 条引文)</span>
-                            </div>
-                            ${citationItems}
-                        </div>
-                    `;
+            if (matchCount > 0) {
+                matches.push({
+                    citation: citation,
+                    matchCount: matchCount
                 });
-                
-                rightPanelHtml += '</div>';
-                document.getElementById('citationPanelRight').innerHTML = rightPanelHtml;
-            } else {
-                document.getElementById('citationPanelRight').innerHTML = '<p style="font-size: 12px; color: var(--text-muted); text-align: center; padding: 10px;">未检测到相关内容</p>';
             }
         }
+    }
+    
+    matches.sort((a, b) => b.matchCount - a.matchCount);
+    
+    if (matches.length > 0) {
+        const INITIAL_SHOW = 15;
+        let rightPanelHtml = `<div style="max-height: 600px; overflow-y: auto;">
+            <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px; padding: 8px; background: var(--bg-secondary); border-radius: 4px;">
+                共匹配 ${matches.length} 条引文
+            </div>`;
+        
+        const displayMatches = matches.slice(0, INITIAL_SHOW);
+        displayMatches.forEach((m, idx) => {
+            const c = m.citation;
+            const verseInfo = c.verse ? `·${c.verse}` : '';
+            const commentatorInfo = c.commentator ? `（${c.commentator}《${c.commentary_title}》）` : '';
+            
+            rightPanelHtml += `
+                <div style="background: var(--white); padding: 10px; border-radius: 4px; margin-bottom: 8px; border-left: 3px solid var(--accent);">
+                    <div style="font-size: 11px; font-weight: 600; color: var(--accent); margin-bottom: 4px;">
+                        《${c.classic_title}·${c.chapter}${verseInfo}》 ${commentatorInfo}
+                    </div>
+                    <div style="font-size: 12px; color: var(--text-primary); line-height: 1.6; margin-bottom: 4px;">
+                        "${c.scripture_content}"
+                    </div>
+                    ${c.translation ? `<div style="font-size: 11px; color: var(--text-secondary); font-style: italic;">→ ${c.translation}</div>` : ''}
+                </div>
+            `;
+        });
+        
+        if (matches.length > INITIAL_SHOW) {
+            rightPanelHtml += `
+                <button onclick="expandCitations(this, ${JSON.stringify(matches.slice(INITIAL_SHOW)).replace(/"/g, '&quot;')})" 
+                    style="width: 100%; padding: 10px; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 6px; cursor: pointer; font-size: 12px; color: var(--text-secondary);">
+                    点击展开剩余 ${matches.length - INITIAL_SHOW} 条
+                </button>
+            `;
+        }
+        
+        rightPanelHtml += '</div>';
+        document.getElementById('citationPanelRight').innerHTML = rightPanelHtml;
+    } else {
+        document.getElementById('citationPanelRight').innerHTML = '<p style="font-size: 12px; color: var(--text-muted); text-align: center; padding: 10px;">未检测到相关内容</p>';
+    }
+}
+
+function expandCitations(btn, remainingMatches) {
+    const container = btn.parentElement;
+    let html = '';
+    
+    remainingMatches.forEach((m) => {
+        const c = m.citation;
+        const verseInfo = c.verse ? `·${c.verse}` : '';
+        const commentatorInfo = c.commentator ? `（${c.commentator}《${c.commentary_title}》）` : '';
+        
+        html += `
+            <div style="background: var(--white); padding: 10px; border-radius: 4px; margin-bottom: 8px; border-left: 3px solid var(--accent);">
+                <div style="font-size: 11px; font-weight: 600; color: var(--accent); margin-bottom: 4px;">
+                    《${c.classic_title}·${c.chapter}${verseInfo}》 ${commentatorInfo}
+                </div>
+                <div style="font-size: 12px; color: var(--text-primary); line-height: 1.6; margin-bottom: 4px;">
+                    "${c.scripture_content}"
+                </div>
+                ${c.translation ? `<div style="font-size: 11px; color: var(--text-secondary); font-style: italic;">→ ${c.translation}</div>` : ''}
+            </div>
+        `;
+    });
+    
+    btn.insertAdjacentHTML('beforebegin', html);
+    btn.remove();
+}
         
         function analyzeExegesis(content) {
             const foundWords = [];
@@ -4001,36 +4005,105 @@ ${teachingContentForReview}
         }
         
         function analyzeCrossReferences(content) {
-            const foundTopics = [];
-            const crossRefsData = getMergedCrossRefs();
+            const refs = getMergedCrossRefs();
+            const matches = [];
+            const contentLower = content.toLowerCase();
             
-            for (const [topic, data] of Object.entries(crossRefsData)) {
-                const topicEscaped = topic.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-                const topicPattern = new RegExp(topicEscaped, 'gi');
-                if (topicPattern.test(content)) {
-                    foundTopics.push({ topic, data });
+            if (Array.isArray(refs)) {
+                for (const citation of refs) {
+                    const keywords = [
+                        citation.classic_title,
+                        citation.chapter,
+                        citation.verse ? String(citation.verse) : '',
+                        citation.scripture_content,
+                        citation.translation
+                    ].filter(Boolean);
+                    
+                    let matchCount = 0;
+                    for (const keyword of keywords) {
+                        const pattern = new RegExp(keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+                        let match;
+                        while ((match = pattern.exec(contentLower)) !== null) {
+                            matchCount++;
+                        }
+                    }
+                    
+                    if (matchCount > 0) {
+                        matches.push({
+                            citation: citation,
+                            matchCount: matchCount
+                        });
+                    }
                 }
             }
             
-            if (foundTopics.length > 0) {
-                const crossRefHtml = foundTopics.map(item => `
-                    <div class="cross-ref-item" style="margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--border-light);">
-                        <div class="cross-ref-source" style="font-weight: 600; margin-bottom: 8px;">📚 您正在讨论「${item.topic}」</div>
-                        ${(item.data.references || []).map(ref => `
-                            <div style="margin-top: 6px; padding: 8px; background: var(--white); border-radius: 4px; border-left: 2px solid var(--accent);">
-                                <div style="font-size: 11px; color: var(--accent);">《${ref.book}·${ref.chapter}》</div>
-                                <div class="cross-ref-quote" style="font-size: 11px; color: var(--text-primary);">"${ref.content}"</div>
-                            </div>
-                        `).join('')}
-                        ${item.data.suggestion ? `<div style="font-size: 11px; color: var(--accent); margin-top: 8px; padding: 8px; background: var(--bg-secondary); border-radius: 4px;"><strong>解读：</strong>${item.data.suggestion}</div>` : ''}
-                    </div>
-                `).join('');
+            matches.sort((a, b) => b.matchCount - a.matchCount);
+            
+            if (matches.length > 0) {
+                const INITIAL_SHOW = 10;
+                let crossRefHtml = `<div style="max-height: 600px; overflow-y: auto;">
+                    <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px; padding: 8px; background: var(--bg-secondary); border-radius: 4px;">
+                        跨文献关联：共 ${matches.length} 条相关引文
+                    </div>`;
                 
+                const displayMatches = matches.slice(0, INITIAL_SHOW);
+                displayMatches.forEach((m, idx) => {
+                    const c = m.citation;
+                    const verseInfo = c.verse ? `·${c.verse}` : '';
+                    
+                    crossRefHtml += `
+                        <div style="background: var(--bg-secondary); padding: 8px; border-radius: 4px; margin-bottom: 6px; border-left: 2px solid var(--accent);">
+                            <div style="font-size: 11px; font-weight: 600; color: var(--accent); margin-bottom: 3px;">
+                                《${c.classic_title}·${c.chapter}${verseInfo}》
+                            </div>
+                            <div style="font-size: 11px; color: var(--text-primary); line-height: 1.5;">
+                                "${c.scripture_content}"
+                            </div>
+                            ${c.translation ? `<div style="font-size: 10px; color: var(--text-muted); margin-top: 3px;">→ ${c.translation}</div>` : ''}
+                        </div>
+                    `;
+                });
+                
+                if (matches.length > INITIAL_SHOW) {
+                    crossRefHtml += `
+                        <button onclick="expandCrossRefs(this, ${JSON.stringify(matches.slice(INITIAL_SHOW)).replace(/"/g, '&quot;')})" 
+                            style="width: 100%; padding: 8px; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 6px; cursor: pointer; font-size: 11px; color: var(--text-secondary);">
+                            点击展开剩余 ${matches.length - INITIAL_SHOW} 条
+                        </button>
+                    `;
+                }
+                
+                crossRefHtml += '</div>';
                 document.getElementById('crossRefPanel').innerHTML = crossRefHtml;
             } else {
                 document.getElementById('crossRefPanel').innerHTML = '<p style="font-size: 12px; color: var(--text-muted); text-align: center; padding: 10px;">未检测到相关话题</p>';
             }
         }
+
+function expandCrossRefs(btn, remainingMatches) {
+    const container = btn.parentElement;
+    let html = '';
+    
+    remainingMatches.forEach((m) => {
+        const c = m.citation;
+        const verseInfo = c.verse ? `·${c.verse}` : '';
+        
+        html += `
+            <div style="background: var(--bg-secondary); padding: 8px; border-radius: 4px; margin-bottom: 6px; border-left: 2px solid var(--accent);">
+                <div style="font-size: 11px; font-weight: 600; color: var(--accent); margin-bottom: 3px;">
+                    《${c.classic_title}·${c.chapter}${verseInfo}》
+                </div>
+                <div style="font-size: 11px; color: var(--text-primary); line-height: 1.5;">
+                    "${c.scripture_content}"
+                </div>
+                ${c.translation ? `<div style="font-size: 10px; color: var(--text-muted); margin-top: 3px;">→ ${c.translation}</div>` : ''}
+            </div>
+        `;
+    });
+    
+    btn.insertAdjacentHTML('beforebegin', html);
+    btn.remove();
+}
         
         function appendAnalysisResult(resultHtml) {
             const container = document.getElementById('analysisResult');
