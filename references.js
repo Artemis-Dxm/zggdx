@@ -1055,2253 +1055,3552 @@ const CLASSICS_REFERENCES = [
         "translation": "芦苇苍青一片，露水凝成了霜。我所怀念的人，就在河水的那一边。",
         "note": "⑴蒹葭——芦苇。⑵苍苍——青苍色。⑶白露为霜——露水凝成霜。⑷伊人——那人。"
     },
+   {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "在明明德",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "在于彰显自身光明的德行",
+    "note": "谓显明其至德也。"
+  },
   {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "在止于至善",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "在于使言行达到并停留在至善的境界",
+    "note": "止，犹自处也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "虑而后能得",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "思虑周详，然后才能有所收获",
+    "note": "得，谓得事之宜也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "致知在格物",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "获得真知在于推究事物的原理",
+    "note": "知，谓知善恶吉凶之所终始也。○其知如字，徐音智，下“致知”同。格，来也。物，犹事也。其知于善深则来善物，其知于恶深则来恶物，言事缘人所好来也。此“致”或为“至”。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "壹是皆以修身为本",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "一律都应以修养自身为根本",
+    "note": "壹是，专行是也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "此之谓自谦",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "这就叫做自我满足、心安理得",
+    "note": "谦，读为慊，慊之言厌也。厌，读为黡，黡，闭藏貌也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "其严乎",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "这是多么严厉啊",
+    "note": "严乎，言可畏敬也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "心广体胖",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "心胸宽广则身体安泰舒坦",
+    "note": "胖，犹大也。三者，言有实于内，显见于外。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "瞻彼淇澳，菉竹猗猗。有斐君子，如切如磋，如琢如磨。瑟兮僩兮，赫兮喧兮。有斐君子，终不可諠兮",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "看那淇水弯曲处，绿竹多么茂盛。有位文采斐然的君子，如同切制骨器一样钻研学问，如同磋磨象牙一样修养自身；如同雕琢美玉一样磨砺品格，如同打磨石头一样打磨心性。他庄重而威严，他显赫而光明。这位文采斐然的君子，让人永远无法忘记。",
+    "note": "此“心广体胖”之诗也。澳，隈崖也。“菉竹猗猗”，喻美盛。斐，有文章貌也。諠，忘也。道犹言也。恂，字或作“峻”，读如严峻之“峻”，言其容貌严栗也。民不能忘，以其意诚而德著也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "如切如磋者，道学也",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "“如切如磋”说的是学问的精进",
+    "note": "道犹言也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "瑟兮僩兮者，恂栗也",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "“瑟兮僩兮”说的是内心恭敬严谨",
+    "note": "恂，字或作“峻”，读如严峻之“峻”，言其容貌严栗也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "有斐君子，终不可諠兮者，道盛德至善，民之不能忘也",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "“有斐君子，终不可諠兮”说的是德行达到至善，民众无法忘记他",
+    "note": "民不能忘，以其意诚而德著也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "於戏前王不忘",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "啊，前代的君王令人难忘",
+    "note": "圣人既有亲贤之德，其政又有乐利于民。君子小人，各有以思之。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "克明德",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "能够彰显光明德行",
+    "note": "皆自明明德也。克，能也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "顾諟天之明命",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "要念念不忘上天赋予的光明使命",
+    "note": "顾，念也。諟，犹正也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "克明峻德",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "能够彰显崇高的德行",
+    "note": "峻，大也。諟，或为“题”。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "皆自明也",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "这些都是说要自己彰显光明德行",
+    "note": "皆自明明德也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "苟日新，日日新，又日新",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "如果一天能够自新，就应天天自新，每日不断自新",
+    "note": "盘铭，刻戒于盘也。极，犹尽也。君子日新其德，常尽心力不有余也。○盘，步干反。铭，徐音冥，亡丁反。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "君子无所不用其极",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "所以君子无处不竭尽心力以求至善",
+    "note": "极，犹尽也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "缗蛮黄鸟，止于丘隅",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "那鸣叫的黄鸟，栖息在山丘的一角",
+    "note": "于止，于鸟之所止也。就而观之，知其所止，知鸟择岑蔚安闲而止处之耳，言人亦当择礼义乐土而自止处也。《论语》曰：“里仁为美。择不处仁，焉得知？”○缗蛮，音绵，一音亡取反，《毛诗》作“緜”，传云：“緜蛮，小鸟貌。”"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "穆穆文王，于缉熙敬止",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "端庄深沉的文王啊，他的光明德行持续不断，恭敬地安守其位",
+    "note": "缉熙，光明也。此美文王之德光明，敬其所以自止处。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "无情者不得尽其辞",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "让隐瞒实情的人不敢尽情编造谎言",
+    "note": "情，犹实也。无实者多虚诞之辞。圣人之听讼，与人同耳。必使民无实者不敢尽其辞，大畏其心志，使诚其意不敢讼。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "大畏民志",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "使民众内心深深敬畏",
+    "note": "本，谓诚其意也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "此谓知本",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "这就叫做知道根本",
+    "note": "本，谓诚其意也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "身有所忿懥",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "如果内心有所愤怒",
+    "note": "懥，怒貌也，或作“懫”，或为“疐”。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "人之其所亲爱而辟焉",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "人们对于自己所亲近喜爱的人往往有偏袒",
+    "note": "之，适也。譬，犹喻也。言适彼而以心度之，曰：吾何以亲爱此人，非以其有德美与？吾何以敖惰此人，非以其志行薄与？反以喻己，则身修与否，可自知也。鲜，罕也。人莫知其子之恶，犹爱而不察。硕，大也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "天下鲜矣",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "天下这样的人是很少的",
+    "note": "鲜，罕也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "人莫知其子之恶",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "没有人会知道自己孩子的缺点",
+    "note": "人莫知其子之恶，犹爱而不察。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "莫知其苗之硕",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "没有人会满足于自己禾苗的茁壮",
+    "note": "硕，大也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "如保赤子",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "爱护民众如同爱护初生的婴儿",
+    "note": "养子者，推心为之，而中于赤子之嗜欲也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "一家仁，一国兴仁；一家让，一国兴让；一人贪戾，一国作乱",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "君主一家讲求仁爱，一国就会兴起仁爱之风；一家讲求礼让，一国就会兴起礼让之风；君主一人贪婪暴戾，一国就会随之动乱",
+    "note": "一家、一人，谓人君也。“戾”之言“利”也。机，发动所由也。偾，犹覆败也。《春秋传》曰：“登戾之。”又曰：“郑伯之车偿于济。”戾，或为“吝”。偾，或为“犇”。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "其机如此",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "事情的关键就是这样",
+    "note": "机，发动所由也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "此谓一言偾事",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "这就叫做一句话可以败坏大事",
+    "note": "偾，犹覆败也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "有诸己而后求诸人",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "自己先有善行，然后才能要求别人行善",
+    "note": "有于己，谓有仁让也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "无诸己而后非诸人",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "自己先没有恶行，然后才能纠正别人的恶行",
+    "note": "无于己，谓无贪戾也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "桃之夭夭，其叶蓁蓁。之子于归，宜其家人",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "桃花开得娇艳，桃叶长得茂盛。这位女子出嫁了，一定能使家庭和睦",
+    "note": "夭夭、蓁蓁，美盛貌。“之子”者，是子也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "上老老而民兴孝，上长长而民兴弟，上恤孤而民不倍",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "在上位的人尊敬老人，民众就会兴起孝敬之风；在上位的人敬重长辈，民众就会兴起敬长之风；在上位的人体恤孤儿，民众就不会背弃道义",
+    "note": "老老、长长，谓尊老敬长也。恤，忧也。民不倍，不相倍弃也。絜，犹结也，挈也。矩，法也。君子有挈法之道，谓常执而行之，动作不失之。倍，或作“俏”。矩，或作“巨”。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "是以君子有絜矩之道也",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "所以君子有以身作则、推己及人的絜矩之道",
+    "note": "絜，犹结也，挈也。矩，法也。君子有挈法之道，谓常执而行之，动作不失之。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "所恶于上，毋以使下；所恶于下，毋以事上；所恶于前，毋以先后；所恶于后，毋以从前；所恶于右，毋以交于左；所恶于左，毋以交于右",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "厌恶上级对待你的方式，就不要用同样的方式对待下属；厌恶下属对待你的方式，就不要用同样的方式侍奉上级；厌恶前面的人对待你的方式，就不要用同样的方式对待后面的人；厌恶后面的人对待你的方式，就不要用同样的方式对待前面的人；厌恶右边的人对待你的方式，就不要用同样的方式对待左边的人；厌恶左边的人对待你的方式，就不要用同样的方式对待右边的人",
+    "note": "絜矩之道，善持其所有，以恕于人耳。治国之要尽于此。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "乐只君子，民之父母",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "和乐的君子，是民众的父母",
+    "note": "言治民之道无他，取于己而已。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "节彼南山，维石岩岩。赫赫师尹，民具尔瞻",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "那座高峻的南山，岩石层层叠叠。权势显赫的太师尹氏，民众都仰望着你",
+    "note": "岩岩，喻师尹之高严也。师尹，天子之大臣，为政者也。言民皆视其所行而则之，可不慎其德乎？邪辟失道，则有大刑。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "辟则为天下僇矣",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "若行为偏邪，就会被天下人所诛讨",
+    "note": "邪辟失道，则有大刑。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "殷之未丧师，克配上帝。仪监于殷，峻命不易",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "殷朝在未丧失民心时，德行还能配得上天帝。应当以殷朝为借鉴，知道保有天命很不容易",
+    "note": "师，众也。克，能也。峻，大也。言殷王帝乙以上，未失其民之时，德亦有能配天者，谓天享其祭祀也。及纣为恶，而民怨神怒，以失天下。监视殷时之事，天之大命，持之诚不易也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "道得众则得国，失众则失国",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "得民心就能得国家，失民心就会失国家",
+    "note": "道，犹言也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "外本内末，争民施夺",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "如果本末倒置，疏远德行而亲近财富，就会与民争利、施行掠夺",
+    "note": "施夺，施其劫夺之情也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "言悖而出者，亦悖而入；货悖而入者，亦悖而出",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "言语若违背道理说出，也会被用违背道理的话回敬；财富若违背道义聚敛而来，也会以违背道义的方式散失出去",
+    "note": "悖，犹逆也。言君有逆命，则民有逆辞也。上贪于利，则下人侵畔。《老子》曰：“多藏必厚亡。”"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "惟命不于常",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "天命不是永恒不变的",
+    "note": "于，于也。天命不于常，言不专祐一家也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "楚国无以为宝，惟善以为宝",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "楚国没有什么宝贝，只把善人当作宝贝",
+    "note": "《楚书》，楚昭王时书也。言以善人为宝。时谓观射父、昭奚恤也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "亡人无以为宝，仁亲以为宝",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "流亡的人没有什么宝贝，只把仁爱亲情当作宝贝",
+    "note": "舅犯，晋文公之舅狐偃也。亡人，谓文公也，时避骊姬之谗，亡在翟。而献公薨，秦穆公使子显吊，因劝之复国，舅犯为之对此辞也。仁亲，犹言亲爱仁道也。明不因丧规利也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "若有一个臣，断断兮无他技",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "如果有这样一位耿介的臣子，诚朴专一，没有别的技能",
+    "note": "《秦誓》，《尚书》篇名也。秦穆公伐郑，为晋所败于殽，还誓其群臣，而作此篇也。断断，诚一之貌也。他技，异端之技也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "人之有技，若己有之",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "看到别人有才能，就像自己有一样高兴",
+    "note": "有技，才艺之技也。若己有之，不啻若自其口出，皆乐人有善之甚也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "人之彦圣，其心好之，不啻若自其口出",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "看到别人品德高尚、智慧通达，从心底里喜欢，不只是口头上称赞",
+    "note": "美士为彦。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "以能保我子孙黎民",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "用这样的人保护我的子孙百姓",
+    "note": "黎，众也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "尚亦有利哉",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "是多么有利啊",
+    "note": "尚，庶几也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "人之有技，媢嫉以恶之",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "如果别人有才能，就嫉妒厌恶",
+    "note": "媢，妒也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "人之彦圣，而违之俾不通",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "别人品德高尚、智慧通达，就压制排挤、使其不被重用",
+    "note": "违，犹戾也。俾，使也。佛戾贤人所高，使功不通于君也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "亦曰殆哉",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "国家就危险了",
+    "note": "殆，危也。彦，或作“盘”。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "唯仁人放流之，迸诸四夷，不与同中国",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "只有仁德的人，才会把这种嫉贤妒能的人流放驱逐到边远蛮荒之地，不让他们与贤德之人同住中原",
+    "note": "放去恶人媢嫉之类者，独仁人能之，如舜放四罪而天下咸服。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "见贤而不能举，举而不能先，命也",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "发现了贤才却不能举荐，举荐了却不能让他处在自己前面，这是怠慢",
+    "note": "命，读为“慢”，声之误也。举贤而不能使君以先己，是轻慢于举人也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "好人之所恶，恶人之所好，是谓拂人之性",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "喜欢众人所厌恶的，厌恶众人所喜欢的，这就叫做违背人的本性",
+    "note": "拂，犹佹也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "菑必逮夫身",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "灾祸必定会降临到身上",
+    "note": "逮，及也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "君子有大道",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "君子有一条根本的大道",
+    "note": "道，行所由。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "生财有大道，生之者众，食之者寡，为之者疾，用之者舒，则财恒足矣",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "创造财富也有根本的大道：生产的人多，消费的人少；劳作的人勤快，使用的人节省。这样财富就会经常充足",
+    "note": "是不务禄不肖，而勉民以农也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "仁者以财发身，不仁者以身发财",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "仁德的人运用财富来发展自身德行，不仁的人耗尽心力去聚敛财富",
+    "note": "发，起也。言仁人有财，则务于施与以起身，成其令名。不仁之人有身，贪于聚敛以起财，务成富。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "未有上好仁而下不好义者也，未有好义其事不终者也，未有府库财非其财者也",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "从来没有在上位的人喜好仁德，而在下位的人却不喜好道义的；从来没有喜好道义的人，做事情会半途而废的；从来没有这样的君主，府库里的财物最终不是归他所有的",
+    "note": "言君行仁道，则其臣必义。以义举事无不成者，其为诚然，如己府库之财为己有也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "畜马乘不察于鸡豚",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "家里能养得起四匹马拉车的士大夫，就不该再去计较养鸡养猪的小利",
+    "note": "孟献子，鲁大夫仲孙蔑也。畜马乘，谓以士初试为大夫也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "伐冰之家不畜牛羊",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "丧祭能用冰的卿大夫之家，就不该再畜养牛羊来牟利",
+    "note": "伐冰之家，卿、大夫以上，丧、祭用冰。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "百乘之家不畜聚敛之臣",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "拥有百辆兵车的诸侯之家，就不该再养着搜刮民财的家臣",
+    "note": "百乘之家，有采地者也。鸡豚、牛羊，民之所畜养以为财利者也。国家利义不利财，盗臣损财耳，聚敛之臣乃损义。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "与其有聚敛之臣，宁有盗臣",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "与其有搜刮民财的家臣，宁可有盗窃府库的家臣",
+    "note": "同上"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "长国家而务财用者，必自小人矣",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "执掌国家却一心聚敛财富的，必定是从任用小人开始的",
+    "note": "言务聚财为己用者，必忘义，是小人所为也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "彼为善之",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "君主想要施行善政",
+    "note": "彼，君也。君将欲以仁义善其政，而使小人治其国家之事，患难猥至。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "虽有善者，亦无如之何矣",
+    "commentator": "郑玄",
+    "commentary_title": "礼记注",
+    "dynasty": "东汉",
+    "translation": "即使有贤能的人，也没有办法挽救了",
+    "note": "虽云有善，不能救之，以其恶之已著也。"
+  },
+    {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "大学之道",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "案郑《目录》云：“名曰《大学》者，以其记博学，可以为政也。此於《别录》属《通论》。”此《大学》之篇，论学成之事，能治其国，章明其德於天下，却本明德所由，先从诚意为始。",
+    "note": ""
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "在明明德",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "在於章明己之光明之德。谓身有明德，而更章显之，此其一也。",
+    "note": "谓显明其至德也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "在亲民",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "在於亲爱於民，是其二也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "在止于至善",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "在止处於至善之行，此其三也。言大学之道，在於此三事矣。",
+    "note": "止，犹自处也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "知止而后有定",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "更覆说“止於至善”之事。既知“止於至善”，而后心能有定，不有差贰也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "定而后能静",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "心定无欲改，能静不躁求也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "静而后能安",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "以静故情性安和也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "安而后能虑",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "情既安和，能思虑於事也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "虑而后能得",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "既能思虑，然后於事得安也。",
+    "note": "得，谓得事之宜也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "物有本末",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "若於事得宜，而天下万物有本有末，经营百事有终有始也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "事有终始",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "同上"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "知所先后",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "既能如此，天下百事万物，皆识知其先后也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "则近道矣",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "若能行此诸事，则附近於大道矣。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "古之欲明明德于天下者",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "前章言大学之道在明德、亲民、止善，覆说止善之事既毕，故此经明明德之理。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "先治其国",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "此以积学能为明德盛极之事，以渐到。今本其初，故言欲章明己之明德，使遍於天下者，先须能治其国。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "欲治其国者，先齐其家",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "言若欲齐家，先须脩身也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "欲修其身者，先正其心",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "言若欲脩身，必先正其心也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "欲正其心者，先诚其意",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "总包万虑谓之为心，情所意念谓之意。若欲正其心使无倾邪，必须先至诚，在於忆念也。若能诚实其意，则心不倾邪也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "欲诚其意者，先致其知",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "言欲精诚其己意，先须招致其所知之事，言初始必须学习，然后乃能有所知晓其成败。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "致知在格物",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "言若能学习招致所知。格，来也。己有所知，则能在于来物。若知善深则来善物，知恶深则来恶物。言善事随人行善而来应之，恶事随人行恶亦来应之。言善恶之来缘人所好也。",
+    "note": "知，谓知善恶吉凶之所终始也。○其知如字，徐音智，下“致知”同。格，来也。物，犹事也。其知於善深则来善物，其知於恶深则来恶物，言事缘人所好来也。此“致”或为“至”。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "物格而后知至",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "物既来，则知其善恶所至。善事来，则知其至于善；若恶事来，则知其至于恶。既能知至，则行善不行恶也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "知至而后意诚",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "既能知至，则意念精诚也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "意诚而后心正",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "意能精诚，故能心正也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "国治而后天下平",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "则上“明明德于天下”，是以自天子至庶人皆然也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "壹是皆以修身为本",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "言上从天子，下至庶人，贵贱虽异，所行此者专一，以修身为本。上言诚意、正心、齐家、治国，今此独云“修身为本”者，细别虽异，其大略皆是修身也。",
+    "note": "壹是，专行是也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "其本乱而末治者否矣",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "本乱，谓身不修也。末治，谓国家治也。言己身既不修，而望家国治者否矣。否，不也。言不有此事也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "其所厚者薄，而其所薄者厚，未之有也",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "此覆说“本乱而末治否矣”之事也。譬若与人交接，应须敦厚以加于人。今所厚之处，乃以轻薄，谓以轻薄待彼人也。“其所薄者厚”，谓己既与彼轻薄，欲望所薄之处以厚重报己，未有此事也。言己以厚施人，人亦厚以报己也。若己轻薄施人，人亦轻薄报己，言事厚之与薄皆以身为本也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "此谓知本",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "本，谓身也。既以身为本，若能自知其身，是“知本”也，是知之至极也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "此之谓自谦",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "谦，读如“慊”。慊然，安静之貌。心虽好恶而口不言，应自然安静也。",
+    "note": "谦，读为慊，慊之言厌也。厌，读为黡，黡，闭藏貌也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "此谓诚于中，形于外",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "言此小人既怀诚实恶事於中心，必形见於外，不可揜藏。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "其严乎",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "既视者及指者皆众，其所畏敬，可严惮乎！",
+    "note": "严乎，言可畏敬也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "心广体胖",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "言内心宽广，则外体胖大。言为之于中，必形见于外也。",
+    "note": "胖，犹大也。三者，言有实于内，显见于外。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "瞻彼淇澳，菉竹猗猗。有斐君子，如切如磋，如琢如磨。瑟兮僩兮，赫兮喧兮。有斐君子，终不可諠兮",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "此《诗·卫风·淇奥》之篇，卫人美武公之德也。澳，隈也。菉，王刍也。竹，萹竹也。视彼淇水之隈曲之内，生此菉之与竹，猗猗然而茂盛，以淇水浸润故也。言视彼卫朝之内，上有武公之身，道德茂盛，亦蒙康叔之余烈故也。引之者，证诚意之道。“有斐君子”者，有斐然文章之君子，学问之益矣。“如切如磋”者，如骨之切，如象之磋，又能自修也。“如琢如磨”者，如玉之琢，如石之磨也。“瑟兮僩兮，赫兮喧兮。有斐君子，终不可諠兮”，又瑟然颜色矜庄，僩然性行宽大，赫然颜色盛美，喧然威仪宣着。斐然文章之君子，民皆爱念之，终久不可忘也。諠，忘也。自此以上，《诗》之本文也。",
+    "note": "此“心广体胖”之诗也。澳，隈崖也。“菉竹猗猗”，喻美盛。斐，有文章貌也。諠，忘也。道犹言也。恂，字或作“峻”，读如严峻之“峻”，言其容貌严栗也。民不能忘，以其意诚而德著也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "如切如磋者，道学也",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "论道其学矣。言初习谓之学。",
+    "note": "道犹言也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "如琢如磨者，自修也",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "谓自修饰矣。重习谓之修，亦谓《诗》本文互而相通也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "瑟兮僩兮者，恂栗也",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "恂，读为“峻”，言颜色严峻战栗也。",
+    "note": "恂，字或作“峻”，读如严峻之“峻”，言其容貌严栗也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "有斐君子，终不可諠兮者，道盛德至善，民之不能忘也",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "论道武公盛德至极美善，人之爱念，不能忘也。",
+    "note": "民不能忘，以其意诚而德著也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "於戏前王不忘",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "此《周颂·烈文》之篇也，美武王之诗。“於戏”，犹言“呜呼”矣。以文王、武王意诚于天下，故诗人叹美之，云此前世之王，其德不可忘也。",
+    "note": "圣人既有亲贤之德，其政又有乐利於民。君子小人，各有以思之。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "君子贤其贤而亲其亲",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "言后世贵重之。言君子皆美此前王能贤其贤人而亲其族亲也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "小人乐其乐而利其利",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "言后世卑贱小人，美此前王能爱乐其所乐，谓民之所乐者前王亦爱乐之；利其利者，能利益其人之所利，民为利者，前王亦利益之。言前王施为政教，下顺人情，不夺人之所乐利之事。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "此以没世不忘也",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "由前王意能精诚，垂于后世，故君子小人皆所美念。以此之故，终没于世，其德不忘也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "克明德",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "此一经广明意诚则能明己之德。周公封康叔而作《康诰》，戒康叔能明用有德。此《记》之意，言周公戒康叔以自明其德，与《尚书》异也。",
+    "note": "皆自明明德也。克，能也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "顾諟天之明命",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "顾，念也。諟，正也。伊尹戒大甲云：尔为君，当顾念奉正天之显明之命，不邪僻也。",
+    "note": "顾，念也。諟，犹正也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "克明峻德",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "《帝典》，谓《尧典》之篇。峻，大也。《尚书》之意，言尧能明用贤俊之德。此《记》之意，言尧能自明大德也。",
+    "note": "峻，大也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "皆自明也",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "此经所云《康诰》、《大甲》、《帝典》等之文，皆是人君自明其德也，故云“皆自明也”。",
+    "note": "皆自明明德也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "苟日新，日日新，又日新",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "汤沐浴之盘而刻铭为戒。必于沐浴之盘者，戒之甚也。“苟日新”者，此《盘铭》辞也。非唯洗沐自新，苟，诚也，诚使道德日益新也。“日日新”者，言非唯一日之新，当使日日益新。“又日新”者，言非唯日日益新，又须恒常日新。皆是丁宁之辞也。此谓精诚其意，修德无已也。",
+    "note": "盘铭，刻戒于盘也。极，犹尽也。君子日新其德，常尽心力不有余也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "作新民",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "成王既伐管叔、蔡叔，以殷余民封康叔。诰言殷人化纣恶俗，使之变改为新人。此《记》之意，自念其德，为新民也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "周虽旧邦，其命惟新",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "此《大雅·文王》之篇。其诗之本意，言周虽旧是诸侯之邦，其受天之命，唯为天子而更新也。此《记》之意，其所施教命，唯能念德而自新也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "君子无所不用其极",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "极，尽也。言君子欲日新其德，无处不用其心尽力也。言自新之道，唯在尽其心力，更无余行也。",
+    "note": "极，犹尽也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "邦畿千里，惟民所止",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "此《商颂·玄鸟》之篇，言殷之邦畿方千里，唯人所居止。此《记》断章，喻其民人而择所止，言人君贤则来也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "缗蛮黄鸟，止于丘隅",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "此《诗·小雅·缗蛮》之篇，刺幽王之诗。言缗蛮然微小之黄鸟，止在于岑蔚丘隅之处，得其所止。以言微小之臣依托大臣，亦得其所也。",
+    "note": "于止，于鸟之所止也。就而观之，知其所止，知鸟择岑蔚安闲而止处之耳，言人亦当择礼义乐土而自止处也。《论语》曰：“里仁为美。择不处仁，焉得知？”"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "于止，知其所止，可以人而不如鸟乎",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "孔子见其诗文而论之云：是观于鸟之所止，则人亦知其所止。鸟之知在岑蔚安闲之处，则知人亦择礼义乐土之处而居止也。岂可以人不择止处，不如鸟乎？言不可不如鸟也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "穆穆文王，于缉熙敬止",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "此《大雅·文王》之篇，美文王之诗。缉熙，谓光明也。止，辞也。诗之本意云，文王见此光明之人则恭敬之。此《记》之意，“于缉熙”，言呜呼！文王之德，缉熙光明，又能敬其所止，以自居处也。",
+    "note": "缉熙，光明也。此美文王之德光明，敬其所以自止处。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "无情者不得尽其辞",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "情，实也。言无实情虚诞之人无道理者，不得尽竭其虚伪之辞也。",
+    "note": "情，犹实也。无实者多虚诞之辞。圣人之听讼，与人同耳。必使民无实者不敢尽其辞，大畏其心志，使诚其意不敢讼。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "大畏民志",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "大能畏胁民人之志。言人有虚诞之志者，皆畏惧不敢讼。言民亦诚实其意也。",
+    "note": "本，谓诚其意也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "此谓知本",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "此从上“所谓诚意”以下言此“大畏民志”以上，皆是诚意之事。意为行本，既精诚其意，是晓知其本，故云“此谓知本”也。",
+    "note": "本，谓诚其意也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "心不在焉，视而不见，听而不闻，食而不知其味",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "此言修身之本，必在正心。若心之不正，身亦不修。若心之不在，视、听与食不觉知也。是心为身本，修身必在正于心也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "人之其所亲爱而辟焉",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "之，犹适也。此言修身之譬也。设我适彼人，见彼有德，则为我所亲爱，当反自譬喻于我也。以彼有德，故为我所亲爱，则我若自修身有德，必然亦能使众人亲爱于我也。",
+    "note": "之，适也。譬，犹喻也。言适彼而以心度之，曰：吾何以亲爱此人，非以其有德美与？吾何以敖惰此人，非以其志行薄与？反以喻己，则身修与否，可自知也。鲜，罕也。人莫知其子之恶，犹爱而不察。硕，大也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "之其所贱恶而辟焉",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "又言我往之彼，而贱恶彼人者，必是彼人无德故也。亦当回以譬我，我若无德，则人亦贱恶我也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "之其所畏敬而辟焉",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "又我往之彼，而畏敬彼人，必是彼人庄严故也。亦回其譬我，我亦当庄敬，则人亦必畏敬我。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "之其所哀矜而辟焉",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "又我往之彼，而哀矜彼人，必是彼人有慈善柔弱之德故也。亦回譬我，我有慈善而或柔弱，则亦为人所哀矜也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "之其所敖惰而辟焉",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "又我往之彼，而敖惰彼人，必是彼人邪僻故也。亦回譬我，我若邪僻，则人亦敖惰于我也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "故好而知其恶，恶而知其美者，天下鲜矣",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "知，识也。鲜，少也。人心多偏。若心爱好之，而多不知其恶；若嫌恶之，而多不知其美。今虽爱好，知彼有恶事；虽憎恶，知彼有美善。天下之内，如此者少矣。",
+    "note": "鲜，罕也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "人莫知其子之恶",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "言人之爱子，其意至甚，子虽有恶，不自觉知，犹好而不知其恶也。",
+    "note": "人莫知其子之恶，犹爱而不察。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "莫知其苗之硕",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "硕，犹大也。农夫种田，恒欲其盛，苗虽硕大，犹嫌其恶，以贪心过甚，故不知其苗之硕。若能以己子而方他子，己苗而匹他苗，则好恶可知。",
+    "note": "硕，大也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "所谓治国必先齐其家者，其家不可教而能教人者无之",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "此一节覆明前经治国齐家之事。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "如保赤子",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "此成王命康叔之辞。赤子，谓心所爱之子。言治民之时，如保爱赤子。爱之甚也。",
+    "note": "养子者，推心为之，而中于赤子之嗜欲也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "心诚求之，虽不中，不远矣",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "言爱此赤子，内心精诚，求赤子之嗜欲，虽不能正中其所欲，去其所嗜欲其不甚远。言近其赤子之嗜欲。为治人之道，亦当如此也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "未有学养子而后嫁者也",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "言母之养子，自然而爱，中当赤子之嗜欲，非由学习而来，故云“未有学养子而后嫁”者。此皆本心而为之。言皆喻人君也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "一家仁，一国兴仁；一家让，一国兴让",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "言人君行善于家，则外人化之，故一家一国皆仁让也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "一人贪戾，一国作乱",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "谓人君一人贪戾恶事，则一国学之作乱。",
+    "note": "“戾”之言“利”也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "其机如此",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "机，谓关机也。动于近，成于远。善恶之事，亦发于身而及于一国也。",
+    "note": "机，发动所由也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "此谓一言偾事",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "偾，犹覆败也。谓人君一言覆败其事，谓恶言也。",
+    "note": "偾，犹覆败也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "一人定国",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "谓由人君一人能定其国，谓善政也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "其所令反其所好，而民不从",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "令，谓君所号令之事。若各随其行之所好，则人从之。其所好者是恶，所令者是善，则所令之事反其所好，虽欲以令禁人，人不从也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "是故君子有诸己而后求诸人",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "诸，于也。谓君子有善行于己，而后可以求于人使行善行也。谓于己有仁让，而后可求于人之仁让也。",
+    "note": "有于己，谓有仁让也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "无诸己而后非诸人",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "谓无恶行于己，而后可以非责于人为恶行也。谓无贪利之事于己，而后非责于人也。",
+    "note": "无于己，谓无贪戾也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "所藏乎身不恕，而能喻诸人者，未之有也",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "谓所藏积于身既不恕实，而能晓喻于人使从己者，未之有也。言无善行于身，欲晓喻于人为善行，不可得也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "桃之夭夭，其叶蓁蓁。之子于归，宜其家人",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "此《周南·桃夭》之篇，论昏姻及时之事。言桃之夭夭少壮，其叶蓁蓁茂盛，喻妇人形体少壮，颜色茂盛之时，似“桃之夭夭”也。“之子于归，宜其家人”者，之子者，是子也。归，嫁也。宜可以为夫家之人。引之者，取宜其家人之事。",
+    "note": "夭夭、蓁蓁，美盛貌。“之子”者，是子也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "宜兄宜弟",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "此《小雅·蓼萧》之篇，美成王之诗。诗之本文，言成王有德，宜为人兄，宜为人弟。此《记》之意，“宜兄宜弟”，谓自与兄弟相善相宜也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "其仪不忒，正是四国",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "此《曹风·鸤鸠》之篇。忒，差也。正，长也。言在位之君子，威仪不有差忒，可以正长是四方之国。言可法则也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "其为父子兄弟足法，而后民法之也",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "谓其修德于家，在室家之内，使父子兄弟足可方法，而后民皆法之也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "上恤孤而民不倍",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "孤弱之子，人所遗弃，在上君长，若能忧恤孤弱不遗，则下民学之，不相弃倍也。",
+    "note": "恤，忧也。民不倍，不相倍弃也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "是以君子有絜矩之道也",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "絜，犹结也。矩，法也。言君子有执结持矩法之道，动而无失，以此加物，物皆从之也。",
+    "note": "絜，犹结也，挈也。矩，法也。君子有挈法之道，谓常执而行之，动作不失之。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "所恶于上，毋以使下；所恶于下，毋以事上；所恶于前，毋以先后；所恶于后，毋以从前；所恶于右，毋以交于左；所恶于左，毋以交于右",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "此以下皆是絜矩之道也。譬诸侯有天子为上，上有不善之事加己，己恶之，则不可回持此恶事使己下者为之也。言臣下不善事己，己所有恶，则己不可持此恶事回以事己之君上也。前，谓在己之前不以善事施己，己所憎恶，则无以持此恶事施于后人也。后，谓在己之后不以善事施己，己则无以恶事施于前行之人也。谓与己平敌，或在己右，或在己左，若右以恶加己，己所憎恶，则无以此恶事施于左人也。举此一隅，余可知也。",
+    "note": "絜矩之道，善持其所有，以恕于人耳。治国之要尽于此。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "乐只君子，民之父母",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "此《小雅・南山有台》之篇，美成王之诗也。只，辞也。言能以己化民，从民所欲，则可为民父母矣。",
+    "note": "言治民之道无他，取于己而已。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "民之所好好之，民之所恶恶之",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "谓善政恩惠，是民之愿好，己亦好之，以施于民。若“发仓廪，赐贫穷，赈乏绝”是也。谓苛政重赋，是人之所恶，己亦恶之而不行也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "节彼南山，维石岩岩。赫赫师尹，民具尔瞻",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "此《小雅・节南山》之篇，刺幽王之诗。言幽王所任大臣，非其贤人也。节然高峻者，是彼南山，维积累其石，岩岩然高大。喻幽王大臣师尹之尊严。“赫赫师尹，民具尔瞻”者，赫赫，显盛貌。是大师与人为则者。具，俱也。尔，汝也。在下之民，俱于汝而瞻视之。言皆视师尹而为法。此《记》之意，以喻人君在上，民皆则之，不可不慎。",
+    "note": "岩岩，喻师尹之高严也。师尹，天子之大臣，为政者也。言民皆视其所行而则之，可不慎其德乎？邪辟失道，则有大刑。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "辟则为天下僇矣",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "僇，谓刑僇也。君若邪辟，则为天下之民共所诛讨，若桀、纣是也。",
+    "note": "邪辟失道，则有大刑。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "殷之未丧师，克配上帝。仪监于殷，峻命不易",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "此《大雅・文王》之篇，美文王之诗，因以戒成王也。克，能也。师，众也。言殷自纣父帝乙之前，未丧师众之时，所行政教，皆能配上天而行也。“仪监于殷，峻命不易”者，仪，宜也。监，视也。今成王宜监视于殷之存亡。峻，大也。奉此天之大命，诚为不易，言其难也。",
+    "note": "师，众也。克，能也。峻，大也。言殷王帝乙以上，未失其民之时，德亦有能配天者，谓天享其祭祀也。及纣为恶，而民怨神怒，以失天下。监视殷时之事，天之大命，持之诚不易也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "道得众则得国，失众则失国",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "道，犹言也。《诗》所云者，言帝乙以上得众则得国，言殷纣失众则失国也。",
+    "note": "道，犹言也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "有德此有人",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "有德之人，人之所附从。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "有人此有土",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "有人则境土宽大。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "有土此有财",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "有土则生植万物，故有财也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "有财此有用",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "有财丰，以此而有供国用也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "德者本也，财者末也",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "德能致财，财由德有，故德为本，财为末也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "外本内末，争民施夺",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "外，疏也。内，亲也。施夺，谓施其劫夺之情也。君若亲财而疏德，则争利之人皆施劫夺之情也。",
+    "note": "施夺，施其劫夺之情也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "财聚则民散，财散则民聚",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "事不两兴，财由民立。君若重财而轻民，则民散也；若散财而赒恤于民，则民咸归聚也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "言悖而出者，亦悖而入",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "悖，逆也。若人君政教之言，悖逆人心而出行者，则民悖逆君上而入以报答也。谓拒违君命也。",
+    "note": "悖，犹逆也。言君有逆命，则民有逆辞也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "货悖而入者，亦悖而出",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "若人君厚敛财货，悖逆民心而入积聚者，不能久，如人畔于上，财亦悖逆君心而散出也。言众畔亲离，财散非君有也。",
+    "note": "上贪于利，则下人侵畔。《老子》曰：“多藏必厚亡。”"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "惟命不于常",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "谓天之命不于是常住在一家也。道善则得之，不善则失之矣。《书》之本意，言道为善则得之，不善则失之，是不常在一家也。",
+    "note": "于，于也。天命不于常，言不专祐一家也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "楚国无以为宝，惟善以为宝",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "案《楚语》云：“楚昭王使王孙圉聘于晋，定公飨之，赵简子鸣玉以相，问于王孙圉曰：‘楚之白珩犹在乎？其为宝几何矣？’王孙圉对曰：‘未尝为宝。楚之所宝者曰观射父，能作训辞，以行事于诸侯，使无以寡君为口实。’”又《新序》云：“秦欲伐楚，使者观楚之宝器。楚王命昭奚恤而问焉，对曰：‘宝器在贤臣。’王遂使昭奚恤应之。昭奚恤发精兵三百人，陈于西门之内，为东面之坛一，南面之坛四，西面之坛一。秦使者至，昭奚恤曰：‘君，客也，请就上位东面之坛。’令尹子西南面，大宗子敖次之，叶公子高次之，司马子发次之。昭奚恤自居西面之坛，称曰：‘客欲观楚之宝器乎？楚之所宝者，即贤臣也，唯大国之所观。’秦使无以对也。使归，告秦王曰：‘楚多贤臣，无可以图之。’”引之者，证为君长能保爱善人为宝也。",
+    "note": "《楚书》，楚昭王时书也。言以善人为宝。时谓观射父、昭奚恤也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "亡人无以为宝，仁亲以为宝",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "此舅犯劝重耳之辞。于时重耳逃亡在翟，秦穆公欲纳之反国，而劝重耳不受秦命，对秦使云：奔亡之人，无以货财为宝，唯亲爱仁道以为宝也。",
+    "note": "舅犯，晋文公之舅狐偃也。亡人，谓文公也，时辟骊姬之谗，亡在翟。而献公薨，秦穆公使子显吊，因劝之复国，舅犯为之对此辞也。仁亲，犹言亲爱仁道也。明不因丧规利也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "若有一个臣，断断兮无他技",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "《秦誓》，《尚书》篇名。秦穆公伐郑，为晋败于殽，还归，誓群臣而作此篇，是秦穆公悔过自誓之辞。记者引之，以明好贤去恶也。“若有一介臣，断断兮”者，此秦穆公誓辞。云群臣若有一耿介之臣，断断然诚实专一谨悫。“兮”是语辞。《古文尚书》“兮”为“猗”，言有一介之臣，其心断断猗猗然专一，与此本异。",
+    "note": "《秦誓》，《尚书》篇名也。秦穆公伐郑，为晋所败于殽，还誓其群臣，而作此篇也。断断，诚一之貌也。他技，异端之技也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "其心休休焉，其如有容焉",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "言此专一之臣，无他奇异之技，惟其心休休然宽容，形貌似有包容。如此之人，我当任用也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "人之有技，若己有之",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "云见人有技艺，欲得亲爱之，如己自有也。",
+    "note": "有技，才艺之技也。若己有之，不啻若自其口出，皆乐人有善之甚也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "人之彦圣，其心好之，不啻若自其口出",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "谓见人有才，彦美通圣，其心中爱好，不啻如自其口出。心爱此彦圣之美，多于口说，言其爱乐之甚也。",
+    "note": "美士为彦。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "寔能容之",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "寔，是也。若能好贤如此，是能有所包容。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "以能保我子孙黎民",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "则我国家得安，保我后世子孙。",
+    "note": "黎，众也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "尚亦有利哉",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "尚，庶几也。非直子孙安，其下众人皆庶几亦望有利益哉也。",
+    "note": "尚，庶几也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "人之有技，媢嫉以恶之",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "媢，妬也。见人有技艺，则掩藏媢妬，疾以憎恶之也。",
+    "note": "媢，妬也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "人之彦圣，而违之俾不通",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "见他人之彦圣，而违戾抑退之。俾，使也。使其善功不通达于君。《尚书》“通”为“达”字也。",
+    "note": "违，犹戾也。俾，使也。佛戾贤人所高，使功不通于君也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "亦曰殆哉",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "若此蔽贤之人，是不能容纳，家国将亡，不能保我子孙；非唯如此，众人亦曰殆危哉。",
+    "note": "殆，危也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "唯仁人放流之，迸诸四夷，不与同中国",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "言唯仁人之君能放流此蔽善之人，使迸远在四夷，不与同在中国。若舜流四凶而天下咸服是也。",
+    "note": "放去恶人媢嫉之类者，独仁人能之，如舜放四罪而天下咸服。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "见贤而不能举，举而不能先，命也",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "此谓凡庸小人，见此贤人而不能举进于君；假设举之，又不能使在其己之先，是为慢也。谓轻慢于举人也。",
+    "note": "命，读为“慢”，声之误也。举贤而不能使君以先己，是轻慢于举人也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "见不善而不能退，退而不能远，过也",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "此谓小人见不善之人而不能抑退之，假令抑退之，而不能使远退之。过者，言是愆过之人也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "好人之所恶，恶人之所好，是谓拂人之性",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "人，谓君子。君子所恶者，凶恶之事，今乃爱好凶恶，是“好人之所恶”也。君子所好，仁义善道。今乃恶此仁义善道，是“恶人之所好”也。若如此者，是谓拂戾善人之性。",
+    "note": "拂，犹佹也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "菑必逮夫身",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "逮，及也。如此，菑必及夫身矣。",
+    "note": "逮，及也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "君子有大道，必忠信以得之，骄泰以失之",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "大道，谓所由行孝悌仁义之大道也。言此孝悌仁义，必由行忠信以得之，由身骄泰以失之也。",
+    "note": "道，行所由。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "生财有大道，生之者众，食之者寡，为之者疾，用之者舒，则财恒足矣",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "生之者众者，谓为农桑多也。食之者寡者，谓减省无用之费也。为之者疾者，谓百姓急营农桑事业也。用之者舒者，谓君上缓于营造费用也。言人君能如此，则国用恒足。",
+    "note": "是不务禄不肖，而勉民以农也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "仁者以财发身",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "谓仁德之君，以财散施，发起身之令名也。",
+    "note": "发，起也。言仁人有财，则务于施与以起身，成其令名。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "不仁者以身发财",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "言不仁之人，唯在吝啬，务于积聚，劳役其身，发起其财。",
+    "note": "不仁之人有身，贪于聚敛以起财，务成富。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "未有上好仁而下不好义者也",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "言在上人君好以仁道接下，其下感君仁恩，无有不爱好于义，使事皆得其宜也。",
+    "note": "言君行仁道，则其臣必义。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "未有好义其事不终者也",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "言臣下悉皆好义，百事尽能终成，故云“未有好义其事不终”也。言皆能终成也。",
+    "note": "以义举事无不成者。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "未有府库财非其财者也",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "又为人君作譬也。君若行仁，民必报义，义必终事，譬如人君有府库之财，必还为所用也，故云“未有府库财非其财者也”。",
+    "note": "其为诚然，如己府库之财为己有也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "畜马乘不察于鸡豚",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "言察于鸡豚之所利，为畜养马乘，士初试为大夫，不闚察于鸡豚之小利。",
+    "note": "畜马乘，谓以士初试为大夫也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "伐冰之家不畜牛羊",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "谓卿大夫丧祭用冰，从固阴之处伐击其冰，以供丧祭，故云“伐冰”也。谓卿大夫为伐冰之家，不畜牛羊为财利。以食禄，不与人争利也。",
+    "note": "伐冰之家，卿、大夫以上，丧、祭用冰。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "百乘之家不畜聚敛之臣",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "百乘，谓卿大夫有采地者也。以地方百里，故云“百乘之家”。言卿大夫之家不畜聚敛之臣，使赋税什一之外征求采邑之物也。",
+    "note": "百乘之家，有采地者也。鸡豚、牛羊，民之所畜养以为财利者也。国家利义不利财，盗臣损财耳，聚敛之臣乃损义。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "与其有聚敛之臣，宁有盗臣",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "覆解“不畜聚敛之臣”。意若其有聚敛之臣，宁可有盗窃之臣。以盗臣但害财，聚敛之臣则害义也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "长国家而务财用者，必自小人矣",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "言为人君长于国家，而务积聚财以为己用者，必自为小人之行也。",
+    "note": "言务聚财为己用者，必忘义，是小人所为也。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "彼为善之",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "彼，谓君也。君欲为仁义之道，善其政教。“之”，语辞，故云“彼为善之”。",
+    "note": "彼，君也。君将欲以仁义善其政，而使小人治其国家之事，患难猥至。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "小人之使为国家，菑害并至",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "言君欲为善，反令小人使为治国家之事，毒害于下，故菑害患难则并皆来至。"
+  },
+  {
+    "classic_title": "礼记",
+    "chapter": "大学",
+    "verse": null,
+    "scripture_content": "虽有善者，亦无如之何矣",
+    "commentator": "孔颖达",
+    "commentary_title": "礼记正义",
+    "dynasty": "唐",
+    "translation": "既使小人治国，其君虽有善政，亦无能奈此患难之何。言不能止之，以其恶之已著故也。",
+    "note": "虽云有善，不能救之，以其恶之已著也。"
+  },
+   {
     "classic_title": "礼记",
     "chapter": "经一章",
     "scripture_content": "大学之道",
-    "translation": "大学的宗旨",
-    "note_zheng": "",
-    "note_kong": "案郑《目录》云：“名曰《大学》者，以其记博学，可以为政也。此于《别录》属《通论》。”此《大学》之篇，论学成之事，能治其国，章明其德于天下，却本明德所由，先从诚意为始。",
-    "note_zhu": "大，旧音泰，今读如字。子程子曰：“大学，孔氏之遗书，而初学入德之门也。”于今可见古人为学次第者，独赖此篇之存，而论、孟次之。学者必由是而学焉，则庶乎其不差矣。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "大，旧音泰，今读如字。子程子曰：「大学，孔氏之遗书，而初学入德之门也。」于今可见古人为学次第者，独赖此篇之存，而论、孟次之。学者必由是而学焉，则庶乎其不差矣。"
   },
   {
     "classic_title": "礼记",
     "chapter": "经一章",
     "scripture_content": "在明明德",
-    "translation": "在于彰显自身光明的德行",
-    "note_zheng": "谓显明其至德也。",
-    "note_kong": "在于章明己之光明之德。谓身有明德，而更章显之，此其一也。",
-    "note_zhu": "明，明之也。明德者，人之所得乎天，而虚灵不昧，以具众理而应万事者也。但为气禀所拘，人欲所蔽，则有时而昏；然其本体之明，则有未尝息者。故学者当因其所发而遂明之，以复其初也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "明，明之也。明德者，人之所得乎天，而虚灵不昧，以具众理而应万事者也。但为气禀所拘，人欲所蔽，则有时而昏；然其本体之明，则有未尝息者。故学者当因其所发而遂明之，以复其初也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "经一章",
     "scripture_content": "在亲民",
-    "translation": "在于亲爱民众",
-    "note_kong": "在于亲爱于民，是其二也。",
-    "note_zhu": "程子曰：“亲，当作新。”新者，革其旧之谓也，言既自明其明德，又当推以及人，使之亦有以去其旧染之污也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "程子曰：「亲，当作新。」新者，革其旧之谓也，言既自明其明德，又当推以及人，使之亦有以去其旧染之污也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "经一章",
     "scripture_content": "在止于至善",
-    "translation": "在于使言行达到并停留在至善的境界",
-    "note_zheng": "止，犹自处也。",
-    "note_kong": "在止处于至善之行，此其三也。言大学之道，在于此三事矣。",
-    "note_zhu": "止者，必至于是而不迁之意。至善，则事理当然之极也。言明明德、新民，皆当至于至善之地而不迁。盖必其有以尽夫天理之极，而无一毫人欲之私也。此三者，大学之纲领也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "止者，必至于是而不迁之意。至善，则事理当然之极也。言明明德、新民，皆当至于至善之地而不迁。盖必其有以尽夫天理之极，而无一毫人欲之私也。此三者，大学之纲领也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "经一章",
     "scripture_content": "知止而后有定",
-    "translation": "知道应止于至善，然后才能有坚定的志向",
-    "note_kong": "更覆说“止于至善”之事。既知“止于至善”，而后心能有定，不有差贰也。",
-    "note_zhu": "止者，所当止之地，即至善之所在也。知之，则志有定向。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "止者，所当止之地，即至善之所在也。知之，则志有定向。"
   },
   {
     "classic_title": "礼记",
     "chapter": "经一章",
     "scripture_content": "定而后能静",
-    "translation": "志向坚定，然后才能内心宁静",
-    "note_kong": "心定无欲改，能静不躁求也。",
-    "note_zhu": "静，谓心不妄动。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "静，谓心不妄动。"
   },
   {
     "classic_title": "礼记",
     "chapter": "经一章",
     "scripture_content": "静而后能安",
-    "translation": "内心宁静，然后才能处位安稳",
-    "note_kong": "以静故情性安和也。",
-    "note_zhu": "安，谓所处而安。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "安，谓所处而安。"
   },
   {
     "classic_title": "礼记",
     "chapter": "经一章",
     "scripture_content": "安而后能虑",
-    "translation": "处位安稳，然后才能思虑周详",
-    "note_kong": "情既安和，能思虑于事也。",
-    "note_zhu": "虑，谓处事精详。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "虑，谓处事精详。"
   },
   {
     "classic_title": "礼记",
     "chapter": "经一章",
     "scripture_content": "虑而后能得",
-    "translation": "思虑周详，然后才能有所收获",
-    "note_zheng": "得，谓得事之宜也。",
-    "note_kong": "既能思虑，然后于事得安也。",
-    "note_zhu": "得，谓得其所止。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "得，谓得其所止。"
   },
   {
     "classic_title": "礼记",
     "chapter": "经一章",
     "scripture_content": "物有本末",
-    "translation": "万物有根本和末节",
-    "note_kong": "若于事得宜，而天下万物有本有末，经营百事有终有始也。",
-    "note_zhu": "明德为本，新民为末。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "明德为本，新民为末。"
   },
   {
     "classic_title": "礼记",
     "chapter": "经一章",
     "scripture_content": "事有终始",
-    "translation": "万事有终结和开始",
-    "note_kong": "同上",
-    "note_zhu": "知止为始，能得为终。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "知止为始，能得为终。"
   },
   {
     "classic_title": "礼记",
     "chapter": "经一章",
     "scripture_content": "知所先后",
-    "translation": "知道什么该先、什么该后",
-    "note_kong": "既能如此，天下百事万物，皆识知其先后也。",
-    "note_zhu": "本始所先，末终所后。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "本始所先，末终所后。"
   },
   {
     "classic_title": "礼记",
     "chapter": "经一章",
     "scripture_content": "则近道矣",
-    "translation": "就接近大学之道了",
-    "note_kong": "若能行此诸事，则附近于大道矣。",
-    "note_zhu": "此结上文两节之意。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "此结上文两节之意。"
   },
   {
     "classic_title": "礼记",
     "chapter": "经一章",
     "scripture_content": "古之欲明明德于天下者",
-    "translation": "古代想要彰显光明德行于天下的人",
-    "note_kong": "前章言大学之道在明德、亲民、止善，覆说止善之事既毕，故此经明明德之理。",
-    "note_zhu": "明明德于天下者，使天下之人皆有以明其明德也。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "经一章",
-    "scripture_content": "先治其国",
-    "translation": "先要治理好自己的国家",
-    "note_kong": "此以积学能为明德盛极之事，以渐到。今本其初，故言欲章明己之明德，使遍于天下者，先须能治其国。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "经一章",
-    "scripture_content": "欲治其国者",
-    "translation": "要治理好国家"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "经一章",
-    "scripture_content": "先齐其家",
-    "translation": "先要整治好自己的家庭",
-    "note_kong": "言若欲齐家，先须修身也。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "经一章",
-    "scripture_content": "欲齐其家者",
-    "translation": "要整治好家庭"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "经一章",
-    "scripture_content": "先修其身",
-    "translation": "先要修养好自身",
-    "note_kong": "同上"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "经一章",
-    "scripture_content": "欲修其身者",
-    "translation": "要修养好自身"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "明明德于天下者，使天下之人皆有以明其明德也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "经一章",
     "scripture_content": "先正其心",
-    "translation": "先要端正自己的内心",
-    "note_kong": "言若欲修身，必先正其心也。",
-    "note_zhu": "心者，身之所主也。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "经一章",
-    "scripture_content": "欲正其心者",
-    "translation": "要端正内心"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "心者，身之所主也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "经一章",
     "scripture_content": "先诚其意",
-    "translation": "先要使自己的意念真诚",
-    "note_kong": "总包万虑谓之为心，情所意念谓之意。若欲正其心使无倾邪，必须先至诚，在于忆念也。若能诚实其意，则心不倾邪也。",
-    "note_zhu": "诚，实也。意者，心之所发也。实其心之所发，欲其一于善而无自欺也。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "经一章",
-    "scripture_content": "欲诚其意者",
-    "translation": "要使意念真诚"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "诚，实也。意者，心之所发也。实其心之所发，欲其一于善而无自欺也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "经一章",
     "scripture_content": "先致其知",
-    "translation": "先要获得真知",
-    "note_kong": "言欲精诚其己意，先须招致其所知之事，言初始必须学习，然后乃能有所知晓其成败。",
-    "note_zhu": "致，推极也。知，犹识也。推极吾之知识，欲其所知无不尽也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "致，推极也。知，犹识也。推极吾之知识，欲其所知无不尽也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "经一章",
     "scripture_content": "致知在格物",
-    "translation": "获得真知在于推究事物的原理",
-    "note_zheng": "知，谓知善恶吉凶之所终始也。格，来也。物，犹事也。其知于善深则来善物，其知于恶深则来恶物，言事缘人所好来也。此“致”或为“至”。",
-    "note_kong": "言若能学习招致所知。格，来也。己有所知，则能在于来物。若知善深则来善物，知恶深则来恶物。言善恶之来缘人所好也。",
-    "note_zhu": "格，至也。物，犹事也。穷至事物之理，欲其极处无不到也。此八者，大学之条目也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "格，至也。物，犹事也。穷至事物之理，欲其极处无不到也。此八者，大学之条目也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "经一章",
     "scripture_content": "物格而后知至",
-    "translation": "推究了事物原理，然后真知才能达到极致",
-    "note_kong": "物既来，则知其善恶所至。善事来，则知其至于善；若恶事来，则知其至于恶。既能知至，则行善不行恶也。",
-    "note_zhu": "物格者，物理之极处无不到也。知至者，吾心之所知无不尽也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "物格者，物理之极处无不到也。知至者，吾心之所知无不尽也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "经一章",
     "scripture_content": "知至而后意诚",
-    "translation": "真知达到极致，然后意念才能真诚",
-    "note_kong": "既能知至，则意念精诚也。",
-    "note_zhu": "知既尽，则意可得而实矣。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "知既尽，则意可得而实矣。"
   },
   {
     "classic_title": "礼记",
     "chapter": "经一章",
     "scripture_content": "意诚而后心正",
-    "translation": "意念真诚，然后内心才能端正",
-    "note_kong": "意能精诚，故能心正也。",
-    "note_zhu": "意既实，则心可得而正矣。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "意既实，则心可得而正矣。"
   },
   {
     "classic_title": "礼记",
     "chapter": "经一章",
     "scripture_content": "心正而后身修",
-    "translation": "内心端正，然后自身才能修养好",
-    "note_zhu": "修身以上，明明德之事也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "修身以上，明明德之事也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "经一章",
     "scripture_content": "身修而后家齐",
-    "translation": "自身修养好，然后家庭才能整治好",
-    "note_zhu": "齐家以下，新民之事也。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "经一章",
-    "scripture_content": "家齐而后国治",
-    "translation": "家庭整治好，然后国家才能治理好"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "齐家以下，新民之事也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "经一章",
     "scripture_content": "国治而后天下平",
-    "translation": "国家治理好，然后天下才能太平",
-    "note_kong": "则上“明明德于天下”，是以自天子至庶人皆然也。",
-    "note_zhu": "物格知至，则知所止矣。意诚以下，则皆得所止之序也。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "经一章",
-    "scripture_content": "自天子以至于庶人",
-    "translation": "从天子到平民百姓"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "物格知至，则知所止矣。意诚以下，则皆得所止之序也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "经一章",
     "scripture_content": "壹是皆以修身为本",
-    "translation": "一律都应以修养自身为根本",
-    "note_zheng": "壹是，专行是也。",
-    "note_kong": "言上从天子，下至庶人，贵贱虽异，所行此者专一，以修身为本。",
-    "note_zhu": "壹是，一切也。正心以上，皆所以修身也。齐家以下，则举此而措之耳。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "壹是，一切也。正心以上，皆所以修身也。齐家以下，则举此而措之耳。"
   },
   {
     "classic_title": "礼记",
     "chapter": "经一章",
     "scripture_content": "其本乱而末治者否矣",
-    "translation": "根本乱了而末节能治理好，这是不可能的",
-    "note_kong": "本乱，谓身不修也。末治，谓国家治也。言己身既不修，而望家国治者否矣。",
-    "note_zhu": "本，谓身也。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "经一章",
-    "scripture_content": "其所厚者薄",
-    "translation": "该重视的却轻视"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "经一章",
-    "scripture_content": "而其所薄者厚",
-    "translation": "该轻视的却重视"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "本，谓身也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "经一章",
     "scripture_content": "未之有也",
-    "translation": "这样却想把事情办好，是从未有过的",
-    "note_kong": "譬若与人交接，应须敦厚以加于人。今所厚之处，乃以轻薄。己既与彼轻薄，欲望所薄之处以厚重报己，未有此事也。",
-    "note_zhu": "此两节结上文两节之意。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "此两节结上文两节之意。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第一章",
     "scripture_content": "克明德",
-    "translation": "能够彰显光明德行",
-    "note_zheng": "皆自明明德也。克，能也。",
-    "note_kong": "此一经广明意诚则能明己之德。周公封康叔而作《康诰》，戒康叔能明用有德。此《记》之意，言周公戒康叔以自明其德，与《尚书》异也。",
-    "note_zhu": "康诰，周书。克，能也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "康诰，周书。克，能也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第一章",
     "scripture_content": "顾諟天之明命",
-    "translation": "要念念不忘上天赋予的光明使命",
-    "note_zheng": "顾，念也。諟，犹正也。",
-    "note_kong": "顾，念也。諟，正也。伊尹戒大甲云：尔为君，当顾念奉正天之显明之命，不邪僻也。",
-    "note_zhu": "大甲，商书。顾，谓常目在之也。諟，犹此也，或曰审也。天之明命，即天之所以与我，而我之所以为德者也。常目在之，则无时不明矣。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "大甲，商书。顾，谓常目在之也。諟，犹此也，或曰审也。天之明命，即天之所以与我，而我之所以为德者也。常目在之，则无时不明矣。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第一章",
     "scripture_content": "克明峻德",
-    "translation": "能够彰显崇高的德行",
-    "note_zheng": "峻，大也。",
-    "note_kong": "《帝典》，谓《尧典》之篇。峻，大也。言尧能自明大德也。",
-    "note_zhu": "峻，书作俊。帝典，尧典，虞书。峻，大也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "峻，书作俊。帝典，尧典，虞书。峻，大也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第一章",
     "scripture_content": "皆自明也",
-    "translation": "这些都是说要自己彰显光明德行",
-    "note_zheng": "皆自明明德也。",
-    "note_kong": "此经所云《康诰》、《大甲》、《帝典》等之文，皆是人君自明其德也。",
-    "note_zhu": "结所引书，皆言自明己德之意。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "结所引书，皆言自明己德之意。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第二章",
-    "scripture_content": "苟日新",
-    "translation": "如果一天能够自新",
-    "note_zheng": "盘铭，刻戒于盘也。",
-    "note_kong": "汤沐浴之盘而刻铭为戒。苟，诚也，诚使道德日益新也。",
-    "note_zhu": "盘，沐浴之盘也。铭，名其器以自警之辞也。苟，诚也。汤以人之洗濯其心以去恶，如沐浴其身以去垢。故铭其盘，言诚能一日有以涤其旧染之污而自新，则当因其已新者，而日日新之，又日新之，不可略有间断也。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第二章",
-    "scripture_content": "日日新",
-    "translation": "就应天天自新",
-    "note_kong": "言非唯一日之新，当使日日益新。",
-    "note_zhu": "同上"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第二章",
-    "scripture_content": "又日新",
-    "translation": "每日不断自新",
-    "note_kong": "言非唯日日益新，又须恒常日新。",
-    "note_zhu": "同上"
+    "scripture_content": "苟日新，日日新，又日新",
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "盘，沐浴之盘也。铭，名其器以自警之辞也。苟，诚也。汤以人之洗濯其心以去恶，如沐浴其身以去垢。故铭其盘，言诚能一日有以涤其旧染之污而自新，则当因其已新者，而日日新之，又日新之，不可略有间断也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第二章",
     "scripture_content": "作新民",
-    "translation": "激励民众振作自新",
-    "note_kong": "成王既伐管叔、蔡叔，以殷余民封康叔。诰言殷人化纣恶俗，使之变改为新人。",
-    "note_zhu": "鼓之舞之之谓作，言振起其自新之民也。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第二章",
-    "scripture_content": "周虽旧邦",
-    "translation": "周朝虽是古老邦国"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "鼓之舞之之谓作，言振起其自新之民也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第二章",
     "scripture_content": "其命惟新",
-    "translation": "所受天命却是新的",
-    "note_kong": "此《大雅·文王》之篇。其诗之本意，言周虽旧是诸侯之邦，其受天之命，唯为天子而更新也。",
-    "note_zhu": "诗大雅文王之篇。言周国虽旧，至于文王，能新其德以及于民，而始受天命也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "诗大雅文王之篇。言周国虽旧，至于文王，能新其德以及于民，而始受天命也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第二章",
     "scripture_content": "君子无所不用其极",
-    "translation": "所以君子无处不竭尽心力以求至善",
-    "note_zheng": "极，犹尽也。",
-    "note_kong": "极，尽也。言君子欲日新其德，无处不用其心尽力也。",
-    "note_zhu": "自新新民，皆欲止于至善也。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第三章",
-    "scripture_content": "邦畿千里",
-    "translation": "京城方圆千里"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "自新新民，皆欲止于至善也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第三章",
     "scripture_content": "惟民所止",
-    "translation": "是民众安居的地方",
-    "note_kong": "此《商颂·玄鸟》之篇，言殷之邦畿方千里，唯人所居止。",
-    "note_zhu": "诗商颂玄鸟之篇。邦畿，王者之都也。止，居也，言物各有所当止之处也。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第三章",
-    "scripture_content": "缗蛮黄鸟",
-    "translation": "那鸣叫的黄鸟"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "诗商颂玄鸟之篇。邦畿，王者之都也。止，居也，言物各有所当止之处也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第三章",
     "scripture_content": "止于丘隅",
-    "translation": "栖息在山丘的一角",
-    "note_zheng": "于止，于鸟之所止也。就而观之，知其所止，知鸟择岑蔚安闲而止处之耳，言人亦当择礼义乐土而自止处也。",
-    "note_kong": "此《诗·小雅·缗蛮》之篇，刺幽王之诗。言缗蛮然微小之黄鸟，止在于岑蔚丘隅之处，得其所止。",
-    "note_zhu": "诗小雅绵蛮之篇。缗蛮，鸟声。丘隅，岑蔚之处。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第三章",
-    "scripture_content": "于止",
-    "translation": "对于栖息的地方"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第三章",
-    "scripture_content": "知其所止",
-    "translation": "鸟都知道该停在哪里"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "诗小雅绵蛮之篇。缗蛮，鸟声。丘隅，岑蔚之处。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第三章",
     "scripture_content": "可以人而不如鸟乎",
-    "translation": "难道人反而不如鸟吗",
-    "note_zheng": "《论语》曰：“里仁为美。择不处仁，焉得知？”",
-    "note_kong": "孔子见其诗文而论之云：是观于鸟之所止，则人亦知其所止。岂可以人不择止处，不如鸟乎？",
-    "note_zhu": "子曰以下，孔子说诗之辞。言人当知所当止之处也。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第三章",
-    "scripture_content": "穆穆文王",
-    "translation": "端庄深沉的文王啊"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "子曰以下，孔子说诗之辞。言人当知所当止之处也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第三章",
     "scripture_content": "于缉熙敬止",
-    "translation": "他的光明德行持续不断，恭敬地安守其位",
-    "note_zheng": "缉熙，光明也。此美文王之德光明，敬其所以自止处。",
-    "note_kong": "此《大雅·文王》之篇，美文王之诗。缉熙，谓光明也。文王之德，缉熙光明，又能敬其所止，以自居处也。",
-    "note_zhu": "诗文王之篇。穆穆，深远之意。于，叹美辞。缉，继续也。熙，光明也。敬止，言其无不敬而安所止也。引此而言圣人之止，无非至善。五者乃其目之大者也。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第三章",
-    "scripture_content": "为人君止于仁",
-    "translation": "做君主的止于仁爱"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第三章",
-    "scripture_content": "为人臣止于敬",
-    "translation": "做臣子的止于恭敬"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第三章",
-    "scripture_content": "为人子止于孝",
-    "translation": "做子女的止于孝顺"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第三章",
-    "scripture_content": "为人父止于慈",
-    "translation": "做父母的止于慈爱"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第三章",
-    "scripture_content": "与国人交止于信",
-    "translation": "与国人交往止于诚信"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第三章",
-    "scripture_content": "瞻彼淇澳",
-    "translation": "看那淇水弯曲处"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "诗文王之篇。穆穆，深远之意。于，叹美辞。缉，继续也。熙，光明也。敬止，言其无不敬而安所止也。引此而言圣人之止，无非至善。五者乃其目之大者也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第三章",
     "scripture_content": "菉竹猗猗",
-    "translation": "绿竹多么茂盛",
-    "note_zheng": "“菉竹猗猗”，喻美盛。",
-    "note_kong": "此《诗·卫风·淇奥》之篇，卫人美武公之德也。视彼淇水之隈曲之内，生此菉之与竹，猗猗然而茂盛，以淇水浸润故也。",
-    "note_zhu": "诗卫风淇澳之篇。淇，水名。澳，隈也。猗猗，美盛貌。兴也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "诗卫风淇澳之篇。淇，水名。澳，隈也。猗猗，美盛貌。兴也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第三章",
     "scripture_content": "有斐君子",
-    "translation": "有位文采斐然的君子",
-    "note_zheng": "斐，有文章貌也。",
-    "note_kong": "有斐然文章之君子，学问之益矣。",
-    "note_zhu": "斐，文貌。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "斐，文貌。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第三章",
     "scripture_content": "如切如磋",
-    "translation": "如同切制骨器一样钻研学问，如同磋磨象牙一样修养自身",
-    "note_zheng": "道犹言也。",
-    "note_kong": "如骨之切，如象之磋，又能自修也。",
-    "note_zhu": "切以刀锯，琢以椎凿，皆裁物使成形质也。磋以镴锡，磨以沙石，皆治物使其滑泽也。治骨角者，既切而复磋之。治玉石者，既琢而复磨之。皆言其治之有绪，而益致其精也。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第三章",
-    "scripture_content": "如琢如磨",
-    "translation": "如同雕琢美玉一样磨砺品格，如同打磨石头一样打磨心性",
-    "note_zheng": "同上",
-    "note_kong": "如玉之琢，如石之磨也。",
-    "note_zhu": "同上"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "切以刀锯，琢以椎凿，皆裁物使成形质也。磋以镴锡，磨以沙石，皆治物使其滑泽也。治骨角者，既切而复磋之。治玉石者，既琢而复磨之。皆言其治之有绪，而益致其精也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第三章",
     "scripture_content": "瑟兮僩兮",
-    "translation": "他庄重而威严",
-    "note_zheng": "恂，字或作“峻”，读如严峻之“峻”，言其容貌严栗也。",
-    "note_kong": "瑟然颜色矜庄，僩然性行宽大。",
-    "note_zhu": "瑟，严密之貌。僩，武毅之貌。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "瑟，严密之貌。僩，武毅之貌。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第三章",
     "scripture_content": "赫兮喧兮",
-    "translation": "他显赫而光明",
-    "note_kong": "赫然颜色盛美，喧然威仪宣著。",
-    "note_zhu": "赫喧，宣著盛大之貌。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第三章",
-    "scripture_content": "有斐君子",
-    "translation": "这位文采斐然的君子"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "赫喧，宣著盛大之貌。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第三章",
     "scripture_content": "终不可諠兮",
-    "translation": "让人永远无法忘记",
-    "note_zheng": "諠，忘也。",
-    "note_kong": "斐然文章之君子，民皆爱念之，终久不可忘也。",
-    "note_zhu": "諠，忘也。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第三章",
-    "scripture_content": "如切如磋者",
-    "translation": "“如切如磋”说的是"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "諠，忘也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第三章",
     "scripture_content": "道学也",
-    "translation": "学问的精进",
-    "note_zheng": "道犹言也。",
-    "note_kong": "论道其学矣。言初习谓之学。",
-    "note_zhu": "学，谓讲习讨论之事。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第三章",
-    "scripture_content": "如琢如磨者",
-    "translation": "“如琢如磨”说的是"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "学，谓讲习讨论之事。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第三章",
     "scripture_content": "自修也",
-    "translation": "品德的自我修炼",
-    "note_kong": "谓自修饰矣。重习谓之修。",
-    "note_zhu": "自修者，省察克治之功。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第三章",
-    "scripture_content": "瑟兮僩兮者",
-    "translation": "“瑟兮僩兮”说的是"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "自修者，省察克治之功。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第三章",
     "scripture_content": "恂栗也",
-    "translation": "内心恭敬严谨",
-    "note_zheng": "恂，字或作“峻”，读如严峻之“峻”，言其容貌严栗也。",
-    "note_kong": "恂，读为“峻”，言颜色严峻战栗也。",
-    "note_zhu": "恂栗，战惧也。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第三章",
-    "scripture_content": "赫兮喧兮者",
-    "translation": "“赫兮喧兮”说的是"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "恂栗，战惧也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第三章",
     "scripture_content": "威仪也",
-    "translation": "外在仪容威严光明",
-    "note_kong": "",
-    "note_zhu": "威，可畏也。仪，可像也。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第三章",
-    "scripture_content": "有斐君子",
-    "translation": "“有斐君子”"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第三章",
-    "scripture_content": "终不可諠兮者",
-    "translation": "“终不可諠兮”说的是"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第三章",
-    "scripture_content": "道盛德至善",
-    "translation": "德行达到至善"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "威，可畏也。仪，可像也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第三章",
     "scripture_content": "民之不能忘也",
-    "translation": "民众无法忘记他",
-    "note_zheng": "民不能忘，以其意诚而德著也。",
-    "note_kong": "论道武公盛德至极美善，人之爱念，不能忘也。",
-    "note_zhu": "引诗而释之，以明明明德者之止于至善。道学自修，言其所以得之之由。恂栗、威仪，言其德容表里之盛。卒乃指其实而叹美之也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "引诗而释之，以明明明德者之止于至善。道学自修，言其所以得之之由。恂栗、威仪，言其德容表里之盛。卒乃指其实而叹美之也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第三章",
     "scripture_content": "于戏前王不忘",
-    "translation": "啊，前代的君王令人难忘",
-    "note_zheng": "圣人既有亲贤之德，其政又有乐利于民。君子小人，各有以思之。",
-    "note_kong": "此《周颂·烈文》之篇也，美武王之诗。以文王、武王意诚于天下，故诗人叹美之，云此前世之王，其德不可忘也。",
-    "note_zhu": "诗周颂烈文之篇。于戏，叹辞。前王，谓文、武也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "诗周颂烈文之篇。于戏，叹辞。前王，谓文、武也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第三章",
     "scripture_content": "君子贤其贤而亲其亲",
-    "translation": "后世的君子贤人敬重前王所敬重的贤人、亲近前王所亲近的亲族",
-    "note_kong": "言后世贵重之。言君子皆美此前王能贤其贤人而亲其族亲也。",
-    "note_zhu": "君子，谓其后贤后王。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "君子，谓其后贤后王。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第三章",
     "scripture_content": "小人乐其乐而利其利",
-    "translation": "后世的百姓享受前王所创造的安乐、获得前王所给予的利益",
-    "note_kong": "言后世卑贱小人，美此前王能爱乐其所乐，能利益其人之所利。",
-    "note_zhu": "小人，谓后民也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "小人，谓后民也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第三章",
     "scripture_content": "此以没世不忘也",
-    "translation": "因此前王虽已去世，人们却永不忘记",
-    "note_kong": "由前王意能精诚，垂于后世，故君子小人皆所美念。以此之故，终没于世，其德不忘也。",
-    "note_zhu": "此言前王所以新民者止于至善，能使天下后世无一物不得其所，所以既没世而人思慕之，愈久而不忘也。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第四章",
-    "scripture_content": "听讼",
-    "translation": "审理诉讼"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "此言前王所以新民者止于至善，能使天下后世无一物不得其所，所以既没世而人思慕之，愈久而不忘也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第四章",
     "scripture_content": "吾犹人也",
-    "translation": "我和别人差不多",
-    "note_kong": "孔子称断狱犹如常人，无以异也。言吾与常人同也。",
-    "note_zhu": "犹人，不异于人也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "犹人，不异于人也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第四章",
     "scripture_content": "必也使无讼乎",
-    "translation": "一定要让诉讼根本不发生才好",
-    "note_kong": "必也使无理之人不敢争讼也。",
-    "note_zhu": "引夫子之言，而言圣人能使无实之人不敢尽其虚诞之辞。盖我之明德既明，自然有以畏服民之心志，故讼不待听而自无也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "引夫子之言，而言圣人能使无实之人不敢尽其虚诞之辞。盖我之明德既明，自然有以畏服民之心志，故讼不待听而自无也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第四章",
     "scripture_content": "无情者不得尽其辞",
-    "translation": "让隐瞒实情的人不敢尽情编造谎言",
-    "note_zheng": "情，犹实也。无实者多虚诞之辞。",
-    "note_kong": "情，实也。言无实情虚诞之人无道理者，不得尽竭其虚伪之辞也。",
-    "note_zhu": "情，实也。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第四章",
-    "scripture_content": "大畏民志",
-    "translation": "使民众内心深深敬畏",
-    "note_zheng": "本，谓诚其意也。",
-    "note_kong": "大能畏胁民人之志。言人有虚诞之志者，皆畏惧不敢讼。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "情，实也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第四章",
     "scripture_content": "此谓知本",
-    "translation": "这就叫做知道根本",
-    "note_zheng": "本，谓诚其意也。",
-    "note_kong": "此从上“所谓诚意”以下言此“大畏民志”以上，皆是诚意之事。意为行本，既精诚其意，是晓知其本。",
-    "note_zhu": "观于此言，可以知本末之先后矣。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "观于此言，可以知本末之先后矣。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第五章",
     "scripture_content": "此谓知本",
-    "translation": "这就叫做知道根本",
-    "note_zhu": "程子曰：“衍文也。”"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "程子曰：「衍文也。」"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第五章",
     "scripture_content": "此谓知之至也",
-    "translation": "这就叫做认知的最高境界",
-    "note_zhu": "此句之上别有阙文，此特其结语耳。右传之五章，盖释格物、致知之义，而今亡矣。间尝窃取程子之意以补之曰：“所谓致知在格物者，言欲致吾之知，在即物而穷其理也。盖人心之灵莫不有知，而天下之物莫不有理，惟于理有未穷，故其知有不尽也。是以大学始教，必使学者即凡天下之物，莫不因其已知之理而益穷之，以求至乎其极。至于用力之久，而一旦豁然贯通焉，则众物之表里精粗无不到，而吾心之全体大用无不明矣。此谓物格，此谓知之至也。”"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "此句之上别有阙文，此特其结语耳。右传之五章，盖释格物、致知之义，而今亡矣。间尝窃取程子之意以补之曰：「所谓致知在格物者，言欲致吾之知，在即物而穷其理也。盖人心之灵莫不有知，而天下之物莫不有理，惟于理有未穷，故其知有不尽也。是以大学始教，必使学者即凡天下之物，莫不因其已知之理而益穷之，以求至乎其极。至于用力之久，而一旦豁然贯通焉，则众物之表里精粗无不到，而吾心之全体大用无不明矣。此谓物格，此谓知之至也。」"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第六章",
     "scripture_content": "所谓诚其意者",
-    "translation": "所谓使意念真诚",
-    "note_zhu": "诚其意者，自修之首也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "诚其意者，自修之首也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第六章",
     "scripture_content": "毋自欺也",
-    "translation": "就是不要自己欺骗自己",
-    "note_kong": "言欲精诚其意，无自欺诳于身。言于身必须诚实也。",
-    "note_zhu": "毋者，禁止之辞。自欺云者，知为善以去恶，而心之所发有未实也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "毋者，禁止之辞。自欺云者，知为善以去恶，而心之所发有未实也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第六章",
-    "scripture_content": "如恶恶臭",
-    "translation": "要像厌恶腐臭的气味一样厌恶恶行",
-    "note_kong": "谓见此恶事，人嫌恶之，如人嫌臭秽之气。心实嫌之，口不可道矣。",
-    "note_zhu": "恶恶臭，如好好色，皆务决去，而求必得之，以自快足于己，不可徒苟且以殉外而为人也。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第六章",
-    "scripture_content": "如好好色",
-    "translation": "要像喜爱美丽的容貌一样喜爱善行",
-    "note_kong": "谓见此善事而爱好之，如似人好色。心实好之，口不可道矣。",
-    "note_zhu": "同上"
+    "scripture_content": "如恶恶臭，如好好色",
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "恶恶臭，如好好色，皆务决去，而求必得之，以自快足于己，不可徒苟且以殉外而为人也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第六章",
     "scripture_content": "此之谓自谦",
-    "translation": "这就叫做自我满足、心安理得",
-    "note_zheng": "谦，读为慊，慊之言厌也。厌，读为黡，黡，闭藏貌也。",
-    "note_kong": "谦，读如“慊”。慊然，安静之貌。心虽好恶而口不言，应自然安静也。",
-    "note_zhu": "谦读为慊，苦劫反。谦，快也，足也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "谦读为慊，苦劫反。谦，快也，足也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第六章",
     "scripture_content": "故君子必慎其独也",
-    "translation": "所以君子在独处时一定要谨慎",
-    "note_zhu": "独者，人所不知而己所独知之地也。言欲自修者知为善以去其恶，则当实用其力，而禁止其自欺。然其实与不实，盖有他人所不及知而己独知之者，故必谨之于此以审其几焉。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "独者，人所不知而己所独知之地也。言欲自修者知为善以去其恶，则当实用其力，而禁止其自欺。然其实与不实，盖有他人所不及知而己独知之者，故必谨之于此以审其几焉。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第六章",
     "scripture_content": "小人闲居为不善",
-    "translation": "小人独处时做不好的事",
-    "note_zhu": "闲居，独处也。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第六章",
-    "scripture_content": "无所不至",
-    "translation": "无所不为"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "闲居，独处也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第六章",
     "scripture_content": "见君子而后厌然",
-    "translation": "见到君子后就躲躲闪闪",
-    "note_zhu": "厌然，消沮闭藏之貌。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第六章",
-    "scripture_content": "掩其不善",
-    "translation": "遮掩自己的不善"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "厌然，消沮闭藏之貌。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第六章",
     "scripture_content": "而著其善",
-    "translation": "而显露自己的善",
-    "note_zhu": "此言小人阴为不善，而阳欲掩之，则是非不知善之当为与恶之当去也；但不能实用其力以至此耳。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第六章",
-    "scripture_content": "人之视己",
-    "translation": "别人看自己"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第六章",
-    "scripture_content": "如见其肺肝然",
-    "translation": "就像能看见肺和肝一样清楚",
-    "note_kong": "言小人为恶，外人视之，昭然明察矣，如见肺肝。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "此言小人阴为不善，而阳欲掩之，则是非不知善之当为与恶之当去也；但不能实用其力以至此耳。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第六章",
     "scripture_content": "则何益矣",
-    "translation": "这样做又有什么益处呢",
-    "note_kong": "虽暂时掩藏，言何益矣？",
-    "note_zhu": "然欲掩其恶而卒不可掩，欲诈为善而卒不可诈，则亦何益之有哉！"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第六章",
-    "scripture_content": "此谓诚于中",
-    "translation": "这就叫做内心有真实的意念"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第六章",
-    "scripture_content": "形于外",
-    "translation": "就会显露在外表",
-    "note_kong": "言此小人既怀诚实恶事于中心，必形见于外，不可掩藏。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "然欲掩其恶而卒不可掩，欲诈为善而卒不可诈，则亦何益之有哉！"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第六章",
     "scripture_content": "故君子必慎其独也",
-    "translation": "所以君子在独处时一定要谨慎",
-    "note_zhu": "此君子所以重以为戒，而必谨其独也。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第六章",
-    "scripture_content": "十目所视",
-    "translation": "十只眼睛看着"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第六章",
-    "scripture_content": "十手所指",
-    "translation": "十只手指指着"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "此君子所以重以为戒，而必谨其独也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第六章",
     "scripture_content": "其严乎",
-    "translation": "这是多么严厉啊",
-    "note_zheng": "严乎，言可畏敬也。",
-    "note_kong": "既视者及指者皆众，其所畏敬，可严惮乎！",
-    "note_zhu": "引此以明上文之意。言虽幽独之中，而其善恶之不可掩如此。可畏之甚也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "引此以明上文之意。言虽幽独之中，而其善恶之不可掩如此。可畏之甚也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第六章",
     "scripture_content": "富润屋",
-    "translation": "财富能装饰房屋",
-    "note_zhu": "言富则能润屋矣。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "言富则能润屋矣。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第六章",
     "scripture_content": "德润身",
-    "translation": "德行能滋润身心",
-    "note_zhu": "德则能润身矣。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "德则能润身矣。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第六章",
     "scripture_content": "心广体胖",
-    "translation": "心胸宽广则身体安泰舒坦",
-    "note_zheng": "胖，犹大也。三者，言有实于内，显见于外。",
-    "note_kong": "言内心宽广，则外体胖大。言为之于中，必形见于外也。",
-    "note_zhu": "胖，安舒也。故心无愧怍，则广大宽平，而体常舒泰，德之润身者然也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "胖，安舒也。故心无愧怍，则广大宽平，而体常舒泰，德之润身者然也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第六章",
     "scripture_content": "故君子必诚其意",
-    "translation": "所以君子一定要使自己的意念真诚",
-    "note_kong": "以有内见于外，必须精诚其意在内，心不可虚也。",
-    "note_zhu": "盖善之实于中而形于外者如此，故又言此以结之。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "盖善之实于中而形于外者如此，故又言此以结之。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第七章",
-    "scripture_content": "身有所忿懥",
-    "translation": "如果内心有所愤怒",
-    "note_zheng": "懥，怒貌也，或作懫，或为疐。",
-    "note_zhu": "程子曰：“身有之身当作心。”忿懥，怒也。盖是四者，皆心之用，而人所不能无者。然一有之而不能察，则欲动情胜，而其用之所行，或不能不失其正矣。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第七章",
-    "scripture_content": "有所恐惧",
-    "translation": "有所恐惧"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第七章",
-    "scripture_content": "有所好乐",
-    "translation": "有所偏好喜乐"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第七章",
-    "scripture_content": "有所忧患",
-    "translation": "有所忧患顾虑"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第七章",
-    "scripture_content": "则不得其正",
-    "translation": "就不能保持中正"
+    "scripture_content": "身有所忿懥，则不得其正；有所恐惧，则不得其正；有所好乐，则不得其正；有所忧患，则不得其正",
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "程子曰：「身有之身当作心。」忿懥，怒也。盖是四者，皆心之用，而人所不能无者。然一有之而不能察，则欲动情胜，而其用之所行，或不能不失其正矣。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第七章",
     "scripture_content": "心不在焉",
-    "translation": "心思不在这里",
-    "note_zhu": "心有不存，则无以检其身，是以君子必察乎此而敬以直之，然后此心常存而身无不修也。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第七章",
-    "scripture_content": "视而不见",
-    "translation": "看了却像没看见"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第七章",
-    "scripture_content": "听而不闻",
-    "translation": "听了却像没听见"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第七章",
-    "scripture_content": "食而不知其味",
-    "translation": "吃了却尝不出味道",
-    "note_kong": "此言修身之本，必在正心。若心之不正，身亦不修。若心之不在，视、听与食不觉知也。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第七章",
-    "scripture_content": "此谓修身在正其心",
-    "translation": "这就叫做修养自身在于端正内心"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "心有不存，则无以检其身，是以君子必察乎此而敬以直之，然后此心常存而身无不修也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第八章",
     "scripture_content": "人之其所亲爱而辟焉",
-    "translation": "人们对于自己所亲近喜爱的人往往有偏袒",
-    "note_zheng": "之，适也。譬，犹喻也。言适彼而以心度之，曰：吾何以亲爱此人，非以其有德美与？反以喻己，则身修与否，可自知也。",
-    "note_kong": "之，犹适也。设我适彼人，见彼有德，则为我所亲爱，当反自譬喻于我也。",
-    "note_zhu": "人，谓众人。之，犹于也。辟，犹偏也。五者，在人本有当然之则；然常人之情惟其所向而不加审焉，则必陷于一偏而身不修矣。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第八章",
-    "scripture_content": "之其所贱恶而辟焉",
-    "translation": "对于自己所鄙视厌恶的人往往有偏见",
-    "note_kong": "我往之彼，而贱恶彼人者，必是彼人无德故也。亦当回以譬我，我若无德，则人亦贱恶我也。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第八章",
-    "scripture_content": "之其所畏敬而辟焉",
-    "translation": "对于自己所畏惧尊敬的人往往有偏颇",
-    "note_kong": "我往之彼，而畏敬彼人，必是彼人庄严故也。亦回其譬我，我亦当庄敬，则人亦必畏敬我。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第八章",
-    "scripture_content": "之其所哀矜而辟焉",
-    "translation": "对于自己所哀伤怜悯的人往往有偏爱",
-    "note_kong": "我往之彼，而哀矜彼人，必是彼人有慈善柔弱之德故也。亦回譬我，我有慈善而或柔弱，则亦为人所哀矜也。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第八章",
-    "scripture_content": "之其所敖惰而辟焉",
-    "translation": "对于自己所傲慢怠慢的人往往有偏执",
-    "note_kong": "我往之彼，而敖惰彼人，必是彼人邪僻故也。亦回譬我，我若邪僻，则人亦敖惰于我也。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第八章",
-    "scripture_content": "故好而知其恶",
-    "translation": "所以喜欢一个人又能知道他的缺点"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第八章",
-    "scripture_content": "恶而知其美者",
-    "translation": "厌恶一个人又能知道他的优点"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第八章",
-    "scripture_content": "天下鲜矣",
-    "translation": "天下这样的人是很少的",
-    "note_zheng": "鲜，罕也。",
-    "note_kong": "鲜，少也。人心多偏。若心爱好之，而多不知其恶；若嫌恶之，而多不知其美。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "人，谓众人。之，犹于也。辟，犹偏也。五者，在人本有当然之则；然常人之情惟其所向而不加审焉，则必陷于一偏而身不修矣。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第八章",
     "scripture_content": "人莫知其子之恶",
-    "translation": "没有人会知道自己孩子的缺点",
-    "note_zheng": "人莫知其子之恶，犹爱而不察。",
-    "note_kong": "言人之爱子，其意至甚，子虽有恶，不自觉知，犹好而不知其恶也。",
-    "note_zhu": "溺爱者不明。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "溺爱者不明。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第八章",
     "scripture_content": "莫知其苗之硕",
-    "translation": "没有人会满足于自己禾苗的茁壮",
-    "note_zheng": "硕，大也。",
-    "note_kong": "农夫种田，恒欲其盛，苗虽硕大，犹嫌其恶，以贪心过甚，故不知其苗之硕。",
-    "note_zhu": "贪得者无厌，是则偏之为害，而家之所以不齐也。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第八章",
-    "scripture_content": "此谓身不修不可以齐其家",
-    "translation": "这就叫做自身修养不好，就无法整治好家庭",
-    "note_kong": "此不知子恶、不知苗硕之人，不修其身，身既不修，不能以己譬人，故不可以齐整其家。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第九章",
-    "scripture_content": "其家不可教而能教人者",
-    "translation": "连自己家里的人都教育不好，却能教育好国人"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第九章",
-    "scripture_content": "无之",
-    "translation": "这是不可能的"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "贪得者无厌，是则偏之为害，而家之所以不齐也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第九章",
     "scripture_content": "故君子不出家而成教于国",
-    "translation": "所以君子不用走出家门，就能把教化推广到全国",
-    "note_zhu": "身修，则家可教矣；孝、弟、慈，所以修身而教于家者也；然而国之所以事君事长使众之道不外乎此。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第九章",
-    "scripture_content": "孝者",
-    "translation": "孝顺父母"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第九章",
-    "scripture_content": "所以事君也",
-    "translation": "同样可以用来侍奉君主"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第九章",
-    "scripture_content": "弟者",
-    "translation": "尊敬兄长"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第九章",
-    "scripture_content": "所以事长也",
-    "translation": "同样可以用来侍奉长辈"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第九章",
-    "scripture_content": "慈者",
-    "translation": "慈爱子女"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第九章",
-    "scripture_content": "所以使众也",
-    "translation": "同样可以用来治理民众"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "身修，则家可教矣；孝、弟、慈，所以修身而教于家者也；然而国之所以事君事长使众之道不外乎此。此所以家齐于上，而教成于下也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第九章",
     "scripture_content": "如保赤子",
-    "translation": "爱护民众如同爱护初生的婴儿",
-    "note_zheng": "养子者，推心为之，而中于赤子之嗜欲也。",
-    "note_kong": "此成王命康叔之辞。赤子，谓心所爱之子。言治民之时，如保爱赤子。",
-    "note_zhu": "此引书而释之，又明立教之本不假强为，在识其端而推广之耳。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第九章",
-    "scripture_content": "心诚求之",
-    "translation": "内心真诚地去体会民众的需要"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第九章",
-    "scripture_content": "虽不中",
-    "translation": "即使不能完全切中"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第九章",
-    "scripture_content": "不远矣",
-    "translation": "也相差不远了",
-    "note_kong": "言爱此赤子，内心精诚，求赤子之嗜欲，虽不能正中其所欲，去其所嗜欲其不甚远。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第九章",
-    "scripture_content": "未有学养子而后嫁者也",
-    "translation": "世上没有哪个女子是先学会养育孩子然后再出嫁的",
-    "note_kong": "言母之养子，自然而爱，非由学习而来。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第九章",
-    "scripture_content": "一家仁",
-    "translation": "君主一家讲求仁爱"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第九章",
-    "scripture_content": "一国兴仁",
-    "translation": "一国就会兴起仁爱之风"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第九章",
-    "scripture_content": "一家让",
-    "translation": "一家讲求礼让"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第九章",
-    "scripture_content": "一国兴让",
-    "translation": "一国就会兴起礼让之风"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "此引书而释之，又明立教之本不假强为，在识其端而推广之耳。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第九章",
     "scripture_content": "一人贪戾",
-    "translation": "君主一人贪婪暴戾",
-    "note_zheng": "“戾”之言“利”也。",
-    "note_zhu": "一人，谓君也。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第九章",
-    "scripture_content": "一国作乱",
-    "translation": "一国就会随之动乱",
-    "note_kong": "谓人君一人贪戾恶事，则一国学之作乱。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "一人，谓君也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第九章",
     "scripture_content": "其机如此",
-    "translation": "事情的关键就是这样",
-    "note_zheng": "机，发动所由也。",
-    "note_kong": "机，谓关机也。动于近，成于远。善恶之事，亦发于身而及于一国也。",
-    "note_zhu": "机，发动所由也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "机，发动所由也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第九章",
     "scripture_content": "此谓一言偾事",
-    "translation": "这就叫做一句话可以败坏大事",
-    "note_zheng": "偾，犹覆败也。",
-    "note_kong": "偾，犹覆败也。谓人君一言覆败其事，谓恶言也。",
-    "note_zhu": "偾，覆败也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "偾，覆败也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第九章",
     "scripture_content": "一人定国",
-    "translation": "一个人可以安定国家",
-    "note_kong": "谓由人君一人能定其国，谓善政也。",
-    "note_zhu": "此言教成于国之效。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第九章",
-    "scripture_content": "尧舜率天下以仁",
-    "translation": "尧舜用仁道领导天下"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第九章",
-    "scripture_content": "而民从之",
-    "translation": "民众就跟随他们行仁"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第九章",
-    "scripture_content": "桀纣率天下以暴",
-    "translation": "桀纣用暴虐领导天下"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第九章",
-    "scripture_content": "而民从之",
-    "translation": "民众就跟随他们作恶"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第九章",
-    "scripture_content": "其所令反其所好",
-    "translation": "君主发布的命令如果与自己的行为喜好相反"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第九章",
-    "scripture_content": "而民不从",
-    "translation": "民众就不会听从",
-    "note_kong": "令，谓君所号令之事。若各随其行之所好，则人从之。其所好者是恶，所令者是善，则所令之事反其所好，虽欲以令禁人，人不从也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "此言教成于国之效。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第九章",
     "scripture_content": "是故君子有诸己而后求诸人",
-    "translation": "所以君子必须自己先有善行，然后才能要求别人行善",
-    "note_zheng": "有于己，谓有仁让也。",
-    "note_kong": "诸，于也。谓君子有善行于己，而后可以求于人使行善行也。",
-    "note_zhu": "有善于己，然后可以责人之善。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "有善于己，然后可以责人之善。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第九章",
     "scripture_content": "无诸己而后非诸人",
-    "translation": "自己先没有恶行，然后才能纠正别人的恶行",
-    "note_zheng": "无于己，谓无贪戾也。",
-    "note_kong": "谓无恶行于己，而后可以非责于人为恶行也。",
-    "note_zhu": "无恶于己，然后可以正人之恶。皆推己以及人，所谓恕也。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第九章",
-    "scripture_content": "所藏乎身不恕",
-    "translation": "自己心中存着的不是推己及人的恕道"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第九章",
-    "scripture_content": "而能喻诸人者",
-    "translation": "却想去开导别人"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "无恶于己，然后可以正人之恶。皆推己以及人，所谓恕也，不如是，则所令反其所好，而民不从矣。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第九章",
     "scripture_content": "未之有也",
-    "translation": "那是从来不会有的",
-    "note_kong": "谓所藏积于身既不恕实，而能晓喻于人使从己者，未之有也。",
-    "note_zhu": "喻，晓也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "喻，晓也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第九章",
     "scripture_content": "桃之夭夭",
-    "translation": "桃花开得娇艳",
-    "note_zheng": "夭夭、蓁蓁，美盛貌。",
-    "note_kong": "此《周南·桃夭》之篇。言桃之夭夭少壮。",
-    "note_zhu": "诗周南桃夭之篇。夭夭，少好貌。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "诗周南桃夭之篇。夭夭，少好貌。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第九章",
     "scripture_content": "其叶蓁蓁",
-    "translation": "桃叶长得茂盛",
-    "note_zheng": "同上",
-    "note_kong": "其叶蓁蓁茂盛，喻妇人形体少壮、颜色茂盛之时。",
-    "note_zhu": "蓁蓁，美盛貌。兴也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "蓁蓁，美盛貌。兴也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第九章",
     "scripture_content": "之子于归",
-    "translation": "这位女子出嫁了",
-    "note_zheng": "“之子”者，是子也。",
-    "note_kong": "之子者，是子也。归，嫁也。",
-    "note_zhu": "之子，犹言是子，此指女子之嫁者而言也。妇人谓嫁曰归。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "之子，犹言是子，此指女子之嫁者而言也。妇人谓嫁曰归。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第九章",
     "scripture_content": "宜其家人",
-    "translation": "一定能使家庭和睦",
-    "note_kong": "宜可以为夫家之人。",
-    "note_zhu": "宜，犹善也。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第九章",
-    "scripture_content": "宜其家人",
-    "translation": "能让家庭和睦"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第九章",
-    "scripture_content": "而后可以教国人",
-    "translation": "然后才能教化国人",
-    "note_kong": "言人既家得宜，则可以教国人也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "宜，犹善也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第九章",
     "scripture_content": "宜兄宜弟",
-    "translation": "兄弟之间和睦相处",
-    "note_kong": "此《小雅·蓼萧》之篇，美成王之诗。此《记》之意，“宜兄宜弟”，谓自与兄弟相善相宜也。",
-    "note_zhu": "诗小雅蓼萧篇。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第九章",
-    "scripture_content": "宜兄宜弟",
-    "translation": "兄弟能够和睦"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第九章",
-    "scripture_content": "而后可以教国人",
-    "translation": "然后才能教化国人"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "诗小雅蓼萧篇。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第九章",
     "scripture_content": "其仪不忒",
-    "translation": "仪态举止没有差错",
-    "note_kong": "此《曹风·鸤鸠》之篇。忒，差也。",
-    "note_zhu": "诗曹风鸤鸠篇。忒，差也。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第九章",
-    "scripture_content": "正是四国",
-    "translation": "可以匡正四方之国",
-    "note_kong": "正，长也。言在位之君子，威仪不有差忒，可以正长是四方之国。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第九章",
-    "scripture_content": "其为父子兄弟足法",
-    "translation": "自己作为父子兄弟都足以成为榜样"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第九章",
-    "scripture_content": "而后民法之也",
-    "translation": "然后民众才会效法他",
-    "note_kong": "谓其修德于家，在室家之内，使父子兄弟足可方法，而后民皆法之也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "诗曹风鸤鸠篇。忒，差也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "上老老而民兴孝",
-    "translation": "在上位的人尊敬老人，民众就会兴起孝敬之风",
-    "note_zheng": "老老、长长，谓尊老敬长也。",
-    "note_zhu": "老老，所谓老吾老也。兴，谓有所感发而兴起也。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "上长长而民兴弟",
-    "translation": "在上位的人敬重长辈，民众就会兴起敬长之风"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "老老，所谓老吾老也。兴，谓有所感发而兴起也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "上恤孤而民不倍",
-    "translation": "在上位的人体恤孤儿，民众就不会背弃道义",
-    "note_zheng": "恤，忧也。民不倍，不相倍弃也。",
-    "note_kong": "孤弱之子，人所遗弃，在上君长，若能忧恤孤弱不遗，则下民学之，不相弃倍也。",
-    "note_zhu": "孤者，幼而无父之称。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "孤者，幼而无父之称。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "是以君子有絜矩之道也",
-    "translation": "所以君子有以身作则、推己及人的絜矩之道",
-    "note_zheng": "絜，犹结也，挈也。矩，法也。君子有挈法之道，谓常执而行之，动作不失之。",
-    "note_kong": "絜，犹结也。矩，法也。言君子有执结持矩法之道，动而无失，以此加物，物皆从之也。",
-    "note_zhu": "絜，度也。矩，所以为方也。言此三者，上行下效，捷于影响。是以君子必当因其所同，推以度物，使彼我之间各得分愿，则上下四旁均齐方正，而天下平矣。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "所恶于上",
-    "translation": "厌恶上级对待你的方式"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "毋以使下",
-    "translation": "就不要用同样的方式对待下属"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "所恶于下",
-    "translation": "厌恶下属对待你的方式"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "毋以事上",
-    "translation": "就不要用同样的方式侍奉上级"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "所恶于前",
-    "translation": "厌恶前面的人对待你的方式"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "毋以先后",
-    "translation": "就不要用同样的方式对待后面的人"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "所恶于后",
-    "translation": "厌恶后面的人对待你的方式"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "毋以从前",
-    "translation": "就不要用同样的方式对待前面的人"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "所恶于右",
-    "translation": "厌恶右边的人对待你的方式"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "毋以交于左",
-    "translation": "就不要用同样的方式对待左边的人"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "所恶于左",
-    "translation": "厌恶左边的人对待你的方式"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "絜，度也。矩，所以为方也。言此三者，上行下效，捷于影响，所谓家齐而国治也。亦可以见人心之所同，而不可使有一夫之不获矣。是以君子必当因其所同，推以度物，使彼我之间各得分愿，则上下四旁均齐方正，而天下平矣。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "毋以交于右",
-    "translation": "就不要用同样的方式对待右边的人",
-    "note_zheng": "絜矩之道，善持其所有，以恕于人耳。治国之要尽于此。",
-    "note_kong": "此以下皆是絜矩之道也。",
-    "note_zhu": "此覆解上文絜矩二字之义。如不欲上之无礼于我，则必以此度下之心，而亦不敢以此无礼使之。不欲下之不忠于我，则必以此度上之心，而亦不敢以此不忠事之。至于前后左右，无不皆然，则身之所处，彼此如一，而无不方矣。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "此之谓絜矩之道",
-    "translation": "这就叫做絜矩之道"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "此覆解上文絜矩二字之义。如不欲上之无礼于我，则必以此度下之心，而亦不敢以此无礼使之。不欲下之不忠于我，则必以此度上之心，而亦不敢以此不忠事之。至于前后左右，无不皆然，则身之所处，上下、四旁、长短、广狭，彼此如一，而无不方矣。彼同有是心而兴起焉者，又岂有一夫之不获哉。所操者约，而所及者广，此平天下之要道也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "乐只君子",
-    "translation": "和乐的君子",
-    "note_zheng": "言治民之道无他，取于己而已。",
-    "note_kong": "此《小雅·南山有台》之篇，美成王之诗也。只，辞也。",
-    "note_zhu": "诗小雅南山有台之篇。只，语助辞。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "诗小雅南山有台之篇。只，语助辞。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "民之父母",
-    "translation": "是民众的父母",
-    "note_kong": "言能以己化民，从民所欲，则可为民父母矣。",
-    "note_zhu": "言能絜矩而以民心为己心，则是爱民如子，而民爱之如父母矣。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "民之所好好之",
-    "translation": "民众所喜欢的，君子就喜欢",
-    "note_kong": "谓善政恩惠，是民之愿好，己亦好之，以施于民。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "民之所恶恶之",
-    "translation": "民众所厌恶的，君子就厌恶",
-    "note_kong": "谓苛政重赋，是人之所恶，己亦恶之而不行也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "言能絜矩而以民心为己心，则是爱民如子，而民爱之如父母矣。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "节彼南山",
-    "translation": "那座高峻的南山",
-    "note_zhu": "诗小雅节南山之篇。节，截然高大貌。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "维石岩岩",
-    "translation": "岩石层层叠叠"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "诗小雅节南山之篇。节，截然高大貌。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "赫赫师尹",
-    "translation": "权势显赫的太师尹氏",
-    "note_zheng": "师尹，天子之大臣，为政者也。",
-    "note_kong": "赫赫，显盛貌。是大师与人为则者。",
-    "note_zhu": "师尹，周太师尹氏也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "师尹，周太师尹氏也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "民具尔瞻",
-    "translation": "民众都仰望着你",
-    "note_zheng": "言民皆视其所行而则之。",
-    "note_kong": "具，俱也。尔，汝也。在下之民，俱于汝而瞻视之。",
-    "note_zhu": "具，俱也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "具，俱也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "有国者不可以不慎",
-    "translation": "治理国家的人不可以不谨慎",
-    "note_kong": "有国，谓天子、诸侯。言民皆视上所行而则之，可不慎其德乎？",
-    "note_zhu": "言在上者人所瞻仰，不可不谨。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "言在上者人所瞻仰，不可不谨。若不能絜矩而好恶徇于一己之偏，则身弑国亡，为天下之大戮矣。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "辟则为天下僇矣",
-    "translation": "若行为偏邪，就会被天下人所诛讨",
-    "note_zheng": "邪辟失道，则有大刑。",
-    "note_kong": "僇，谓刑僇也。君若邪辟，则为天下之民共所诛讨。",
-    "note_zhu": "辟，偏也。若不能絜矩而好恶徇于一己之偏，则身弑国亡，为天下之大戮矣。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "辟，偏也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "殷之未丧师",
-    "translation": "殷朝在未丧失民心时",
-    "note_zheng": "师，众也。",
-    "note_zhu": "诗文王篇。师，众也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "诗文王篇。师，众也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "克配上帝",
-    "translation": "德行还能配得上天帝",
-    "note_zheng": "克，能也。",
-    "note_kong": "克，能也。师，众也。言殷自纣父帝乙之前，未丧师众之时，所行政教，皆能配上天而行也。",
-    "note_zhu": "配，对也。配上帝，言其为天下君，而对乎上帝也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "配，对也。配上帝，言其为天下君，而对乎上帝也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "仪监于殷",
-    "translation": "应当以殷朝为借鉴",
-    "note_zheng": "监视殷时之事。",
-    "note_kong": "仪，宜也。监，视也。今成王宜监视于殷之存亡。",
-    "note_zhu": "监，视也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "监，视也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "峻命不易",
-    "translation": "知道保有天命很不容易",
-    "note_zheng": "峻，大也。天之大命，持之诚不易也。",
-    "note_kong": "峻，大也。奉此天之大命，诚为不易，言其难也。",
-    "note_zhu": "峻，大也。不易，言难保也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "峻，大也。不易，言难保也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "道得众则得国",
-    "translation": "得民心就能得国家",
-    "note_zheng": "道，犹言也。",
-    "note_kong": "道，犹言也。言帝乙以上得众则得国。",
-    "note_zhu": "道，言也。引诗而言此，以结上文两节之意。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "失众则失国",
-    "translation": "失民心就会失国家",
-    "note_kong": "言殷纣失众则失国也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "道，言也。引诗而言此，以结上文两节之意。有天下者，能存此心而不失，则所以絜矩而与民同欲者，自不能已矣。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "有德此有人",
-    "translation": "有了德行，才能得到民众拥护",
-    "note_kong": "有德之人，人之所附从。",
-    "note_zhu": "有人，谓得众。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "有人，谓得众。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "有人此有土",
-    "translation": "有了民众拥护，才能保有土地",
-    "note_kong": "有人则境土宽大。",
-    "note_zhu": "有土，谓得国。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "有土此有财",
-    "translation": "有了土地，才能产生财富",
-    "note_kong": "有土则生植万物，故有财也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "有土，谓得国。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "有财此有用",
-    "translation": "有了财富，才能供给国家用度",
-    "note_kong": "有财丰，以此而有供国用也。",
-    "note_zhu": "有国则不患无财用矣。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "有国则不患无财用矣。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
-    "scripture_content": "德者本也",
-    "translation": "德行是根本",
-    "note_kong": "德能致财，财由德有，故德为本。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "财者末也",
-    "translation": "财富是末节",
-    "note_kong": "财为末也。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "外本内末",
-    "translation": "如果本末倒置，疏远德行而亲近财富"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "争民施夺",
-    "translation": "就会与民争利、施行掠夺",
-    "note_zheng": "施夺，施其劫夺之情也。",
-    "note_kong": "外，疏也。内，亲也。君若亲财而疏德，则争利之人皆施劫夺之情也。",
-    "note_zhu": "人君以德为外，以财为内，则是争斗其民，而施之以劫夺之教也。"
+    "scripture_content": "外本内末，争民施夺",
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "人君以德为外，以财为内，则是争斗其民，而施之以劫夺之教也。盖财者人之所同欲，不能絜矩而欲专之，则民亦起而争夺矣。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "财聚则民散",
-    "translation": "财富聚敛在上，民心就会离散",
-    "note_kong": "事不两兴，财由民立。君若重财而轻民，则民散也。",
-    "note_zhu": "外本内末故财聚，争民施夺故民散。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "外本内末故财聚，争民施夺故民散，反是则有德而有人矣。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
-    "scripture_content": "财散则民聚",
-    "translation": "财富分散给民，民心就会凝聚",
-    "note_kong": "若散财而赒恤于民，则民咸归聚也。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "言悖而出者",
-    "translation": "言语若违背道理说出"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "亦悖而入",
-    "translation": "也会被用违背道理的话回敬",
-    "note_zheng": "悖，犹逆也。言君有逆命，则民有逆辞也。",
-    "note_kong": "若人君政教之言，悖逆人心而出行者，则民悖逆君上而入以报答也。",
-    "note_zhu": "悖，逆也。此以言之出入，明货之出入也。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "货悖而入者",
-    "translation": "财富若违背道义聚敛而来"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "亦悖而出",
-    "translation": "也会以违背道义的方式散失出去",
-    "note_zheng": "上贪于利，则下人侵畔。《老子》曰：“多藏必厚亡。”",
-    "note_kong": "若人君厚敛财货，悖逆民心而入积聚者，不能久，财亦悖逆君心而散出也。",
-    "note_zhu": "同上"
+    "scripture_content": "言悖而出者，亦悖而入",
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "悖，逆也。此以言之出入，明货之出入也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "惟命不于常",
-    "translation": "天命不是永恒不变的",
-    "note_zheng": "于，于也。天命不于常，言不专祐一家也。",
-    "note_kong": "谓天之命不于是常住在一家也。道善则得之，不善则失之。",
-    "note_zhu": "道，言也。因上文引文王诗之意而申言之，其丁宁反覆之意益深切矣。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "道，言也。因上文引文王诗之意而申言之，其丁宁反覆之意益深切矣。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
-    "scripture_content": "道善则得之",
-    "translation": "治国之道善良就能保有天命"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "不善则失之矣",
-    "translation": "不善良就会失去"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "楚国无以为宝",
-    "translation": "楚国没有什么宝贝"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "惟善以为宝",
-    "translation": "只把善人当作宝贝",
-    "note_zheng": "《楚书》，楚昭王时书也。言以善人为宝。",
-    "note_kong": "案《楚语》：楚昭王使王孙圉聘于晋，赵简子问楚之白珩犹在乎？王孙圉对曰：未尝为宝。楚之所宝者曰观射父。",
-    "note_zhu": "楚书，楚语。言不宝金玉而宝善人也。"
+    "scripture_content": "楚国无以为宝，惟善以为宝",
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "楚书，楚语。言不宝金玉而宝善人也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "亡人无以为宝",
-    "translation": "流亡的人没有什么宝贝"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "舅犯，晋文公舅狐偃，字子犯。亡人，文公时为公子，出亡在外也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "仁亲以为宝",
-    "translation": "只把仁爱亲情当作宝贝",
-    "note_zheng": "舅犯，晋文公之舅狐偃也。亡人，谓文公也，时避骊姬之谗，亡在翟。",
-    "note_kong": "此舅犯劝重耳之辞。于时重耳逃亡在翟，对秦使云：奔亡之人，无以货财为宝，唯亲爱仁道以为宝也。",
-    "note_zhu": "舅犯，晋文公舅狐偃。仁，爱也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "仁，爱也。事见檀弓。此两节又明不外本而内末之意。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "若有一个臣",
-    "translation": "如果有这样一位耿介的臣子",
-    "note_zheng": "《秦誓》，《尚书》篇名也。",
-    "note_kong": "《秦誓》，《尚书》篇名。秦穆公伐郑，为晋败于殽，还誓群臣而作此篇。",
-    "note_zhu": "秦誓，周书。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "秦誓，周书。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "断断兮无他技",
-    "translation": "诚朴专一，没有别的技能",
-    "note_zheng": "断断，诚一之貌也。他技，异端之技也。",
-    "note_kong": "若有一耿介之臣，断断然诚实专一谨悫。",
-    "note_zhu": "断断，诚一之貌。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "其心休休焉",
-    "translation": "但心胸宽广"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "其如有容焉",
-    "translation": "有容人之量",
-    "note_kong": "惟其心休休然宽容，形貌似有包容。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "人之有技",
-    "translation": "看到别人有才能"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "若己有之",
-    "translation": "就像自己有一样高兴",
-    "note_zheng": "有技，才艺之技也。若己有之，不啻若自其口出，皆乐人有善之甚也。",
-    "note_kong": "云见人有技艺，欲得亲爱之，如己自有也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "断断，诚一之貌。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "人之彦圣",
-    "translation": "看到别人品德高尚、智慧通达",
-    "note_zheng": "美士为彦。",
-    "note_zhu": "彦，美士也。圣，通明也。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "其心好之",
-    "translation": "从心底里喜欢"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "不啻若自其口出",
-    "translation": "不只是口头上称赞",
-    "note_kong": "其心中爱好，不啻如自其口出。心爱此彦圣之美，多于口说。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "寔能容之",
-    "translation": "真心实意地接纳他们",
-    "note_kong": "寔，是也。若能好贤如此，是能有所包容。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "以能保我子孙黎民",
-    "translation": "用这样的人保护我的子孙百姓",
-    "note_zheng": "黎，众也。",
-    "note_kong": "则我国家得安，保我后世子孙。",
-    "note_zhu": ""
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "彦，美士也。圣，通明也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "尚亦有利哉",
-    "translation": "是多么有利啊",
-    "note_zheng": "尚，庶几也。",
-    "note_kong": "尚，庶几也。非直子孙安，其下众人皆庶几亦望有利益哉也。",
-    "note_zhu": "尚，庶几也。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "人之有技",
-    "translation": "如果别人有才能"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "尚，庶几也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "媢嫉以恶之",
-    "translation": "就嫉妒厌恶",
-    "note_zheng": "媢，妒也。",
-    "note_kong": "见人有技艺，则掩藏媢妒，疾以憎恶之也。",
-    "note_zhu": "媢，忌也。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "人之彦圣",
-    "translation": "别人品德高尚、智慧通达"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "媢，忌也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "而违之俾不通",
-    "translation": "就压制排挤、使其不被重用",
-    "note_zheng": "违，犹戾也。俾，使也。佛戾贤人所高，使功不通于君也。",
-    "note_kong": "见他人之彦圣，而违戾抑退之。俾，使也。使其善功不通达于君。",
-    "note_zhu": "违，拂戾也。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "寔不能容",
-    "translation": "这种人毫无容人之心"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "以不能保我子孙黎民",
-    "translation": "用这样的人绝不能保护我的子孙百姓"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "违，拂戾也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "亦曰殆哉",
-    "translation": "国家就危险了",
-    "note_zheng": "殆，危也。",
-    "note_kong": "若此蔽贤之人，是不能容纳，家国将亡，不能保我子孙；非唯如此，众人亦曰殆危哉。",
-    "note_zhu": "殆，危也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "殆，危也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
-    "scripture_content": "唯仁人放流之",
-    "translation": "只有仁德的人，才会把这种嫉贤妒能的人流放",
-    "note_zheng": "放去恶人媢嫉之类者，独仁人能之。",
-    "note_zhu": "迸，读为屏，古字通用。迸，犹逐也。言有此媢疾之人，妨贤而病国，则仁人必深恶而痛绝之。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "迸诸四夷",
-    "translation": "驱逐到边远蛮荒之地"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "不与同中国",
-    "translation": "不让他们与贤德之人同住中原",
-    "note_kong": "言唯仁人之君能放流此蔽善之人，使迸远在四夷，不与同在中国。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "此谓唯仁人为能爱人",
-    "translation": "这就叫做只有仁德之人才真正懂得喜爱善人"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "能恶人",
-    "translation": "憎恶恶人",
-    "note_kong": "既放此蔽贤之人远在四夷，是仁人能爱善人，恶不善之人。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "见贤而不能举",
-    "translation": "发现了贤才却不能举荐"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "举而不能先",
-    "translation": "举荐了却不能让他处在自己前面"
+    "scripture_content": "唯仁人放流之，迸诸四夷，不与同中国",
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "迸，读为屏，古字通用。迸，犹逐也。言有此媢疾之人，妨贤而病国，则仁人必深恶而痛绝之。以其至公无私，故能得好恶之正如此也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "命也",
-    "translation": "这是怠慢",
-    "note_zheng": "命，读为“慢”，声之误也。举贤而不能使君以先己，是轻慢于举人也。",
-    "note_kong": "此谓凡庸小人，见此贤人而不能举进于君；假设举之，又不能使在其己之先，是为慢也。",
-    "note_zhu": "命，郑氏云“当作慢。”程子云：“当作怠。”未详孰是。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "见不善而不能退",
-    "translation": "发现了不善的人却不能辞退"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "退而不能远",
-    "translation": "辞退了却不能把他放逐到远方"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "命，郑氏云「当作慢。」程子云：「当作怠。」未详孰是。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "过也",
-    "translation": "这是过错",
-    "note_kong": "此谓小人见不善之人而不能抑退之，假令抑退之，而不能使远退之。过者，言是愆过之人也。",
-    "note_zhu": "若此者，知所爱恶矣，而未能尽爱恶之道，盖君子而未仁者也。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "好人之所恶",
-    "translation": "喜欢众人所厌恶的"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "恶人之所好",
-    "translation": "厌恶众人所喜欢的"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "若此者，知所爱恶矣，而未能尽爱恶之道，盖君子而未仁者也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "是谓拂人之性",
-    "translation": "这就叫做违背人的本性",
-    "note_zheng": "拂，犹佹也。",
-    "note_kong": "人，谓君子。君子所恶者，凶恶之事，今乃爱好凶恶；君子所好，仁义善道，今乃恶此仁义善道。是谓拂戾善人之性。",
-    "note_zhu": "拂，逆也。好善而恶恶，人之性也；至于拂人之性，则不仁之甚者也。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "菑必逮夫身",
-    "translation": "灾祸必定会降临到身上",
-    "note_zheng": "逮，及也。",
-    "note_kong": "逮，及也。如此，菑必及夫身矣。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "拂，逆也。好善而恶恶，人之性也；至于拂人之性，则不仁之甚者也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "君子有大道",
-    "translation": "君子有一条根本的大道",
-    "note_zheng": "道，行所由。",
-    "note_kong": "大道，谓所由行孝悌仁义之大道也。",
-    "note_zhu": "君子，以位言之。道，谓居其位而修己治人之术。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "君子，以位言之。道，谓居其位而修己治人之术。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "必忠信以得之",
-    "translation": "必须靠忠诚信实才能得到",
-    "note_zhu": "发己自尽为忠，循物无违谓信。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "发己自尽为忠，循物无违谓信。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "骄泰以失之",
-    "translation": "而一旦骄傲放纵就会失去",
-    "note_zhu": "骄者矜高，泰者侈肆。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "生财有大道",
-    "translation": "创造财富也有根本的大道"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "骄者矜高，泰者侈肆。此因上所引文王、康诰之意而言。章内三言得失，而语益加切，盖至此而天理存亡之几决矣。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "生之者众",
-    "translation": "生产的人多",
-    "note_kong": "谓为农桑多也。",
-    "note_zhu": "吕氏曰：“国无游民，则生者众矣。”"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "吕氏曰：「国无游民，则生者众矣。」"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "食之者寡",
-    "translation": "消费的人少",
-    "note_kong": "谓减省无用之费也。",
-    "note_zhu": "吕氏曰：“朝无幸位，则食者寡矣。”"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "吕氏曰：「朝无幸位，则食者寡矣。」"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "为之者疾",
-    "translation": "劳作的人勤快",
-    "note_kong": "谓百姓急营农桑事业也。",
-    "note_zhu": "吕氏曰：“不夺农时，则为之疾矣。”"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "吕氏曰：「不夺农时，则为之疾矣。」"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "用之者舒",
-    "translation": "使用的人节省",
-    "note_kong": "谓君上缓于营造费用也。",
-    "note_zhu": "吕氏曰：“量入为出，则用之舒矣。”"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "则财恒足矣",
-    "translation": "这样财富就会经常充足",
-    "note_zheng": "是不务禄不肖，而勉民以农也。",
-    "note_kong": "言人君能如此，则国用恒足。",
-    "note_zhu": "愚按：此因有土有财而言，以明足国之道在乎务本而节用。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "吕氏曰：「量入为出，则用之舒矣。」愚按：此因有土有财而言，以明足国之道在乎务本而节用，非必外本内末而后财可聚也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "仁者以财发身",
-    "translation": "仁德的人运用财富来发展自身德行",
-    "note_zheng": "发，起也。言仁人有财，则务于施与以起身，成其令名。",
-    "note_kong": "谓仁德之君，以财散施，发起身之令名也。",
-    "note_zhu": "发，犹起也。仁者散财以得民。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "发，犹起也。仁者散财以得民。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "不仁者以身发财",
-    "translation": "不仁的人耗尽心力去聚敛财富",
-    "note_zheng": "不仁之人有身，贪于聚敛以起财，务成富。",
-    "note_kong": "言不仁之人，唯在吝啬，务于积聚，劳役其身，发起其财。",
-    "note_zhu": "不仁者亡身以殖货。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "不仁者亡身以殖货。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "未有上好仁而下不好义者也",
-    "translation": "从来没有在上位的人喜好仁德，而在下位的人却不喜好道义的",
-    "note_zheng": "言君行仁道，则其臣必义。",
-    "note_kong": "言在上人君好以仁道接下，其下感君仁恩，无有不爱好于义。",
-    "note_zhu": "上好仁以爱其下，则下好义以忠其上。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "上好仁以爱其下，则下好义以忠其上。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "未有好义其事不终者也",
-    "translation": "从来没有喜好道义的人，做事情会半途而废的",
-    "note_zheng": "以义举事无不成者。",
-    "note_kong": "言臣下悉皆好义，百事尽能终成。",
-    "note_zhu": "所以事必有终。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "所以事必有终。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "未有府库财非其财者也",
-    "translation": "从来没有这样的君主，府库里的财物最终不是归他所有的",
-    "note_zheng": "其为诚然，如己府库之财为己有也。",
-    "note_kong": "君若行仁，民必报义，义必终事，譬如人君有府库之财，必还为所用也。",
-    "note_zhu": "府库之财无悖出之患也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "府库之财无悖出之患也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "畜马乘不察于鸡豚",
-    "translation": "家里能养得起四匹马拉车的士大夫，就不该再去计较养鸡养猪的小利",
-    "note_zheng": "畜马乘，谓以士初试为大夫也。",
-    "note_kong": "言察于鸡豚之所利，为畜养马乘，士初试为大夫，不窥察于鸡豚之小利。",
-    "note_zhu": "孟献子，鲁之贤大夫仲孙蔑也。畜马乘，士初试为大夫者也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "孟献子，鲁之贤大夫仲孙蔑也。畜马乘，士初试为大夫者也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "伐冰之家不畜牛羊",
-    "translation": "丧祭能用冰的卿大夫之家，就不该再畜养牛羊来牟利",
-    "note_zheng": "伐冰之家，卿、大夫以上，丧、祭用冰。",
-    "note_kong": "谓卿大夫丧祭用冰，不畜牛羊为财利。以食禄，不与人争利也。",
-    "note_zhu": "伐冰之家，卿大夫以上，丧祭用冰者也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "伐冰之家，卿大夫以上，丧祭用冰者也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "百乘之家不畜聚敛之臣",
-    "translation": "拥有百辆兵车的诸侯之家，就不该再养着搜刮民财的家臣",
-    "note_zheng": "百乘之家，有采地者也。",
-    "note_kong": "百乘，谓卿大夫有采地者也。言卿大夫之家不畜聚敛之臣。",
-    "note_zhu": "百乘之家，有采地者也。君子宁亡己之财，而不忍伤民之力。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "与其有聚敛之臣",
-    "translation": "与其有搜刮民财的家臣"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "宁有盗臣",
-    "translation": "宁可有盗窃府库的家臣",
-    "note_zheng": "盗臣损财耳，聚敛之臣乃损义。",
-    "note_kong": "以盗臣但害财，聚敛之臣则害义也。",
-    "note_zhu": "同上"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "此谓国不以利为利",
-    "translation": "这就是说，治理国家不应以私利为利"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "以义为利也",
-    "translation": "而应以道义为利",
-    "note_kong": "言若能如上所谓，是国家之利，但以义事为国家利也。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "长国家而务财用者",
-    "translation": "执掌国家却一心聚敛财富的"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "百乘之家，有采地者也。君子宁亡己之财，而不忍伤民之力；故宁有盗臣，而不畜聚敛之臣。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "必自小人矣",
-    "translation": "必定是从任用小人开始的",
-    "note_zheng": "言务聚财为己用者，必忘义，是小人所为也。",
-    "note_kong": "言为人君长于国家，而务积聚财以为己用者，必自为小人之行也。",
-    "note_zhu": "自，由也，言由小人导之也。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "自，由也，言由小人导之也。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "彼为善之",
-    "translation": "君主想要施行善政",
-    "note_zheng": "彼，君也。君将欲以仁义善其政。",
-    "note_kong": "彼，谓君也。君欲为仁义之道，善其政教。",
-    "note_zhu": "此句上下，疑有阙文误字。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "小人之使为国家",
-    "translation": "却让小人来治理国家"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "菑害并至",
-    "translation": "天灾人祸就会一起降临",
-    "note_kong": "言君欲为善，反令小人使为治国家之事，毒害于下，故菑害患难则并皆来至。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "虽有善者",
-    "translation": "即使有贤能的人"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "此句上下，疑有阙文误字。"
   },
   {
     "classic_title": "礼记",
     "chapter": "传第十章",
     "scripture_content": "亦无如之何矣",
-    "translation": "也没有办法挽救了",
-    "note_zheng": "虽云有善，不能救之，以其恶之已著也。",
-    "note_kong": "既使小人治国，其君虽有善政，亦无能奈此患难之何。",
-    "note_zhu": "此一节，深明以利为利之害，而重言以结之，其丁宁之意切矣。"
+    "commentator": "朱熹",
+    "commentary_title": "四书章句集注",
+    "dynasty": "南宋",
+    "note": "此一节，深明以利为利之害，而重言以结之，其丁宁之意切矣。"
   }
 ];
 
