@@ -3878,35 +3878,45 @@ ${teachingContentForReview}
             const matches = [];
             const contentLower = content.toLowerCase();
             
-            if (Array.isArray(refs)) {
-                for (const citation of refs) {
-                    const keywords = [
-                        citation.classic_title,
-                        citation.chapter,
-                        citation.verse ? String(citation.verse) : '',
-                        citation.scripture_content,
-                        citation.translation
-                    ].filter(Boolean);
+            console.log('refs:', refs, 'length:', refs?.length);
+            if (!refs || !Array.isArray(refs) || refs.length === 0) {
+                document.getElementById('citationPanelRight').innerHTML = '<p style="font-size: 12px; color: var(--accent-light); text-align: center; padding: 10px;">⚠️ 引文数据未加载，请刷新页面确保 references.js 正确加载</p>';
+                return;
+            }
+            for (let i = 0; i < refs.length; i++) {
+                const citation = refs[i];
+                if (!citation) continue;
+                
+                const keywords = [
+                    citation.classic_title,
+                    citation.chapter,
+                    citation.verse ? String(citation.verse) : '',
+                    citation.scripture_content,
+                    citation.translation
+                ].filter(Boolean);
             
-            let matchCount = 0;
-            for (const keyword of keywords) {
-                const pattern = new RegExp(keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
-                let match;
-                while ((match = pattern.exec(contentLower)) !== null) {
-                    matchCount++;
+                let matchCount = 0;
+                for (let j = 0; j < keywords.length; j++) {
+                    const keyword = keywords[j];
+                    if (!keyword) continue;
+                    try {
+                        const pattern = new RegExp(keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+                        let match;
+                        while ((match = pattern.exec(contentLower)) !== null) {
+                            matchCount++;
+                        }
+                    } catch(e) {}
+                }
+            
+                if (matchCount > 0) {
+                    matches.push({
+                        citation: citation,
+                        matchCount: matchCount
+                    });
                 }
             }
-            
-            if (matchCount > 0) {
-                matches.push({
-                    citation: citation,
-                    matchCount: matchCount
-                });
-            }
-        }
-    }
     
-    matches.sort((a, b) => b.matchCount - a.matchCount);
+            matches.sort((a, b) => b.matchCount - a.matchCount);
     
     if (matches.length > 0) {
         const INITIAL_SHOW = 15;
