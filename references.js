@@ -3302,18 +3302,6 @@ const CLASSICS_REFERENCES = [
     "note_zheng": "虽云有善，不能救之，以其恶之已著也。",
     "note_kong": "既使小人治国，其君虽有善政，亦无能奈此患难之何。",
     "note_zhu": "此一节，深明以利为利之害，而重言以结之，其丁宁之意切矣。"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "此谓国不以利为利",
-    "translation": "这就叫做治理国家不应以私利为利"
-  },
-  {
-    "classic_title": "礼记",
-    "chapter": "传第十章",
-    "scripture_content": "以义为利也",
-    "translation": "而应以道义为利"
   }
 ];
 
