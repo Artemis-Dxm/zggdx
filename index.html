@@ -2731,7 +2731,20 @@
         }
         
         function getMergedCrossRefs() {
+            loadCustomReferences();
+            // 使用独立的 CROSS_REFERENCES 数据用于跨文献关联
+            if (typeof CROSS_REFERENCES !== 'undefined') {
+                return [...CROSS_REFERENCES];
+            }
             return getMergedReferences();
+        }
+        
+        // 获取训诂释义数据
+        function getExegesisData() {
+            if (typeof EXEGESIS_DATA !== 'undefined') {
+                return {...EXEGESIS_DATA};
+            }
+            return {};
         }
         
         function getMergedReferences() {
@@ -4089,17 +4102,34 @@ function expandCitations(btn, remainingMatches) {
                 return;
             }
             
+            // 检查是否是 CROSS_REFERENCES 格式（包含 source_classic 等字段）
+            const isCrossRefFormat = refs.length > 0 && refs[0].source_classic;
+            
             for (let i = 0; i < refs.length; i++) {
                 const citation = refs[i];
                 if (!citation) continue;
                 
-                const keywords = [
-                    citation.classic_title,
-                    citation.chapter,
-                    citation.verse ? String(citation.verse) : '',
-                    citation.scripture_content,
-                    citation.translation
-                ].filter(Boolean);
+                let keywords;
+                if (isCrossRefFormat) {
+                    // 跨文献数据格式
+                    keywords = [
+                        citation.source_classic,
+                        citation.source_chapter,
+                        citation.target_classic,
+                        citation.target_chapter,
+                        citation.relationship,
+                        citation.description
+                    ].filter(Boolean);
+                } else {
+                    // 原有的 CLASSICS_REFERENCES 格式
+                    keywords = [
+                        citation.classic_title,
+                        citation.chapter,
+                        citation.verse ? String(citation.verse) : '',
+                        citation.scripture_content,
+                        citation.translation
+                    ].filter(Boolean);
+                }
                     
                 let matchCount = 0;
                 for (let j = 0; j < keywords.length; j++) {
