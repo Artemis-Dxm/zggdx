@@ -1055,7 +1055,7 @@ const CLASSICS_REFERENCES = [
         "translation": "芦苇苍青一片，露水凝成了霜。我所怀念的人，就在河水的那一边。",
         "note": "⑴蒹葭——芦苇。⑵苍苍——青苍色。⑶白露为霜——露水凝成霜。⑷伊人——那人。"
     },
-   {
+    {
     "classic_title": "礼记",
     "chapter": "大学",
     "verse": null,
