@@ -4601,9 +4601,7 @@ const CLASSICS_REFERENCES = [
     "commentary_title": "四书章句集注",
     "dynasty": "南宋",
     "note": "此一节，深明以利为利之害，而重言以结之，其丁宁之意切矣。"
-  }
-];
-[
+  },
   {
     "classic_title": "礼记",
     "chapter": "经一章",
@@ -8897,6 +8895,7 @@ const CLASSICS_REFERENCES = [
     }
   }
 ]
+
 const EXEGESIS_DATA = {
     "仁": {
         shuowen: "仁，亲也。从人从二。",
