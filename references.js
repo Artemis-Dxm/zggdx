@@ -8497,24 +8497,114 @@ const EXEGESIS_DATA = {
 };
 
 const CROSS_REFERENCES = [
-    { "source_classic": "论语", "source_chapter": "学而", "source_verse": "1", "target_classic": "礼记", "target_chapter": "中庸", "target_verse": "1", "relationship": "思想关联", "description": "'学而时习之'与'率性之谓道'都强调实践与修养的关系" },
-    { "source_classic": "论语", "source_chapter": "为政", "source_verse": "1", "target_classic": "礼记", "target_chapter": "大学", "target_verse": "1", "relationship": "政治思想", "description": "'为政以德'与'大学之道在明明德'都强调德治" },
-    { "source_classic": "论语", "source_chapter": "里仁", "source_verse": "16", "target_classic": "孟子", "target_chapter": "梁惠王上", "target_verse": "1", "relationship": "义利观", "description": "'君子喻于义'与'亦有仁义而已矣'都强调义的重要性" },
-    { "source_classic": "论语", "source_chapter": "卫灵公", "source_verse": "24", "target_classic": "礼记", "target_chapter": "中庸", "target_verse": "12", "relationship": "恕道", "description": "'己所不欲，勿施于人'与'絜矩之道'都是恕道的体现" },
-    { "source_classic": "论语", "source_chapter": "雍也", "source_verse": "29", "target_classic": "礼记", "target_chapter": "中庸", "target_verse": "1", "relationship": "中庸思想", "description": "'中庸'概念在论语和中庸中都有论述" },
-    { "source_classic": "论语", "source_chapter": "宪问", "source_verse": "14", "target_classic": "礼记", "target_chapter": "大学", "target_verse": "1", "relationship": "修身思想", "description": "'修己以敬'与'修身齐家'都强调修养自身" },
-    { "source_classic": "孟子", "source_chapter": "公孙丑上", "source_verse": "3", "target_classic": "论语", "target_chapter": "雍也", "target_verse": "29", "relationship": "人性论", "description": "'四心'说与'中庸'都论及人性" },
-    { "source_classic": "孟子", "source_chapter": "告子上", "source_verse": "2", "target_classic": "礼记", "target_chapter": "中庸", "target_verse": "1", "relationship": "性善论", "description": "'性善论'与'天命之谓性'都论及人性本源" },
-    { "source_classic": "孟子", "source_chapter": "尽心上", "source_verse": "1", "target_classic": "礼记", "target_chapter": "大学", "target_verse": "1", "relationship": "心性论", "description": "'尽其心者知其性'与'明明德'都强调心性修养" },
-    { "source_classic": "孟子", "source_chapter": "告子下", "source_verse": "2", "target_classic": "尚书", "target_chapter": "大禹谟", "target_verse": "3", "relationship": "修身思想", "description": "'天将降大任'与'慎厥身修思永'都强调艰难困苦玉汝于成" },
-    { "source_classic": "礼记", "source_chapter": "大学", "source_verse": null, "target_classic": "礼记", "target_chapter": "中庸", "target_verse": "1", "relationship": "思想关联", "description": "大学与中庸都是'礼记'中的篇章，同属'四书'" },
-    { "source_classic": "礼记", "source_chapter": "礼运", "source_verse": "1", "target_classic": "周易", "target_chapter": "系辞上", "target_verse": "5", "relationship": "宇宙论", "description": "'礼之初'与'一阴一阳之谓道'都论及宇宙起源" },
-    { "source_classic": "礼记", "source_chapter": "祭义", "source_verse": "1", "target_classic": "论语", "target_chapter": "为政", "target_verse": "5", "relationship": "孝道", "description": "'孝子之有深爱'与'无违'都强调孝道" },
-    { "source_classic": "尚书", "source_chapter": "大禹谟", "source_verse": "3", "target_classic": "礼记", "target_chapter": "大学", "target_verse": "1", "relationship": "修身治国", "description": "'允执厥中'与'止于至善'都强调中道思想" },
-    { "source_classic": "尚书", "source_chapter": "洪范", "source_verse": "1", "target_classic": "周易", "target_chapter": "系辞上", "target_verse": "11", "relationship": "象数思想", "description": "'五行'与'太极两仪'都论及宇宙构成要素" },
-    { "source_classic": "诗经", "source_chapter": "大雅", "source_verse": "文王", "target_classic": "礼记", "target_chapter": "大学", "target_verse": null, "relationship": "德治思想", "description": "诗经赞美文王之德与大学'明明德'相呼应" },
-    { "source_classic": "周易", "source_chapter": "乾", "source_verse": "2", "target_classic": "礼记", "target_chapter": "大学", "target_verse": null, "relationship": "君子修养", "description": "'天行健君子以自强不息'与'苟日新日日新又日新'都强调自强不息" },
-    { "source_classic": "周易", "source_chapter": "坤", "source_verse": "2", "target_classic": "论语", "target_chapter": "卫灵公", "target_verse": "21", "relationship": "君子品格", "description": "'厚德载物'与'君子求诸己'都强调君子品德" },
-    { "source_classic": "论语", "source_chapter": "学而", "source_verse": "4", "target_classic": "孟子", "target_chapter": "公孙丑上", "target_verse": "2", "relationship": "反省思想", "description": "'三省吾身'与'反身而诚'都强调内省" },
-    { "source_classic": "礼记", "source_chapter": "曲礼上", "source_verse": "3", "target_classic": "论语", "target_chapter": "为政", "target_verse": "3", "relationship": "礼治思想", "description": "'道德仁义非礼不成'与'道之以德'都强调礼的重要性" }
+    {
+        "source_classic": "论语",
+        "source_chapter": "学而",
+        "source_verse": "1",
+        "target_classic": "孟子",
+        "target_chapter": "尽心下",
+        "target_verse": "28",
+        "relationship": "思想延伸",
+        "commentary": "孔子'学而时习之'强调学习实践，孟子进一步阐述学以致用与行动的重要性",
+        "description": "两位圣贤都强调学习必须付诸实践"
+    },
+    {
+        "source_classic": "论语",
+        "source_chapter": "学而",
+        "source_verse": "2",
+        "target_classic": "孟子",
+        "target_chapter": "离娄下",
+        "target_verse": "19",
+        "relationship": "概念呼应",
+        "commentary": "论语中'孝弟为仁之本'与孟子'孝梯之心仁也'形成相互印证",
+        "description": "孝顺是仁爱品德的基础"
+    },
+    {
+        "source_classic": "论语",
+        "source_chapter": "为政",
+        "source_verse": "1",
+        "target_classic": "孟子",
+        "target_chapter": "尽心下",
+        "target_verse": "24",
+        "relationship": "政治哲学一致",
+        "commentary": "孔子以北辰比喻德化治国，孟子进一步论证德治的可行性与优越性",
+        "description": "道德治国优于武力统治"
+    },
+    {
+        "source_classic": "论语",
+        "source_chapter": "里仁",
+        "source_verse": "16",
+        "target_classic": "孟子",
+        "target_chapter": "梁惠王下",
+        "target_verse": "1",
+        "relationship": "价值观对比",
+        "commentary": "孔子'君子喻于义，小人喻于利'与孟子反复阐述'君子远庖厨'体现相同的价值取向",
+        "description": "君子应追求义理而非私利"
+    },
+    {
+        "source_classic": "论语",
+        "source_chapter": "述而",
+        "source_verse": "6",
+        "target_classic": "中庸",
+        "target_chapter": "1",
+        "target_verse": "",
+        "relationship": "思想基础",
+        "commentary": "孔子'志于道，据于德，依于仁'是对圣人修养路径的阐述，《中庸》进一步发展为完整的修养论",
+        "description": "修身养性的理论基础"
+    },
+    {
+        "source_classic": "论语",
+        "source_chapter": "颜渊",
+        "source_verse": "1",
+        "target_classic": "大学",
+        "target_chapter": "1",
+        "target_verse": "",
+        "relationship": "修养论基础",
+        "commentary": "克己复礼的论述在《大学》中演化为'格物致知''诚意正心'的完整修养体系",
+        "description": "自我修养的理论体系"
+    },
+    {
+        "source_classic": "孟子",
+        "source_chapter": "梁惠王上",
+        "source_verse": "7",
+        "target_classic": "论语",
+        "target_chapter": "里仁",
+        "target_verse": "2",
+        "relationship": "思想呼应",
+        "commentary": "孟子'老吾老以及人之老'与孔子关于仁心的论述有深层一致性",
+        "description": "由个人修养推广到普遍关怀"
+    },
+    {
+        "source_classic": "孟子",
+        "source_chapter": "公孙丑上",
+        "source_verse": "3",
+        "target_classic": "论语",
+        "target_chapter": "为政",
+        "target_verse": "3",
+        "relationship": "道德心性论",
+        "commentary": "孟子的四端说（恻隐、羞恶、辞让、是非之心）与孔子的仁义礼智思想相互呼应",
+        "description": "人的道德心性本能"
+    },
+    {
+        "source_classic": "大学",
+        "source_chapter": "1",
+        "source_verse": "",
+        "target_classic": "中庸",
+        "target_chapter": "1",
+        "target_verse": "",
+        "relationship": "修养体系构成",
+        "commentary": "《大学》和《中庸》合称'二程子'经学体系的核心内容，共同构成新儒学修养论",
+        "description": "儒家修身养性的完整理论"
+    },
+    {
+        "source_classic": "论语",
+        "source_chapter": "雍也",
+        "source_verse": "29",
+        "target_classic": "中庸",
+        "target_chapter": "2",
+        "target_verse": "",
+        "relationship": "理想品德",
+        "commentary": "孔子所说的中庸之德，《中庸》进一步解释为'中也者，天下之大本也'",
+        "description": "中庸是最高的道德境界"
+    }
 ];
