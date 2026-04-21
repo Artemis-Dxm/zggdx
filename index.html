@@ -158,7 +158,7 @@
         .sidebar-right {
             flex-shrink: 0;
         }
-        
+
         /* ========== Left Sidebar ========== */
         .sidebar-left {
             background: var(--bg-sidebar);
@@ -977,36 +977,32 @@
             background: var(--bg-sidebar);
             border-left: 1px solid var(--border);
             padding: 24px 20px;
+            width: 260px;
+            min-width: 200px;
+            max-width: 60%;
+            overflow: hidden;
             position: sticky;
             top: 64px;
             height: calc(100vh - 64px);
-            overflow-y: auto;
         }
 
-        .resize-toggle {
+        .resize-handle {
             position: absolute;
-            left: -20px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 24px;
-            height: 50px;
-            background: var(--border);
-            border-radius: 6px 0 0 6px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-            font-size: 14px;
-            z-index: 20;
-            transition: all 0.2s;
+            left: -8px;
+            top: 0;
+            bottom: 0;
+            width: 16px;
+            height: 100%;
+            cursor: ew-resize;
+            background: var(--accent);
+            z-index: 9999;
         }
 
-        .resize-toggle:hover {
-            background: var(--accent);
-            color: white;
+        .resize-handle:hover,
+        .resize-handle.dragging {
+            background: var(--text-primary);
         }
-        
+
         .right-card {
             background: var(--bg-card);
             border: 1px solid var(--border-light);
@@ -1710,7 +1706,7 @@
             
             <!-- Right Sidebar -->
             <aside class="sidebar-right" id="sidebarRight">
-                <div class="resize-toggle" onclick="toggleWidth()">◀</div>
+                <div class="resize-handle" id="resizeHandle" onmousedown="startResize(event)"></div>
                 <button class="share-btn" onclick="runAutoAnalysis()" style="margin-bottom: 16px;">手动检测文本</button>
                 
                 <div class="right-card">
@@ -1874,21 +1870,45 @@
             TEACHING_DOCS: 'docReviewerTeachingDocs'
         };
         
-        let sidebarExpanded = false;
+        let isDragging = false;
+        let startX = 0;
+        let startWidth = 0;
         
-        function toggleWidth() {
-            const sidebar = document.getElementById('sidebarRight');
-            const btn = sidebar.querySelector('.resize-toggle');
-            if (sidebarExpanded) {
-                sidebar.style.width = '300px';
-                btn.innerHTML = '◀';
-                sidebarExpanded = false;
-            } else {
-                sidebar.style.width = '450px';
-                btn.innerHTML = '▶';
-                sidebarExpanded = true;
-            }
+        function startResize(e) {
+            isDragging = true;
+            startX = e.clientX;
+            var sidebar = document.getElementById('sidebarRight');
+            startWidth = sidebar ? sidebar.offsetWidth : 260;
+            var handle = document.getElementById('resizeHandle');
+            if (handle) handle.classList.add('dragging');
+            document.body.style.cursor = 'ew-resize';
+            e.cancelBubble = true;
+            if (e.stopPropagation) e.stopPropagation();
+            return false;
         }
+        
+        window.onmousemove = function(e) {
+            if (!isDragging) return;
+            var sidebar = document.getElementById('sidebarRight');
+            if (!sidebar) return;
+            var delta = startX - e.clientX;
+            var newWidth = startWidth + delta;
+            var threeColumn = document.querySelector('.three-column-layout');
+            var maxWidth = threeColumn ? Math.floor(threeColumn.offsetWidth * 0.6) : 400;
+            var minWidth = 200;
+            if (newWidth >= minWidth && newWidth <= maxWidth) {
+                sidebar.style.width = newWidth + 'px';
+            }
+        };
+        
+        window.onmouseup = function() {
+            if (isDragging) {
+                isDragging = false;
+                var handle = document.getElementById('resizeHandle');
+                if (handle) handle.classList.remove('dragging');
+                document.body.style.cursor = '';
+            }
+        };
         
         window.onload = function() {
             loadCustomReferences();
@@ -4200,10 +4220,12 @@ function analyzeCitations(content) {
                     });
                     
                     if (matches.length > 8) {
+                        const remainingMatches = matches.slice(8);
+                        const expandBtnId = 'expandCitations' + Math.random().toString(36).substr(2, 9);
                         rightPanelHtml += `
-                            <div style="font-size: 11px; color: var(--text-muted); text-align: center; padding: 8px;">
-                                ...还有 ${matches.length - 8} 条
-                            </div>
+                            <button onclick="expandCitations(this, ${JSON.stringify(remainingMatches).replace(/"/g, '&quot;')})" style="font-size: 11px; color: var(--text-muted); text-align: center; padding: 8px; background: var(--bg-secondary); border: none; border-radius: 4px; cursor: pointer; width: 100%;">
+                                ...还有 ${matches.length - 8} 条，展开查看
+                            </button>
                         `;
                     }
                 }
@@ -4482,7 +4504,19 @@ function expandCitations(btn, remainingMatches) {
                         });
                         
                         if (verseList.length > 5) {
-                            crossRefHtml += `<div style="font-size: 10px; color: var(--text-muted); padding-left: 8px;">...还有 ${verseList.length - 5} 条</div>`;
+                            const remainingCount = verseList.length - 5;
+                            const remaining = verseList.slice(5);
+                            crossRefHtml += `<button onclick="this.style.display='none'; this.nextElementSibling.style.display='block';" style="font-size: 10px; color: var(--text-muted); padding: 4px 8px; background: var(--bg-secondary); border: none; border-radius: 4px; cursor: pointer; margin-left: 8px;">...还有 ${remainingCount} 条</button>`;
+                            crossRefHtml += '<div style="display: none; padding-left: 8px;">';
+                            remaining.forEach(r => {
+                                const rv = r.verse ? `·${r.verse}` : '';
+                                crossRefHtml += `
+                                    <div style="font-size: 11px; color: var(--text-primary); line-height: 1.4; margin-bottom: 4px; border-left: 2px solid var(--border-light); padding-left: 8px;">
+                                        <strong>${r.chapter}${rv}</strong>: "${r.scripture_content.substring(0, 60)}${r.scripture_content.length > 60 ? '...' : ''}"
+                                    </div>
+                                `;
+                            });
+                            crossRefHtml += '</div>';
                         }
                         
                         crossRefHtml += '</div>';
